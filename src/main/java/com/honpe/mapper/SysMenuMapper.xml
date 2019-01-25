@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.SysMenuMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.SysMenu">
+		<id column="menu_id" property="menuId" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="data_url" property="dataUrl" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="sequence" property="sequence" jdbcType="BIGINT" />
+		<result column="menu_type" property="menuType" jdbcType="INTEGER" />
+		<result column="display" property="display" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="creater" property="creater" jdbcType="VARCHAR" />
+		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="editor" property="editor" jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		menu_id, parent_id, data_url, menu_name, sequence, menu_type, display, create_time,
+		creater, edit_time, editor, icon
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.SysMenuExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.SysMenuExample">
+		delete from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.SysMenu">
+		insert into sys_menu (menu_id, parent_id, data_url,
+		menu_name, sequence, menu_type,
+		display, create_time, creater,
+		edit_time, editor, icon
+		)
+		values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{dataUrl,jdbcType=VARCHAR},
+		#{menuName,jdbcType=VARCHAR}, #{sequence,jdbcType=BIGINT}, #{menuType,jdbcType=INTEGER},
+		#{display,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.SysMenu">
+		insert into sys_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="dataUrl != null">
+				data_url,
+			</if>
+			<if test="menuName != null">
+				menu_name,
+			</if>
+			<if test="sequence != null">
+				sequence,
+			</if>
+			<if test="menuType != null">
+				menu_type,
+			</if>
+			<if test="display != null">
+				display,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="editTime != null">
+				edit_time,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				#{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="dataUrl != null">
+				#{dataUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="sequence != null">
+				#{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="menuType != null">
+				#{menuType,jdbcType=INTEGER},
+			</if>
+			<if test="display != null">
+				#{display,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editor != null">
+				#{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.SysMenuExample" resultType="java.lang.Integer">
+		select count(*) from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_menu
+		<set>
+			<if test="record.menuId != null">
+				menu_id = #{record.menuId,jdbcType=INTEGER},
+			</if>
+			<if test="record.parentId != null">
+				parent_id = #{record.parentId,jdbcType=INTEGER},
+			</if>
+			<if test="record.dataUrl != null">
+				data_url = #{record.dataUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuName != null">
+				menu_name = #{record.menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sequence != null">
+				sequence = #{record.sequence,jdbcType=BIGINT},
+			</if>
+			<if test="record.menuType != null">
+				menu_type = #{record.menuType,jdbcType=INTEGER},
+			</if>
+			<if test="record.display != null">
+				display = #{record.display,jdbcType=BIT},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.creater != null">
+				creater = #{record.creater,jdbcType=VARCHAR},
+			</if>
+			<if test="record.editTime != null">
+				edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.editor != null">
+				editor = #{record.editor,jdbcType=VARCHAR},
+			</if>
+			<if test="record.icon != null">
+				icon = #{record.icon,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_menu
+		set menu_id = #{record.menuId,jdbcType=INTEGER},
+		parent_id = #{record.parentId,jdbcType=INTEGER},
+		data_url = #{record.dataUrl,jdbcType=VARCHAR},
+		menu_name = #{record.menuName,jdbcType=VARCHAR},
+		sequence = #{record.sequence,jdbcType=BIGINT},
+		menu_type = #{record.menuType,jdbcType=INTEGER},
+		display = #{record.display,jdbcType=BIT},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		creater = #{record.creater,jdbcType=VARCHAR},
+		edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+		editor = #{record.editor,jdbcType=VARCHAR},
+		icon = #{record.icon,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.SysMenu">
+		update sys_menu
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="dataUrl != null">
+				data_url = #{dataUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="sequence != null">
+				sequence = #{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="menuType != null">
+				menu_type = #{menuType,jdbcType=INTEGER},
+			</if>
+			<if test="display != null">
+				display = #{display,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				edit_time = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.SysMenu">
+		update sys_menu
+		set parent_id = #{parentId,jdbcType=INTEGER},
+		data_url = #{dataUrl,jdbcType=VARCHAR},
+		menu_name = #{menuName,jdbcType=VARCHAR},
+		sequence = #{sequence,jdbcType=BIGINT},
+		menu_type = #{menuType,jdbcType=INTEGER},
+		display = #{display,jdbcType=BIT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		creater = #{creater,jdbcType=VARCHAR},
+		edit_time = #{editTime,jdbcType=TIMESTAMP},
+		editor = #{editor,jdbcType=VARCHAR},
+		icon = #{icon,jdbcType=VARCHAR}
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<select id="findMenuByRoleIdAndParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT sys_menu.* FROM sys_menu
+		INNER JOIN sys_role_menu ON sys_menu.menu_id = sys_role_menu.menu_id AND
+		sys_role_menu.role_id=#{roleId} AND
+		sys_menu.parent_id=#{parentId} ORDER BY sys_menu.sequence ASC
+	</select>
+</mapper>

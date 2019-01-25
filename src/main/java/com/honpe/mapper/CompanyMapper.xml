@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.CompanyMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.Company">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+		<result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+		<result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+		<result column="license" property="license" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, company_name, company_address, legal_person, license
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.CompanyExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from company
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from company
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from company
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.CompanyExample">
+		delete from company
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.Company">
+		insert into company (id, company_name, company_address,
+		legal_person, license)
+		values (#{id,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR},
+		#{legalPerson,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.Company">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into company
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="companyAddress != null">
+				company_address,
+			</if>
+			<if test="legalPerson != null">
+				legal_person,
+			</if>
+			<if test="license != null">
+				license,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="companyName != null">
+				#{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="companyAddress != null">
+				#{companyAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				#{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="license != null">
+				#{license,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.CompanyExample" resultType="java.lang.Integer">
+		select count(*) from company
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update company
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.companyName != null">
+				company_name = #{record.companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.companyAddress != null">
+				company_address = #{record.companyAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="record.legalPerson != null">
+				legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="record.license != null">
+				license = #{record.license,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update company
+		set id = #{record.id,jdbcType=BIGINT},
+		company_name = #{record.companyName,jdbcType=VARCHAR},
+		company_address = #{record.companyAddress,jdbcType=VARCHAR},
+		legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+		license = #{record.license,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.Company">
+		update company
+		<set>
+			<if test="companyName != null">
+				company_name = #{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="companyAddress != null">
+				company_address = #{companyAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				legal_person = #{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="license != null">
+				license = #{license,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.Company">
+		update company
+		set company_name = #{companyName,jdbcType=VARCHAR},
+		company_address = #{companyAddress,jdbcType=VARCHAR},
+		legal_person = #{legalPerson,jdbcType=VARCHAR},
+		license = #{license,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

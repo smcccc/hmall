@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 打印sql -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!-- 开启延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 配置积极懒加载 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+	</settings>
+	<typeAliases>
+		<package name="com.honpe.po" />
+	</typeAliases>
+	<!--配置pageHelper插件 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<property name="dialect" value="mysql" />
+		</plugin>
+	</plugins>
+	<mappers>
+		<package name="com.honpe.mapper" />
+	</mappers>
+</configuration>

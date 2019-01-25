@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/static/taglib/taglib.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title> -403错误</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="${baseUrl}/static/admin/js/bootstrap/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+		<link href="${baseUrl}/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+		<link href="${baseUrl}/static/admin/css/animate.css" rel="stylesheet">
+		<link href="${baseUrl}/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+	</head>
+
+	<body class="gray-bg">
+		<div class="middle-box text-center animated fadeInDown">
+			<h1>405</h1>
+			<h3 class="font-bold">您的权限不足</h3>
+
+			<div class="error-desc">
+				抱歉，您的权限不足
+				<br/>您可以联系系统管理员分配权限
+				<br/>
+				<a href="javascript:window.history.go(-1)" class="btn btn-primary m-t">返回上一页</a>
+			</div>
+		</div>
+	</body>
+
+</html>

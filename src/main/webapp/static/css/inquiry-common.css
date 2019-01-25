@@ -1,0 +1,38 @@
+.step {
+  margin: 15px 0;
+}
+.step ol {
+  border-radius: 4px;
+  background-color: #E5E5E5;
+  display: inline-block;
+}
+.step li {
+  float: left;
+  font-size: 15px;
+  color: #888;
+  font-weight: bold;
+  padding-left: 25px;
+  padding-right: 15px;
+  width: 200px;
+  height: 23px;
+  line-height: 23px;
+  position: relative;
+}
+.step li:first-of-type {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.step li:last-of-type {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.step-item:not(:last-of-type) {
+  background: url(../icon/step_bg_03.png) right 0 no-repeat;
+}
+.step-item.step-item-past {
+  background: url(../icon/step_bg_03.png) right -23px no-repeat;
+}
+.step-current {
+  background-color: #079fed!important;
+  color: #FFF!important;
+}

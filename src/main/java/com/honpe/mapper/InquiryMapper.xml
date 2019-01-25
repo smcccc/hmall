@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.InquiryMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.Inquiry">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="linkman" property="linkman" jdbcType="VARCHAR" />
+		<result column="linkphone" property="linkphone" jdbcType="VARCHAR" />
+		<result column="offer_currency" property="offerCurrency" jdbcType="VARCHAR" />
+		<result column="is_includ_tax" property="isIncludTax" jdbcType="BIT" />
+		<result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
+		<result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+		<result column="is_appoint" property="isAppoint" jdbcType="BIT" />
+		<result column="other_trade_type" property="otherTradeType" jdbcType="VARCHAR" />
+		<result column="pay_date" property="payDate" jdbcType="INTEGER" />
+		<result column="pay_days" property="payDays" jdbcType="INTEGER" />
+		<result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="buy_type" property="buyType" jdbcType="VARCHAR" />
+		<result column="expect_receive_date" property="expectReceiveDate" jdbcType="VARCHAR" />
+		<result column="offer_valid_date" property="offerValidDate" jdbcType="VARCHAR" />
+		<result column="delivered_date" property="deliveredDate" jdbcType="INTEGER" />
+		<result column="cancle_reason" property="cancleReason" jdbcType="VARCHAR" />
+		<result column="cancle_remark" property="cancleRemark" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="final_price" property="finalPrice" jdbcType="DECIMAL" />
+		<result column="offer_price" property="offerPrice" jdbcType="DECIMAL" />
+		<result column="salesman_id" property="salesmanId" jdbcType="INTEGER" />
+		<result column="salesman_name" property="salesmanName" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="is_offered" property="isOffered" jdbcType="BIT" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+		<result column="is_active" property="isActive" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, customer_id, title, linkman, linkphone, offer_currency, is_includ_tax, invoice_type,
+		trade_type,
+		is_appoint, other_trade_type, pay_date, pay_days, end_date, buy_type,
+		expect_receive_date, offer_valid_date,
+		delivered_date, cancle_reason, cancle_remark,
+		create_time, final_price, offer_price, salesman_id, salesman_name,
+		status, is_offered,
+		is_delete, is_active
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.InquiryExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from inquiry
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from inquiry
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from inquiry
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.InquiryExample">
+		delete from inquiry
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.Inquiry">
+		insert into inquiry (id, customer_id, title,
+		linkman, linkphone,
+		offer_currency,
+		is_includ_tax, invoice_type, trade_type,
+		is_appoint, other_trade_type, pay_date,
+		pay_days, end_date,
+		buy_type,
+		expect_receive_date, offer_valid_date, delivered_date,
+		cancle_reason, cancle_remark, create_time,
+		final_price,
+		offer_price, salesman_id,
+		salesman_name, status, is_offered,
+		is_delete, is_active)
+		values (#{id,jdbcType=VARCHAR},
+		#{customerId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{linkman,jdbcType=VARCHAR}, #{linkphone,jdbcType=VARCHAR},
+		#{offerCurrency,jdbcType=VARCHAR},
+		#{isIncludTax,jdbcType=BIT}, #{invoiceType,jdbcType=VARCHAR},
+		#{tradeType,jdbcType=VARCHAR},
+		#{isAppoint,jdbcType=BIT}, #{otherTradeType,jdbcType=VARCHAR},
+		#{payDate,jdbcType=INTEGER},
+		#{payDays,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}, #{buyType,jdbcType=VARCHAR},
+		#{expectReceiveDate,jdbcType=VARCHAR}, #{offerValidDate,jdbcType=VARCHAR}, #{deliveredDate,jdbcType=INTEGER},
+		#{cancleReason,jdbcType=VARCHAR}, #{cancleRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{finalPrice,jdbcType=DECIMAL}, #{offerPrice,jdbcType=DECIMAL}, #{salesmanId,jdbcType=INTEGER},
+		#{salesmanName,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{isOffered,jdbcType=BIT},
+		#{isDelete,jdbcType=BIT},
+		#{isActive,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.Inquiry">
+		insert into inquiry
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="customerId != null">
+				customer_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="linkman != null">
+				linkman,
+			</if>
+			<if test="linkphone != null">
+				linkphone,
+			</if>
+			<if test="offerCurrency != null">
+				offer_currency,
+			</if>
+			<if test="isIncludTax != null">
+				is_includ_tax,
+			</if>
+			<if test="invoiceType != null">
+				invoice_type,
+			</if>
+			<if test="tradeType != null">
+				trade_type,
+			</if>
+			<if test="isAppoint != null">
+				is_appoint,
+			</if>
+			<if test="otherTradeType != null">
+				other_trade_type,
+			</if>
+			<if test="payDate != null">
+				pay_date,
+			</if>
+			<if test="payDays != null">
+				pay_days,
+			</if>
+			<if test="endDate != null">
+				end_date,
+			</if>
+			<if test="buyType != null">
+				buy_type,
+			</if>
+			<if test="expectReceiveDate != null">
+				expect_receive_date,
+			</if>
+			<if test="offerValidDate != null">
+				offer_valid_date,
+			</if>
+			<if test="deliveredDate != null">
+				delivered_date,
+			</if>
+			<if test="cancleReason != null">
+				cancle_reason,
+			</if>
+			<if test="cancleRemark != null">
+				cancle_remark,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="finalPrice != null">
+				final_price,
+			</if>
+			<if test="offerPrice != null">
+				offer_price,
+			</if>
+			<if test="salesmanId != null">
+				salesman_id,
+			</if>
+			<if test="salesmanName != null">
+				salesman_name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="isOffered != null">
+				is_offered,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				#{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="linkman != null">
+				#{linkman,jdbcType=VARCHAR},
+			</if>
+			<if test="linkphone != null">
+				#{linkphone,jdbcType=VARCHAR},
+			</if>
+			<if test="offerCurrency != null">
+				#{offerCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="isIncludTax != null">
+				#{isIncludTax,jdbcType=BIT},
+			</if>
+			<if test="invoiceType != null">
+				#{invoiceType,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeType != null">
+				#{tradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="isAppoint != null">
+				#{isAppoint,jdbcType=BIT},
+			</if>
+			<if test="otherTradeType != null">
+				#{otherTradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=INTEGER},
+			</if>
+			<if test="payDays != null">
+				#{payDays,jdbcType=INTEGER},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="buyType != null">
+				#{buyType,jdbcType=VARCHAR},
+			</if>
+			<if test="expectReceiveDate != null">
+				#{expectReceiveDate,jdbcType=VARCHAR},
+			</if>
+			<if test="offerValidDate != null">
+				#{offerValidDate,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveredDate != null">
+				#{deliveredDate,jdbcType=INTEGER},
+			</if>
+			<if test="cancleReason != null">
+				#{cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="cancleRemark != null">
+				#{cancleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="finalPrice != null">
+				#{finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="offerPrice != null">
+				#{offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="salesmanId != null">
+				#{salesmanId,jdbcType=INTEGER},
+			</if>
+			<if test="salesmanName != null">
+				#{salesmanName,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="isOffered != null">
+				#{isOffered,jdbcType=BIT},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+			<if test="isActive != null">
+				#{isActive,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.InquiryExample" resultType="java.lang.Integer">
+		select count(*) from inquiry
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update inquiry
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.customerId != null">
+				customer_id = #{record.customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.linkman != null">
+				linkman = #{record.linkman,jdbcType=VARCHAR},
+			</if>
+			<if test="record.linkphone != null">
+				linkphone = #{record.linkphone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.offerCurrency != null">
+				offer_currency = #{record.offerCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isIncludTax != null">
+				is_includ_tax = #{record.isIncludTax,jdbcType=BIT},
+			</if>
+			<if test="record.invoiceType != null">
+				invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.tradeType != null">
+				trade_type = #{record.tradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isAppoint != null">
+				is_appoint = #{record.isAppoint,jdbcType=BIT},
+			</if>
+			<if test="record.otherTradeType != null">
+				other_trade_type = #{record.otherTradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.payDate != null">
+				pay_date = #{record.payDate,jdbcType=INTEGER},
+			</if>
+			<if test="record.payDays != null">
+				pay_days = #{record.payDays,jdbcType=INTEGER},
+			</if>
+			<if test="record.endDate != null">
+				end_date = #{record.endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.buyType != null">
+				buy_type = #{record.buyType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.expectReceiveDate != null">
+				expect_receive_date = #{record.expectReceiveDate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.offerValidDate != null">
+				offer_valid_date = #{record.offerValidDate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.deliveredDate != null">
+				delivered_date = #{record.deliveredDate,jdbcType=INTEGER},
+			</if>
+			<if test="record.cancleReason != null">
+				cancle_reason = #{record.cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.cancleRemark != null">
+				cancle_remark = #{record.cancleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.finalPrice != null">
+				final_price = #{record.finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.offerPrice != null">
+				offer_price = #{record.offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.salesmanId != null">
+				salesman_id = #{record.salesmanId,jdbcType=INTEGER},
+			</if>
+			<if test="record.salesmanName != null">
+				salesman_name = #{record.salesmanName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=TINYINT},
+			</if>
+			<if test="record.isOffered != null">
+				is_offered = #{record.isOffered,jdbcType=BIT},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=BIT},
+			</if>
+			<if test="record.isActive != null">
+				is_active = #{record.isActive,jdbcType=BIT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update inquiry
+		set id = #{record.id,jdbcType=VARCHAR},
+		customer_id = #{record.customerId,jdbcType=VARCHAR},
+		title =
+		#{record.title,jdbcType=VARCHAR},
+		linkman = #{record.linkman,jdbcType=VARCHAR},
+		linkphone =
+		#{record.linkphone,jdbcType=VARCHAR},
+		offer_currency = #{record.offerCurrency,jdbcType=VARCHAR},
+		is_includ_tax =
+		#{record.isIncludTax,jdbcType=BIT},
+		invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+		trade_type =
+		#{record.tradeType,jdbcType=VARCHAR},
+		is_appoint = #{record.isAppoint,jdbcType=BIT},
+		other_trade_type =
+		#{record.otherTradeType,jdbcType=VARCHAR},
+		pay_date = #{record.payDate,jdbcType=INTEGER},
+		pay_days =
+		#{record.payDays,jdbcType=INTEGER},
+		end_date = #{record.endDate,jdbcType=TIMESTAMP},
+		buy_type =
+		#{record.buyType,jdbcType=VARCHAR},
+		expect_receive_date = #{record.expectReceiveDate,jdbcType=VARCHAR},
+		offer_valid_date = #{record.offerValidDate,jdbcType=VARCHAR},
+		delivered_date =
+		#{record.deliveredDate,jdbcType=INTEGER},
+		cancle_reason = #{record.cancleReason,jdbcType=VARCHAR},
+		cancle_remark =
+		#{record.cancleRemark,jdbcType=VARCHAR},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		final_price =
+		#{record.finalPrice,jdbcType=DECIMAL},
+		offer_price = #{record.offerPrice,jdbcType=DECIMAL},
+		salesman_id =
+		#{record.salesmanId,jdbcType=INTEGER},
+		salesman_name = #{record.salesmanName,jdbcType=VARCHAR},
+		status =
+		#{record.status,jdbcType=TINYINT},
+		is_offered = #{record.isOffered,jdbcType=BIT},
+		is_delete =
+		#{record.isDelete,jdbcType=BIT},
+		is_active = #{record.isActive,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.Inquiry">
+		update inquiry
+		<set>
+			<if test="customerId != null">
+				customer_id = #{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="linkman != null">
+				linkman = #{linkman,jdbcType=VARCHAR},
+			</if>
+			<if test="linkphone != null">
+				linkphone = #{linkphone,jdbcType=VARCHAR},
+			</if>
+			<if test="offerCurrency != null">
+				offer_currency = #{offerCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="isIncludTax != null">
+				is_includ_tax = #{isIncludTax,jdbcType=BIT},
+			</if>
+			<if test="invoiceType != null">
+				invoice_type = #{invoiceType,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeType != null">
+				trade_type = #{tradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="isAppoint != null">
+				is_appoint = #{isAppoint,jdbcType=BIT},
+			</if>
+			<if test="otherTradeType != null">
+				other_trade_type = #{otherTradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="payDate != null">
+				pay_date = #{payDate,jdbcType=INTEGER},
+			</if>
+			<if test="payDays != null">
+				pay_days = #{payDays,jdbcType=INTEGER},
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="buyType != null">
+				buy_type = #{buyType,jdbcType=VARCHAR},
+			</if>
+			<if test="expectReceiveDate != null">
+				expect_receive_date = #{expectReceiveDate,jdbcType=VARCHAR},
+			</if>
+			<if test="offerValidDate != null">
+				offer_valid_date = #{offerValidDate,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveredDate != null">
+				delivered_date = #{deliveredDate,jdbcType=INTEGER},
+			</if>
+			<if test="cancleReason != null">
+				cancle_reason = #{cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="cancleRemark != null">
+				cancle_remark = #{cancleRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="finalPrice != null">
+				final_price = #{finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="offerPrice != null">
+				offer_price = #{offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="salesmanId != null">
+				salesman_id = #{salesmanId,jdbcType=INTEGER},
+			</if>
+			<if test="salesmanName != null">
+				salesman_name = #{salesmanName,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="isOffered != null">
+				is_offered = #{isOffered,jdbcType=BIT},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.Inquiry">
+		update inquiry
+		set customer_id = #{customerId,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		linkman = #{linkman,jdbcType=VARCHAR},
+		linkphone = #{linkphone,jdbcType=VARCHAR},
+		offer_currency = #{offerCurrency,jdbcType=VARCHAR},
+		is_includ_tax = #{isIncludTax,jdbcType=BIT},
+		invoice_type =
+		#{invoiceType,jdbcType=VARCHAR},
+		trade_type = #{tradeType,jdbcType=VARCHAR},
+		is_appoint = #{isAppoint,jdbcType=BIT},
+		other_trade_type = #{otherTradeType,jdbcType=VARCHAR},
+		pay_date = #{payDate,jdbcType=INTEGER},
+		pay_days =
+		#{payDays,jdbcType=INTEGER},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		buy_type = #{buyType,jdbcType=VARCHAR},
+		expect_receive_date = #{expectReceiveDate,jdbcType=VARCHAR},
+		offer_valid_date = #{offerValidDate,jdbcType=VARCHAR},
+		delivered_date = #{deliveredDate,jdbcType=INTEGER},
+		cancle_reason = #{cancleReason,jdbcType=VARCHAR},
+		cancle_remark =
+		#{cancleRemark,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		final_price =
+		#{finalPrice,jdbcType=DECIMAL},
+		offer_price = #{offerPrice,jdbcType=DECIMAL},
+		salesman_id =
+		#{salesmanId,jdbcType=INTEGER},
+		salesman_name = #{salesmanName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT},
+		is_offered = #{isOffered,jdbcType=BIT},
+		is_delete = #{isDelete,jdbcType=BIT},
+		is_active = #{isActive,jdbcType=BIT}
+		where
+		id = #{id,jdbcType=VARCHAR}
+	</update>
+	<resultMap type="com.honpe.pojo.ext.InquiryExt" id="InquiryExtResultMap" extends="BaseResultMap">
+		<result property="endDays" column="end_days" jdbcType="INTEGER" />
+		<result property="customerName" column="user_name" jdbcType="VARCHAR" />
+		<result property="companyName" column="company_name" jdbcType="VARCHAR" />
+		<result property="salesmanPhone" column="phone" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectByCondition" resultMap="InquiryExtResultMap" parameterType="java.lang.Object">
+		SELECT inquiry.*,ac.*,DATEDIFF(inquiry.end_date,NOW()) 'end_days' FROM inquiry,(SELECT account.id
+		'account_id',account.user_name,company.company_name FROM account,company WHERE account.com_id=company.id) ac WHERE
+		is_delete=false AND is_active=true AND inquiry.customer_id=ac.account_id
+		<if test="salesmanId != null">
+			AND salesman_id=#{salesmanId}
+		</if>
+		<if test="status != null">
+			AND status=#{status}
+		</if>
+		<if test="customerName !=null and customerName !=''">
+			AND user_name LIKE '%${customerName}%'
+		</if>
+		<if test="companyName !=null and companyName !=''">
+			AND company_name LIKE '%${companyName}%'
+		</if>
+		<if test="isOffered != null">
+			AND is_offered = #{isOffered}
+		</if>
+		ORDER BY 'end_days',create_time DESC
+	</select>
+	<select id="selectCountByCustomerIdAndStatus" parameterType="java.lang.Object" resultType="java.lang.Long">
+		SELECT COUNT(0) FROM inquiry WHERE is_delete=false AND is_active=true
+		<if test="customerId != null and customerId != ''">
+			AND customer_id =#{customerId}
+		</if>
+		<if test="status != null">
+			AND status =#{status}
+		</if>
+	</select>
+	<select id="selectInquiryByCondition" parameterType="java.lang.Object" resultMap="InquiryExtResultMap">
+		SELECT inquiry.*,DATEDIFF(inquiry.end_date,NOW())'endDays' FROM inquiry WHERE is_delete=false AND is_active=TRUE
+		<if test="customerId != null and customerId != ''">
+			AND customer_id =#{customerId}
+		</if>
+		<if test="status != null">
+			AND status =#{status}
+		</if>
+		<if test="days!=null">
+			AND create_time>= DATE_SUB(NOW(),INTERVAL #{days} DAY)
+		</if>
+		<if test="title !=null and title != ''">
+			AND title LIKE '%${title}%'
+		</if>
+		ORDER BY create_time DESC
+	</select>
+</mapper>

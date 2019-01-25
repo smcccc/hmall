@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.OrderOperateMapper" >
+  <resultMap id="BaseResultMap" type="com.honpe.po.OrderOperate" >
+    <id column="operate_id" property="operateId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="operator_account" property="operatorAccount" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+    <result column="operation_time" property="operationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operate_id, order_id, operator_account, operator, role, operation, operation_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.OrderOperateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_operate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_operate
+    where operate_id = #{operateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_operate
+    where operate_id = #{operateId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.honpe.po.OrderOperateExample" >
+    delete from order_operate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.honpe.po.OrderOperate" >
+    insert into order_operate (operate_id, order_id, operator_account, 
+      operator, role, operation, 
+      operation_time)
+    values (#{operateId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{operatorAccount,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{operationTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.honpe.po.OrderOperate" >
+    insert into order_operate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        operate_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="operatorAccount != null" >
+        operator_account,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="operation != null" >
+        operation,
+      </if>
+      <if test="operationTime != null" >
+        operation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        #{operateId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorAccount != null" >
+        #{operatorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.honpe.po.OrderOperateExample" resultType="java.lang.Integer" >
+    select count(*) from order_operate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_operate
+    <set >
+      <if test="record.operateId != null" >
+        operate_id = #{record.operateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorAccount != null" >
+        operator_account = #{record.operatorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operation != null" >
+        operation = #{record.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationTime != null" >
+        operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_operate
+    set operate_id = #{record.operateId,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      operator_account = #{record.operatorAccount,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=VARCHAR},
+      operation = #{record.operation,jdbcType=VARCHAR},
+      operation_time = #{record.operationTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.OrderOperate" >
+    update order_operate
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorAccount != null" >
+        operator_account = #{operatorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where operate_id = #{operateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.honpe.po.OrderOperate" >
+    update order_operate
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      operator_account = #{operatorAccount,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      operation_time = #{operationTime,jdbcType=TIMESTAMP}
+    where operate_id = #{operateId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,74 @@
+footer {
+  overflow: hidden;
+}
+footer .top {
+  background: #c63944;
+  overflow: hidden;
+}
+footer .top .warp {
+  width: 1200px;
+  padding: 40px 0;
+  margin: 0 auto;
+}
+footer .top .warp > div:first-child {
+  width: 470px;
+  padding: 0 22px;
+  display: flex;
+}
+footer .top .warp > div:first-child div {
+  flex: 1;
+  padding-top: 10px;
+}
+footer .top .warp > div:first-child div ul {
+  margin-top: 50px;
+}
+footer .top .warp > div:first-child div ul li {
+  margin-bottom: 25px;
+}
+footer .top .warp > div:first-child div ul li a {
+  color: #FFF;
+  font-size: 14px;
+}
+footer .top .warp > div:nth-child(2) {
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #FFF;
+  width: 378px;
+  text-align: center;
+  color: #FFF;
+}
+footer .top .warp > div:nth-child(2) p:first-of-type {
+  font-size: 30px;
+  margin-top: 64px;
+}
+footer .top .warp > div:nth-child(2) p:nth-of-type(2) {
+  font-size: 16px;
+  margin-top: 34px;
+}
+footer .top .warp > div:nth-child(2) p:last-of-type {
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 60px;
+}
+footer .top .warp > div:last-child figure {
+  margin-top: 65px;
+  margin-left: 80px;
+}
+footer .top .warp > div:last-child figure img {
+  width: 96px;
+  height: 96px;
+}
+footer .top .warp > div:last-child figure figcaption {
+  color: #FFF;
+  margin-top: 20px;
+  text-align: center;
+}
+footer .bottom {
+  background-color: #2F4056;
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 0;
+}
+footer .bottom span {
+  margin-right: 80px;
+}

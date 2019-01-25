@@ -1,0 +1,201 @@
+@import "header.less";
+@import "footer.less";
+.main {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 35px;
+}
+
+.nav {
+    border: 1px solid #DEDEDE;
+    &>ul {
+        &>.open {
+            ul {
+                display: block;
+            }
+            i {
+                transform: rotateZ(45deg);
+                top: 30px;
+            }
+        }
+        li {
+            font-size: 22px;
+            width: 233px;
+            color: #FFF;
+            background-color: #11aeff;
+            position: relative;
+            cursor: pointer;
+            span {
+                display: block;
+                height: 79px;
+                line-height: 79px;
+                padding-left: 65px;
+            }
+            i {
+                display: block;
+                position: absolute;
+                right: 15%;
+                top: 34px;
+                width: 12px;
+                height: 12px;
+                border-right: 3px solid #FFF;
+                border-bottom: 3px solid #FFF;
+                margin-left: 22px;
+                transform-origin: center;
+                transform: rotateZ(-45deg);
+                transition: all .3s;
+            }
+            ul {
+                display: none;
+                li {
+                    padding: 25px 0 25px 65px;
+                    background-color: #FFF;
+                    transition: all .3s;
+                    a:hover {
+                        text-decoration: none;
+                    }
+                    &:hover {
+                        background-color: #ebf6fb;
+                    }
+                }
+                .this {
+                    background-color: #d7edf8;
+                    a {
+                        color: #11aeff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.context {
+    margin-left: 15px;
+    width: 950px;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    &>img {
+        width: 950px;
+        height: 175px;
+        display: block;
+        margin: 0 auto;
+    }
+    .wrap {
+        padding: 25px;
+        h1 {
+            font-size: 25px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+    }
+    .item {
+        display: flex;
+        padding: 15px 0;
+        &:not(:last-of-type) {
+            border-bottom: 1px dashed #888;
+        }
+        img {
+            width: 295px;
+            height: 170px;
+            border: 1px solid #F2F2F2;
+        }
+        div {
+            position: relative;
+            margin-left: 25px;
+            flex: 1;
+            a {
+                h2 {
+                    font-size: 20px;
+                }
+                p {
+                    font-size: 16px;
+                    margin-top: 15px;
+                }
+                &:hover {
+                    text-decoration: none;
+                    color: #888;
+                }
+            }
+            &>p {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                font-size: 16px;
+                time {
+                    color: #888;
+                }
+                span {
+                    float: right;
+                    color: #888;
+                    i {
+                        color: #11aeff;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .page {
+        padding: 25px;
+        li {
+            float: left;
+            font-size: 16px;
+            border: 1px solid #0d8fd2;
+            margin: 0 5px;
+            a {
+                display: block;
+                color: #888;
+                padding: 5px 10px;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            .disabled {
+                cursor: not-allowed;
+                color: #CCC;
+            }
+        }
+        .this {
+            background-color: #0d8fd2;
+            a {
+                color: #FFF;
+            }
+        }
+    }
+    .download {
+        table {
+            width: 100%;
+        }
+        caption {
+            font-size: 24px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        thead {
+            tr {
+                background: linear-gradient(#0ba9fa, #20a4e8, #0b9ae4);
+                th {
+                    padding: 5px 10px;
+                    color: #fff;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            }
+        }
+        tbody {
+            td {
+                padding: 8px 10px;
+                font-size: 16px;
+                text-align: center;
+                a {
+                    color: #0000CC;
+                    text-decoration: underline;
+                }
+            }
+            tr:nth-of-type(odd) {
+                background-color: #c8eafb;
+            }
+        }
+    }
+}

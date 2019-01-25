@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.SysRole">
+		<id column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+		<result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		role_id, create_time, description, role_name, is_delete, role_code, edit_time
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.SysRoleExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.SysRoleExample">
+		delete from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.SysRole">
+		insert into sys_role (role_id, create_time, description,
+		role_name, is_delete, role_code,
+		edit_time)
+		values (#{roleId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR},
+		#{roleName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{roleCode,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.SysRole">
+		insert into sys_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="roleName != null">
+				role_name,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="roleCode != null">
+				role_code,
+			</if>
+			<if test="editTime != null">
+				edit_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+			<if test="roleCode != null">
+				#{roleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.SysRoleExample" resultType="java.lang.Integer">
+		select count(*) from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_role
+		<set>
+			<if test="record.roleId != null">
+				role_id = #{record.roleId,jdbcType=INTEGER},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.description != null">
+				description = #{record.description,jdbcType=VARCHAR},
+			</if>
+			<if test="record.roleName != null">
+				role_name = #{record.roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=BIT},
+			</if>
+			<if test="record.roleCode != null">
+				role_code = #{record.roleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.editTime != null">
+				edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_role
+		set role_id = #{record.roleId,jdbcType=INTEGER},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		description = #{record.description,jdbcType=VARCHAR},
+		role_name = #{record.roleName,jdbcType=VARCHAR},
+		is_delete = #{record.isDelete,jdbcType=BIT},
+		role_code = #{record.roleCode,jdbcType=VARCHAR},
+		edit_time = #{record.editTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.SysRole">
+		update sys_role
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				role_name = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+			<if test="roleCode != null">
+				role_code = #{roleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				edit_time = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.SysRole">
+		update sys_role
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		description = #{description,jdbcType=VARCHAR},
+		role_name = #{roleName,jdbcType=VARCHAR},
+		is_delete = #{isDelete,jdbcType=BIT},
+		role_code = #{roleCode,jdbcType=VARCHAR},
+		edit_time = #{editTime,jdbcType=TIMESTAMP}
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+</mapper>

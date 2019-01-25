@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.InquiryMaterielMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.InquiryMateriel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="inquiry_id" property="inquiryId" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="length" property="length" jdbcType="BIGINT" />
+		<result column="descr" property="descr" jdbcType="VARCHAR" />
+		<result column="width" property="width" jdbcType="BIGINT" />
+		<result column="height" property="height" jdbcType="BIGINT" />
+		<result column="buy_num" property="buyNum" jdbcType="INTEGER" />
+		<result column="unit" property="unit" jdbcType="VARCHAR" />
+		<result column="make_material" property="makeMaterial" jdbcType="VARCHAR" />
+		<result column="make_cat" property="makeCat" jdbcType="VARCHAR" />
+		<result column="offer_price" property="offerPrice" jdbcType="DECIMAL" />
+		<result column="final_price" property="finalPrice" jdbcType="DECIMAL" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="attach_id" property="attachId" jdbcType="VARCHAR" />
+		<result column="offer_time" property="offerTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, inquiry_id, code, name, length, descr, width, height, buy_num, unit, make_material,
+		make_cat,
+		offer_price, final_price, status, attach_id, offer_time, create_time
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.InquiryMaterielExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from inquiry_materiel
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from inquiry_materiel
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from inquiry_materiel
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.InquiryMaterielExample">
+		delete from inquiry_materiel
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.InquiryMateriel">
+		insert into inquiry_materiel (id, inquiry_id, code,
+		name, length, descr,
+		width,
+		height, buy_num,
+		unit, make_material, make_cat,
+		offer_price, final_price, status,
+		attach_id, offer_time, create_time
+		)
+		values (#{id,jdbcType=VARCHAR}, #{inquiryId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{length,jdbcType=BIGINT}, #{descr,jdbcType=VARCHAR},
+		#{width,jdbcType=BIGINT}, #{height,jdbcType=BIGINT},
+		#{buyNum,jdbcType=INTEGER},
+		#{unit,jdbcType=VARCHAR}, #{makeMaterial,jdbcType=VARCHAR}, #{makeCat,jdbcType=VARCHAR},
+		#{offerPrice,jdbcType=DECIMAL}, #{finalPrice,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT},
+		#{attachId,jdbcType=VARCHAR}, #{offerTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.InquiryMateriel">
+		insert into inquiry_materiel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="inquiryId != null">
+				inquiry_id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="length != null">
+				length,
+			</if>
+			<if test="descr != null">
+				descr,
+			</if>
+			<if test="width != null">
+				width,
+			</if>
+			<if test="height != null">
+				height,
+			</if>
+			<if test="buyNum != null">
+				buy_num,
+			</if>
+			<if test="unit != null">
+				unit,
+			</if>
+			<if test="makeMaterial != null">
+				make_material,
+			</if>
+			<if test="makeCat != null">
+				make_cat,
+			</if>
+			<if test="offerPrice != null">
+				offer_price,
+			</if>
+			<if test="finalPrice != null">
+				final_price,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="attachId != null">
+				attach_id,
+			</if>
+			<if test="offerTime != null">
+				offer_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="inquiryId != null">
+				#{inquiryId,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="length != null">
+				#{length,jdbcType=BIGINT},
+			</if>
+			<if test="descr != null">
+				#{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="width != null">
+				#{width,jdbcType=BIGINT},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=BIGINT},
+			</if>
+			<if test="buyNum != null">
+				#{buyNum,jdbcType=INTEGER},
+			</if>
+			<if test="unit != null">
+				#{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="makeMaterial != null">
+				#{makeMaterial,jdbcType=VARCHAR},
+			</if>
+			<if test="makeCat != null">
+				#{makeCat,jdbcType=VARCHAR},
+			</if>
+			<if test="offerPrice != null">
+				#{offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="finalPrice != null">
+				#{finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="attachId != null">
+				#{attachId,jdbcType=VARCHAR},
+			</if>
+			<if test="offerTime != null">
+				#{offerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.InquiryMaterielExample" resultType="java.lang.Integer">
+		select count(*) from inquiry_materiel
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update inquiry_materiel
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.inquiryId != null">
+				inquiry_id = #{record.inquiryId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.code != null">
+				code = #{record.code,jdbcType=VARCHAR},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.length != null">
+				length = #{record.length,jdbcType=BIGINT},
+			</if>
+			<if test="record.descr != null">
+				descr = #{record.descr,jdbcType=VARCHAR},
+			</if>
+			<if test="record.width != null">
+				width = #{record.width,jdbcType=BIGINT},
+			</if>
+			<if test="record.height != null">
+				height = #{record.height,jdbcType=BIGINT},
+			</if>
+			<if test="record.buyNum != null">
+				buy_num = #{record.buyNum,jdbcType=INTEGER},
+			</if>
+			<if test="record.unit != null">
+				unit = #{record.unit,jdbcType=VARCHAR},
+			</if>
+			<if test="record.makeMaterial != null">
+				make_material = #{record.makeMaterial,jdbcType=VARCHAR},
+			</if>
+			<if test="record.makeCat != null">
+				make_cat = #{record.makeCat,jdbcType=VARCHAR},
+			</if>
+			<if test="record.offerPrice != null">
+				offer_price = #{record.offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.finalPrice != null">
+				final_price = #{record.finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=TINYINT},
+			</if>
+			<if test="record.attachId != null">
+				attach_id = #{record.attachId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.offerTime != null">
+				offer_time = #{record.offerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update inquiry_materiel
+		set id = #{record.id,jdbcType=VARCHAR},
+		inquiry_id = #{record.inquiryId,jdbcType=VARCHAR},
+		code =
+		#{record.code,jdbcType=VARCHAR},
+		name = #{record.name,jdbcType=VARCHAR},
+		length = #{record.length,jdbcType=BIGINT},
+		descr = #{record.descr,jdbcType=VARCHAR},
+		width = #{record.width,jdbcType=BIGINT},
+		height =
+		#{record.height,jdbcType=BIGINT},
+		buy_num = #{record.buyNum,jdbcType=INTEGER},
+		unit = #{record.unit,jdbcType=VARCHAR},
+		make_material = #{record.makeMaterial,jdbcType=VARCHAR},
+		make_cat = #{record.makeCat,jdbcType=VARCHAR},
+		offer_price =
+		#{record.offerPrice,jdbcType=DECIMAL},
+		final_price = #{record.finalPrice,jdbcType=DECIMAL},
+		status =
+		#{record.status,jdbcType=TINYINT},
+		attach_id = #{record.attachId,jdbcType=VARCHAR},
+		offer_time =
+		#{record.offerTime,jdbcType=TIMESTAMP},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.InquiryMateriel">
+		update inquiry_materiel
+		<set>
+			<if test="inquiryId != null">
+				inquiry_id = #{inquiryId,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="length != null">
+				length = #{length,jdbcType=BIGINT},
+			</if>
+			<if test="descr != null">
+				descr = #{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="width != null">
+				width = #{width,jdbcType=BIGINT},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=BIGINT},
+			</if>
+			<if test="buyNum != null">
+				buy_num = #{buyNum,jdbcType=INTEGER},
+			</if>
+			<if test="unit != null">
+				unit = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="makeMaterial != null">
+				make_material = #{makeMaterial,jdbcType=VARCHAR},
+			</if>
+			<if test="makeCat != null">
+				make_cat = #{makeCat,jdbcType=VARCHAR},
+			</if>
+			<if test="offerPrice != null">
+				offer_price = #{offerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="finalPrice != null">
+				final_price = #{finalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="attachId != null">
+				attach_id = #{attachId,jdbcType=VARCHAR},
+			</if>
+			<if test="offerTime != null">
+				offer_time = #{offerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.InquiryMateriel">
+		update inquiry_materiel
+		set inquiry_id =
+		#{inquiryId,jdbcType=VARCHAR},
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		length =
+		#{length,jdbcType=BIGINT},
+		descr = #{descr,jdbcType=VARCHAR},
+		width = #{width,jdbcType=BIGINT},
+		height =
+		#{height,jdbcType=BIGINT},
+		buy_num = #{buyNum,jdbcType=INTEGER},
+		unit = #{unit,jdbcType=VARCHAR},
+		make_material =
+		#{makeMaterial,jdbcType=VARCHAR},
+		make_cat = #{makeCat,jdbcType=VARCHAR},
+		offer_price = #{offerPrice,jdbcType=DECIMAL},
+		final_price = #{finalPrice,jdbcType=DECIMAL},
+		status = #{status,jdbcType=TINYINT},
+		attach_id =
+		#{attachId,jdbcType=VARCHAR},
+		offer_time = #{offerTime,jdbcType=TIMESTAMP},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<resultMap type="com.honpe.pojo.ext.InquiryMaterielExt" id="InquiryMaterielExtResultMap" extends="BaseResultMap">
+		<association property="attachment" javaType="com.honpe.po.FileInfo">
+			<id column="file_id" property="fileId" jdbcType="VARCHAR" />
+			<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+			<result column="file_rename" property="fileRename" jdbcType="VARCHAR" />
+			<result column="md5" property="md5" jdbcType="VARCHAR" />
+			<result column="ext" property="ext" jdbcType="VARCHAR" />
+			<result column="src" property="src" jdbcType="VARCHAR" />
+			<result column="is_download" property="isDownload" jdbcType="BIT" />
+			<result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+		</association>
+	</resultMap>
+	<select id="selectByInquiryId" resultMap="InquiryMaterielExtResultMap" parameterType="java.lang.String">
+		SELECT im.* FROM (SELECT
+		inquiry_materiel.*,file_info.* FROM inquiry_materiel LEFT JOIN file_info ON
+		inquiry_materiel.attach_id=file_info.file_id)
+		im,inquiry WHERE im.inquiry_id=inquiry.id AND inquiry.id=#{inquiryId}
+		ORDER BY im.create_time DESC
+	</select>
+	<select id="updateStatusByPrimaryKeyAndCustomerId" parameterType="java.lang.Object">
+		UPDATE inquiry_materiel SET `status`=#{status}
+		WHERE `status`!=3 AND id=#{materielId} AND inquiry_id in (SELECT id FROM inquiry WHERE customer_id=#{customerId})
+	</select>
+</mapper>

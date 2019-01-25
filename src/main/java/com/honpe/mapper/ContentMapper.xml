@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.ContentMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.Content">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="times" property="times" jdbcType="BIGINT" />
+		<result column="sequence" property="sequence" jdbcType="BIGINT" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="en_title" property="enTitle" jdbcType="VARCHAR" />
+		<result column="jp_title" property="jpTitle" jdbcType="VARCHAR" />
+		<result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+		<result column="en_sub_title" property="enSubTitle" jdbcType="VARCHAR" />
+		<result column="jp_sub_title" property="jpSubTitle" jdbcType="VARCHAR" />
+		<result column="summary" property="summary" jdbcType="VARCHAR" />
+		<result column="en_summary" property="enSummary" jdbcType="VARCHAR" />
+		<result column="jp_summary" property="jpSummary" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="pic" property="pic" jdbcType="VARCHAR" />
+		<result column="pic2" property="pic2" jdbcType="VARCHAR" />
+		<result column="display" property="display" jdbcType="BIT" />
+		<result column="index_display" property="indexDisplay" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.honpe.po.ContentWithBLOBs" extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+		<result column="en_content" property="enContent" jdbcType="LONGVARCHAR" />
+		<result column="jp_content" property="jpContent" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, times, sequence, category_id, title, en_title, jp_title, sub_title, en_sub_title,
+		jp_sub_title, summary, en_summary, jp_summary, url, pic, pic2, display, index_display,
+		create_time, update_time
+	</sql>
+	<sql id="Blob_Column_List">
+		content, en_content, jp_content
+	</sql>
+	<select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.honpe.po.ContentExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from content
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.ContentExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from content
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from content
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from content
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.ContentExample">
+		delete from content
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.ContentWithBLOBs">
+		insert into content (id, times, sequence,
+		category_id, title, en_title,
+		jp_title, sub_title, en_sub_title,
+		jp_sub_title, summary, en_summary,
+		jp_summary, url, pic,
+		pic2, display, index_display,
+		create_time, update_time, content,
+		en_content, jp_content)
+		values (#{id,jdbcType=BIGINT}, #{times,jdbcType=BIGINT}, #{sequence,jdbcType=BIGINT},
+		#{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{enTitle,jdbcType=VARCHAR},
+		#{jpTitle,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, #{enSubTitle,jdbcType=VARCHAR},
+		#{jpSubTitle,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{enSummary,jdbcType=VARCHAR},
+		#{jpSummary,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+		#{pic2,jdbcType=VARCHAR}, #{display,jdbcType=BIT}, #{indexDisplay,jdbcType=BIT},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR},
+		#{enContent,jdbcType=LONGVARCHAR}, #{jpContent,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.ContentWithBLOBs">
+		insert into content
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="times != null">
+				times,
+			</if>
+			<if test="sequence != null">
+				sequence,
+			</if>
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="enTitle != null">
+				en_title,
+			</if>
+			<if test="jpTitle != null">
+				jp_title,
+			</if>
+			<if test="subTitle != null">
+				sub_title,
+			</if>
+			<if test="enSubTitle != null">
+				en_sub_title,
+			</if>
+			<if test="jpSubTitle != null">
+				jp_sub_title,
+			</if>
+			<if test="summary != null">
+				summary,
+			</if>
+			<if test="enSummary != null">
+				en_summary,
+			</if>
+			<if test="jpSummary != null">
+				jp_summary,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="pic != null">
+				pic,
+			</if>
+			<if test="pic2 != null">
+				pic2,
+			</if>
+			<if test="display != null">
+				display,
+			</if>
+			<if test="indexDisplay != null">
+				index_display,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="enContent != null">
+				en_content,
+			</if>
+			<if test="jpContent != null">
+				jp_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="times != null">
+				#{times,jdbcType=BIGINT},
+			</if>
+			<if test="sequence != null">
+				#{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="enTitle != null">
+				#{enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpTitle != null">
+				#{jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="subTitle != null">
+				#{subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="enSubTitle != null">
+				#{enSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpSubTitle != null">
+				#{jpSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				#{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="enSummary != null">
+				#{enSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="jpSummary != null">
+				#{jpSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				#{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="pic2 != null">
+				#{pic2,jdbcType=VARCHAR},
+			</if>
+			<if test="display != null">
+				#{display,jdbcType=BIT},
+			</if>
+			<if test="indexDisplay != null">
+				#{indexDisplay,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="enContent != null">
+				#{enContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jpContent != null">
+				#{jpContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.ContentExample" resultType="java.lang.Integer">
+		select count(*) from content
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update content
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.times != null">
+				times = #{record.times,jdbcType=BIGINT},
+			</if>
+			<if test="record.sequence != null">
+				sequence = #{record.sequence,jdbcType=BIGINT},
+			</if>
+			<if test="record.categoryId != null">
+				category_id = #{record.categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enTitle != null">
+				en_title = #{record.enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.jpTitle != null">
+				jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.subTitle != null">
+				sub_title = #{record.subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enSubTitle != null">
+				en_sub_title = #{record.enSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.jpSubTitle != null">
+				jp_sub_title = #{record.jpSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.summary != null">
+				summary = #{record.summary,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enSummary != null">
+				en_summary = #{record.enSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="record.jpSummary != null">
+				jp_summary = #{record.jpSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="record.url != null">
+				url = #{record.url,jdbcType=VARCHAR},
+			</if>
+			<if test="record.pic != null">
+				pic = #{record.pic,jdbcType=VARCHAR},
+			</if>
+			<if test="record.pic2 != null">
+				pic2 = #{record.pic2,jdbcType=VARCHAR},
+			</if>
+			<if test="record.display != null">
+				display = #{record.display,jdbcType=BIT},
+			</if>
+			<if test="record.indexDisplay != null">
+				index_display = #{record.indexDisplay,jdbcType=BIT},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.content != null">
+				content = #{record.content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.enContent != null">
+				en_content = #{record.enContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.jpContent != null">
+				jp_content = #{record.jpContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleWithBLOBs" parameterType="map">
+		update content
+		set id = #{record.id,jdbcType=BIGINT},
+		times = #{record.times,jdbcType=BIGINT},
+		sequence = #{record.sequence,jdbcType=BIGINT},
+		category_id = #{record.categoryId,jdbcType=BIGINT},
+		title = #{record.title,jdbcType=VARCHAR},
+		en_title = #{record.enTitle,jdbcType=VARCHAR},
+		jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+		sub_title = #{record.subTitle,jdbcType=VARCHAR},
+		en_sub_title = #{record.enSubTitle,jdbcType=VARCHAR},
+		jp_sub_title = #{record.jpSubTitle,jdbcType=VARCHAR},
+		summary = #{record.summary,jdbcType=VARCHAR},
+		en_summary = #{record.enSummary,jdbcType=VARCHAR},
+		jp_summary = #{record.jpSummary,jdbcType=VARCHAR},
+		url = #{record.url,jdbcType=VARCHAR},
+		pic = #{record.pic,jdbcType=VARCHAR},
+		pic2 = #{record.pic2,jdbcType=VARCHAR},
+		display = #{record.display,jdbcType=BIT},
+		index_display = #{record.indexDisplay,jdbcType=BIT},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+		content = #{record.content,jdbcType=LONGVARCHAR},
+		en_content = #{record.enContent,jdbcType=LONGVARCHAR},
+		jp_content = #{record.jpContent,jdbcType=LONGVARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update content
+		set id = #{record.id,jdbcType=BIGINT},
+		times = #{record.times,jdbcType=BIGINT},
+		sequence = #{record.sequence,jdbcType=BIGINT},
+		category_id = #{record.categoryId,jdbcType=BIGINT},
+		title = #{record.title,jdbcType=VARCHAR},
+		en_title = #{record.enTitle,jdbcType=VARCHAR},
+		jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+		sub_title = #{record.subTitle,jdbcType=VARCHAR},
+		en_sub_title = #{record.enSubTitle,jdbcType=VARCHAR},
+		jp_sub_title = #{record.jpSubTitle,jdbcType=VARCHAR},
+		summary = #{record.summary,jdbcType=VARCHAR},
+		en_summary = #{record.enSummary,jdbcType=VARCHAR},
+		jp_summary = #{record.jpSummary,jdbcType=VARCHAR},
+		url = #{record.url,jdbcType=VARCHAR},
+		pic = #{record.pic,jdbcType=VARCHAR},
+		pic2 = #{record.pic2,jdbcType=VARCHAR},
+		display = #{record.display,jdbcType=BIT},
+		index_display = #{record.indexDisplay,jdbcType=BIT},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.ContentWithBLOBs">
+		update content
+		<set>
+			<if test="times != null">
+				times = #{times,jdbcType=BIGINT},
+			</if>
+			<if test="sequence != null">
+				sequence = #{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="enTitle != null">
+				en_title = #{enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpTitle != null">
+				jp_title = #{jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="subTitle != null">
+				sub_title = #{subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="enSubTitle != null">
+				en_sub_title = #{enSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpSubTitle != null">
+				jp_sub_title = #{jpSubTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				summary = #{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="enSummary != null">
+				en_summary = #{enSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="jpSummary != null">
+				jp_summary = #{jpSummary,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				pic = #{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="pic2 != null">
+				pic2 = #{pic2,jdbcType=VARCHAR},
+			</if>
+			<if test="display != null">
+				display = #{display,jdbcType=BIT},
+			</if>
+			<if test="indexDisplay != null">
+				index_display = #{indexDisplay,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="enContent != null">
+				en_content = #{enContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jpContent != null">
+				jp_content = #{jpContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.honpe.po.ContentWithBLOBs">
+		update content
+		set times = #{times,jdbcType=BIGINT},
+		sequence = #{sequence,jdbcType=BIGINT},
+		category_id = #{categoryId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		en_title = #{enTitle,jdbcType=VARCHAR},
+		jp_title = #{jpTitle,jdbcType=VARCHAR},
+		sub_title = #{subTitle,jdbcType=VARCHAR},
+		en_sub_title = #{enSubTitle,jdbcType=VARCHAR},
+		jp_sub_title = #{jpSubTitle,jdbcType=VARCHAR},
+		summary = #{summary,jdbcType=VARCHAR},
+		en_summary = #{enSummary,jdbcType=VARCHAR},
+		jp_summary = #{jpSummary,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		pic = #{pic,jdbcType=VARCHAR},
+		pic2 = #{pic2,jdbcType=VARCHAR},
+		display = #{display,jdbcType=BIT},
+		index_display = #{indexDisplay,jdbcType=BIT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		content = #{content,jdbcType=LONGVARCHAR},
+		en_content = #{enContent,jdbcType=LONGVARCHAR},
+		jp_content = #{jpContent,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.Content">
+		update content
+		set times = #{times,jdbcType=BIGINT},
+		sequence = #{sequence,jdbcType=BIGINT},
+		category_id = #{categoryId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		en_title = #{enTitle,jdbcType=VARCHAR},
+		jp_title = #{jpTitle,jdbcType=VARCHAR},
+		sub_title = #{subTitle,jdbcType=VARCHAR},
+		en_sub_title = #{enSubTitle,jdbcType=VARCHAR},
+		jp_sub_title = #{jpSubTitle,jdbcType=VARCHAR},
+		summary = #{summary,jdbcType=VARCHAR},
+		en_summary = #{enSummary,jdbcType=VARCHAR},
+		jp_summary = #{jpSummary,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		pic = #{pic,jdbcType=VARCHAR},
+		pic2 = #{pic2,jdbcType=VARCHAR},
+		display = #{display,jdbcType=BIT},
+		index_display = #{indexDisplay,jdbcType=BIT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<resultMap type="com.honpe.pojo.ext.ContentExt" id="ContentExtResultMap" extends="BaseResultMap">
+		<result column="category_title" property="categoryTitle" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectByConditions" parameterType="java.lang.Object" resultMap="ContentExtResultMap">
+		SELECT
+		content.*,content_category.title'category_title' FROM content,content_category WHERE
+		content.category_id=content_category.id
+		<if test="categoryId!=null">
+			AND category_id=#{categoryId}
+		</if>
+		<if test="display!=null">
+			AND display=#{display}
+		</if>
+		<if test="indexDisplay!=null">
+			AND index_display=#{indexDisplay}
+		</if>
+		ORDER BY sequence DESC
+	</select>
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.OrderPaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.honpe.po.OrderPayment" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="DECIMAL" />
+    <result column="payment_type" property="paymentType" jdbcType="TINYINT" />
+    <result column="payment_credence" property="paymentCredence" jdbcType="VARCHAR" />
+    <result column="payment_order" property="paymentOrder" jdbcType="VARCHAR" />
+    <result column="draft_month" property="draftMonth" jdbcType="INTEGER" />
+    <result column="payment_bank" property="paymentBank" jdbcType="VARCHAR" />
+    <result column="payment_bank_no" property="paymentBankNo" jdbcType="VARCHAR" />
+    <result column="payment_channel" property="paymentChannel" jdbcType="TINYINT" />
+    <result column="payment_time" property="paymentTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, payment, payment_type, payment_credence, payment_order, draft_month, payment_bank, 
+    payment_bank_no, payment_channel, payment_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.OrderPaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_payment
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_payment
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.honpe.po.OrderPaymentExample" >
+    delete from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.honpe.po.OrderPayment" >
+    insert into order_payment (order_id, payment, payment_type, 
+      payment_credence, payment_order, draft_month, 
+      payment_bank, payment_bank_no, payment_channel, 
+      payment_time)
+    values (#{orderId,jdbcType=VARCHAR}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=TINYINT}, 
+      #{paymentCredence,jdbcType=VARCHAR}, #{paymentOrder,jdbcType=VARCHAR}, #{draftMonth,jdbcType=INTEGER}, 
+      #{paymentBank,jdbcType=VARCHAR}, #{paymentBankNo,jdbcType=VARCHAR}, #{paymentChannel,jdbcType=TINYINT}, 
+      #{paymentTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.honpe.po.OrderPayment" >
+    insert into order_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+      <if test="paymentCredence != null" >
+        payment_credence,
+      </if>
+      <if test="paymentOrder != null" >
+        payment_order,
+      </if>
+      <if test="draftMonth != null" >
+        draft_month,
+      </if>
+      <if test="paymentBank != null" >
+        payment_bank,
+      </if>
+      <if test="paymentBankNo != null" >
+        payment_bank_no,
+      </if>
+      <if test="paymentChannel != null" >
+        payment_channel,
+      </if>
+      <if test="paymentTime != null" >
+        payment_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="paymentCredence != null" >
+        #{paymentCredence,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentOrder != null" >
+        #{paymentOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="draftMonth != null" >
+        #{draftMonth,jdbcType=INTEGER},
+      </if>
+      <if test="paymentBank != null" >
+        #{paymentBank,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentBankNo != null" >
+        #{paymentBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentChannel != null" >
+        #{paymentChannel,jdbcType=TINYINT},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.honpe.po.OrderPaymentExample" resultType="java.lang.Integer" >
+    select count(*) from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_payment
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payment != null" >
+        payment = #{record.payment,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentType != null" >
+        payment_type = #{record.paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="record.paymentCredence != null" >
+        payment_credence = #{record.paymentCredence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentOrder != null" >
+        payment_order = #{record.paymentOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.draftMonth != null" >
+        draft_month = #{record.draftMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentBank != null" >
+        payment_bank = #{record.paymentBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentBankNo != null" >
+        payment_bank_no = #{record.paymentBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentChannel != null" >
+        payment_channel = #{record.paymentChannel,jdbcType=TINYINT},
+      </if>
+      <if test="record.paymentTime != null" >
+        payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_payment
+    set order_id = #{record.orderId,jdbcType=VARCHAR},
+      payment = #{record.payment,jdbcType=DECIMAL},
+      payment_type = #{record.paymentType,jdbcType=TINYINT},
+      payment_credence = #{record.paymentCredence,jdbcType=VARCHAR},
+      payment_order = #{record.paymentOrder,jdbcType=VARCHAR},
+      draft_month = #{record.draftMonth,jdbcType=INTEGER},
+      payment_bank = #{record.paymentBank,jdbcType=VARCHAR},
+      payment_bank_no = #{record.paymentBankNo,jdbcType=VARCHAR},
+      payment_channel = #{record.paymentChannel,jdbcType=TINYINT},
+      payment_time = #{record.paymentTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.OrderPayment" >
+    update order_payment
+    <set >
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="paymentCredence != null" >
+        payment_credence = #{paymentCredence,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentOrder != null" >
+        payment_order = #{paymentOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="draftMonth != null" >
+        draft_month = #{draftMonth,jdbcType=INTEGER},
+      </if>
+      <if test="paymentBank != null" >
+        payment_bank = #{paymentBank,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentBankNo != null" >
+        payment_bank_no = #{paymentBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentChannel != null" >
+        payment_channel = #{paymentChannel,jdbcType=TINYINT},
+      </if>
+      <if test="paymentTime != null" >
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.honpe.po.OrderPayment" >
+    update order_payment
+    set payment = #{payment,jdbcType=DECIMAL},
+      payment_type = #{paymentType,jdbcType=TINYINT},
+      payment_credence = #{paymentCredence,jdbcType=VARCHAR},
+      payment_order = #{paymentOrder,jdbcType=VARCHAR},
+      draft_month = #{draftMonth,jdbcType=INTEGER},
+      payment_bank = #{paymentBank,jdbcType=VARCHAR},
+      payment_bank_no = #{paymentBankNo,jdbcType=VARCHAR},
+      payment_channel = #{paymentChannel,jdbcType=TINYINT},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

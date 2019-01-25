@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.ContentCategoryMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.ContentCategory">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="parent_id" property="parentId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="en_title" property="enTitle" jdbcType="VARCHAR" />
+		<result column="jp_title" property="jpTitle" jdbcType="VARCHAR" />
+		<result column="pic" property="pic" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+		<result column="sequence" property="sequence" jdbcType="BIGINT" />
+		<result column="is_parent" property="isParent" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, parent_id, title, en_title, jp_title, pic, is_delete, sequence, is_parent, create_time,
+		update_time
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.ContentCategoryExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from content_category
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from content_category
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from content_category
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.ContentCategoryExample">
+		delete from content_category
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.ContentCategory">
+		insert into content_category (id, parent_id, title,
+		en_title, jp_title, pic,
+		is_delete, sequence, is_parent,
+		create_time, update_time)
+		values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{enTitle,jdbcType=VARCHAR}, #{jpTitle,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+		#{isDelete,jdbcType=BIT}, #{sequence,jdbcType=BIGINT}, #{isParent,jdbcType=BIT},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.ContentCategory">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into content_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="enTitle != null">
+				en_title,
+			</if>
+			<if test="jpTitle != null">
+				jp_title,
+			</if>
+			<if test="pic != null">
+				pic,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="sequence != null">
+				sequence,
+			</if>
+			<if test="isParent != null">
+				is_parent,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="enTitle != null">
+				#{enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpTitle != null">
+				#{jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				#{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+			<if test="sequence != null">
+				#{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="isParent != null">
+				#{isParent,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.ContentCategoryExample" resultType="java.lang.Integer">
+		select count(*) from content_category
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update content_category
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.parentId != null">
+				parent_id = #{record.parentId,jdbcType=BIGINT},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enTitle != null">
+				en_title = #{record.enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.jpTitle != null">
+				jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.pic != null">
+				pic = #{record.pic,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=BIT},
+			</if>
+			<if test="record.sequence != null">
+				sequence = #{record.sequence,jdbcType=BIGINT},
+			</if>
+			<if test="record.isParent != null">
+				is_parent = #{record.isParent,jdbcType=BIT},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update content_category
+		set id = #{record.id,jdbcType=BIGINT},
+		parent_id = #{record.parentId,jdbcType=BIGINT},
+		title =
+		#{record.title,jdbcType=VARCHAR},
+		en_title = #{record.enTitle,jdbcType=VARCHAR},
+		jp_title =
+		#{record.jpTitle,jdbcType=VARCHAR},
+		pic = #{record.pic,jdbcType=VARCHAR},
+		is_delete = #{record.isDelete,jdbcType=BIT},
+		sequence = #{record.sequence,jdbcType=BIGINT},
+		is_parent = #{record.isParent,jdbcType=BIT},
+		create_time =
+		#{record.createTime,jdbcType=TIMESTAMP},
+		update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.ContentCategory">
+		update content_category
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="enTitle != null">
+				en_title = #{enTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="jpTitle != null">
+				jp_title = #{jpTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				pic = #{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+			<if test="sequence != null">
+				sequence = #{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="isParent != null">
+				is_parent = #{isParent,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.ContentCategory">
+		update content_category
+		set parent_id =
+		#{parentId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		en_title = #{enTitle,jdbcType=VARCHAR},
+		jp_title =
+		#{jpTitle,jdbcType=VARCHAR},
+		pic = #{pic,jdbcType=VARCHAR},
+		is_delete = #{isDelete,jdbcType=BIT},
+		sequence =
+		#{sequence,jdbcType=BIGINT},
+		is_parent = #{isParent,jdbcType=BIT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

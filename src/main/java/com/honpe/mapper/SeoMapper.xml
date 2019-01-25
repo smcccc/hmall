@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.SeoMapper" >
+  <resultMap id="BaseResultMap" type="com.honpe.po.Seo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="page_name" property="pageName" jdbcType="VARCHAR" />
+    <result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
+    <result column="en_seo_title" property="enSeoTitle" jdbcType="VARCHAR" />
+    <result column="jp_seo_title" property="jpSeoTitle" jdbcType="VARCHAR" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+    <result column="en_keyword" property="enKeyword" jdbcType="VARCHAR" />
+    <result column="jp_keyword" property="jpKeyword" jdbcType="VARCHAR" />
+    <result column="descr" property="descr" jdbcType="VARCHAR" />
+    <result column="en_descr" property="enDescr" jdbcType="VARCHAR" />
+    <result column="jp_descr" property="jpDescr" jdbcType="VARCHAR" />
+    <result column="router" property="router" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, page_name, seo_title, en_seo_title, jp_seo_title, keyword, en_keyword, jp_keyword, 
+    descr, en_descr, jp_descr, router, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.SeoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from seo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from seo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from seo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.honpe.po.SeoExample" >
+    delete from seo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.honpe.po.Seo" >
+    insert into seo (id, page_name, seo_title, 
+      en_seo_title, jp_seo_title, keyword, 
+      en_keyword, jp_keyword, descr, 
+      en_descr, jp_descr, router, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{pageName,jdbcType=VARCHAR}, #{seoTitle,jdbcType=VARCHAR}, 
+      #{enSeoTitle,jdbcType=VARCHAR}, #{jpSeoTitle,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
+      #{enKeyword,jdbcType=VARCHAR}, #{jpKeyword,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, 
+      #{enDescr,jdbcType=VARCHAR}, #{jpDescr,jdbcType=VARCHAR}, #{router,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.honpe.po.Seo" >
+    insert into seo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pageName != null" >
+        page_name,
+      </if>
+      <if test="seoTitle != null" >
+        seo_title,
+      </if>
+      <if test="enSeoTitle != null" >
+        en_seo_title,
+      </if>
+      <if test="jpSeoTitle != null" >
+        jp_seo_title,
+      </if>
+      <if test="keyword != null" >
+        keyword,
+      </if>
+      <if test="enKeyword != null" >
+        en_keyword,
+      </if>
+      <if test="jpKeyword != null" >
+        jp_keyword,
+      </if>
+      <if test="descr != null" >
+        descr,
+      </if>
+      <if test="enDescr != null" >
+        en_descr,
+      </if>
+      <if test="jpDescr != null" >
+        jp_descr,
+      </if>
+      <if test="router != null" >
+        router,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pageName != null" >
+        #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="enSeoTitle != null" >
+        #{enSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jpSeoTitle != null" >
+        #{jpSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="enKeyword != null" >
+        #{enKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="jpKeyword != null" >
+        #{jpKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="enDescr != null" >
+        #{enDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="jpDescr != null" >
+        #{jpDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="router != null" >
+        #{router,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.honpe.po.SeoExample" resultType="java.lang.Integer" >
+    select count(*) from seo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update seo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageName != null" >
+        page_name = #{record.pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoTitle != null" >
+        seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enSeoTitle != null" >
+        en_seo_title = #{record.enSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jpSeoTitle != null" >
+        jp_seo_title = #{record.jpSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyword != null" >
+        keyword = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enKeyword != null" >
+        en_keyword = #{record.enKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jpKeyword != null" >
+        jp_keyword = #{record.jpKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descr != null" >
+        descr = #{record.descr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enDescr != null" >
+        en_descr = #{record.enDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jpDescr != null" >
+        jp_descr = #{record.jpDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.router != null" >
+        router = #{record.router,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update seo
+    set id = #{record.id,jdbcType=BIGINT},
+      page_name = #{record.pageName,jdbcType=VARCHAR},
+      seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+      en_seo_title = #{record.enSeoTitle,jdbcType=VARCHAR},
+      jp_seo_title = #{record.jpSeoTitle,jdbcType=VARCHAR},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      en_keyword = #{record.enKeyword,jdbcType=VARCHAR},
+      jp_keyword = #{record.jpKeyword,jdbcType=VARCHAR},
+      descr = #{record.descr,jdbcType=VARCHAR},
+      en_descr = #{record.enDescr,jdbcType=VARCHAR},
+      jp_descr = #{record.jpDescr,jdbcType=VARCHAR},
+      router = #{record.router,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.Seo" >
+    update seo
+    <set >
+      <if test="pageName != null" >
+        page_name = #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        seo_title = #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="enSeoTitle != null" >
+        en_seo_title = #{enSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jpSeoTitle != null" >
+        jp_seo_title = #{jpSeoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="enKeyword != null" >
+        en_keyword = #{enKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="jpKeyword != null" >
+        jp_keyword = #{jpKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="descr != null" >
+        descr = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="enDescr != null" >
+        en_descr = #{enDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="jpDescr != null" >
+        jp_descr = #{jpDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="router != null" >
+        router = #{router,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.honpe.po.Seo" >
+    update seo
+    set page_name = #{pageName,jdbcType=VARCHAR},
+      seo_title = #{seoTitle,jdbcType=VARCHAR},
+      en_seo_title = #{enSeoTitle,jdbcType=VARCHAR},
+      jp_seo_title = #{jpSeoTitle,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      en_keyword = #{enKeyword,jdbcType=VARCHAR},
+      jp_keyword = #{jpKeyword,jdbcType=VARCHAR},
+      descr = #{descr,jdbcType=VARCHAR},
+      en_descr = #{enDescr,jdbcType=VARCHAR},
+      jp_descr = #{jpDescr,jdbcType=VARCHAR},
+      router = #{router,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

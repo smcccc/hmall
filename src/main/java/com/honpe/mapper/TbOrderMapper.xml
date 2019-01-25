@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.TbOrderMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.TbOrder">
+		<id column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
+		<result column="payment" property="payment" jdbcType="DECIMAL" />
+		<result column="shipping_type" property="shippingType" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="check_payment_time" property="checkPaymentTime" jdbcType="TIMESTAMP" />
+		<result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+		<result column="consign_time" property="consignTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+		<result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
+		<result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+		<result column="cancle_reason" property="cancleReason" jdbcType="VARCHAR" />
+		<result column="buyer_message" property="buyerMessage" jdbcType="VARCHAR" />
+		<result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
+		<result column="is_shipping" property="isShipping" jdbcType="BIT" />
+		<result column="order_shipping_id" property="orderShippingId" jdbcType="BIGINT" />
+		<result column="is_invoice" property="isInvoice" jdbcType="BIT" />
+		<result column="invoice_id" property="invoiceId" jdbcType="BIGINT" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		order_id, buyer_id, payment, shipping_type, status, create_time, update_time, check_payment_time,
+		delivery_time, consign_time, end_time, close_time, shipping_name, shipping_code,
+		cancle_reason, buyer_message,
+		buyer_nick, is_shipping, order_shipping_id, is_invoice,
+		invoice_id, is_delete
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.TbOrderExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_order
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_order
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_order
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.TbOrderExample">
+		delete from tb_order
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.TbOrder">
+		insert into tb_order (order_id, buyer_id, payment,
+		shipping_type, status,
+		create_time,
+		update_time, check_payment_time, delivery_time,
+		consign_time, end_time, close_time,
+		shipping_name,
+		shipping_code, cancle_reason,
+		buyer_message, buyer_nick, is_shipping,
+		order_shipping_id, is_invoice, invoice_id,
+		is_delete)
+		values (#{orderId,jdbcType=VARCHAR}, #{buyerId,jdbcType=VARCHAR}, #{payment,jdbcType=DECIMAL},
+		#{shippingType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{checkPaymentTime,jdbcType=TIMESTAMP}, #{deliveryTime,jdbcType=TIMESTAMP},
+		#{consignTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP},
+		#{shippingName,jdbcType=VARCHAR}, #{shippingCode,jdbcType=VARCHAR}, #{cancleReason,jdbcType=VARCHAR},
+		#{buyerMessage,jdbcType=VARCHAR}, #{buyerNick,jdbcType=VARCHAR}, #{isShipping,jdbcType=BIT},
+		#{orderShippingId,jdbcType=BIGINT}, #{isInvoice,jdbcType=BIT}, #{invoiceId,jdbcType=BIGINT},
+		#{isDelete,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.TbOrder">
+		insert into tb_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="buyerId != null">
+				buyer_id,
+			</if>
+			<if test="payment != null">
+				payment,
+			</if>
+			<if test="shippingType != null">
+				shipping_type,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="checkPaymentTime != null">
+				check_payment_time,
+			</if>
+			<if test="deliveryTime != null">
+				delivery_time,
+			</if>
+			<if test="consignTime != null">
+				consign_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="closeTime != null">
+				close_time,
+			</if>
+			<if test="shippingName != null">
+				shipping_name,
+			</if>
+			<if test="shippingCode != null">
+				shipping_code,
+			</if>
+			<if test="cancleReason != null">
+				cancle_reason,
+			</if>
+			<if test="buyerMessage != null">
+				buyer_message,
+			</if>
+			<if test="buyerNick != null">
+				buyer_nick,
+			</if>
+			<if test="isShipping != null">
+				is_shipping,
+			</if>
+			<if test="orderShippingId != null">
+				order_shipping_id,
+			</if>
+			<if test="isInvoice != null">
+				is_invoice,
+			</if>
+			<if test="invoiceId != null">
+				invoice_id,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerId != null">
+				#{buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="payment != null">
+				#{payment,jdbcType=DECIMAL},
+			</if>
+			<if test="shippingType != null">
+				#{shippingType,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="checkPaymentTime != null">
+				#{checkPaymentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deliveryTime != null">
+				#{deliveryTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consignTime != null">
+				#{consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				#{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shippingName != null">
+				#{shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingCode != null">
+				#{shippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cancleReason != null">
+				#{cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerMessage != null">
+				#{buyerMessage,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerNick != null">
+				#{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="isShipping != null">
+				#{isShipping,jdbcType=BIT},
+			</if>
+			<if test="orderShippingId != null">
+				#{orderShippingId,jdbcType=BIGINT},
+			</if>
+			<if test="isInvoice != null">
+				#{isInvoice,jdbcType=BIT},
+			</if>
+			<if test="invoiceId != null">
+				#{invoiceId,jdbcType=BIGINT},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.TbOrderExample" resultType="java.lang.Integer">
+		select count(*) from tb_order
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_order
+		<set>
+			<if test="record.orderId != null">
+				order_id = #{record.orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.buyerId != null">
+				buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.payment != null">
+				payment = #{record.payment,jdbcType=DECIMAL},
+			</if>
+			<if test="record.shippingType != null">
+				shipping_type = #{record.shippingType,jdbcType=TINYINT},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=TINYINT},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.checkPaymentTime != null">
+				check_payment_time = #{record.checkPaymentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.deliveryTime != null">
+				delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.consignTime != null">
+				consign_time = #{record.consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.endTime != null">
+				end_time = #{record.endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.closeTime != null">
+				close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.shippingName != null">
+				shipping_name = #{record.shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.shippingCode != null">
+				shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.cancleReason != null">
+				cancle_reason = #{record.cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.buyerMessage != null">
+				buyer_message = #{record.buyerMessage,jdbcType=VARCHAR},
+			</if>
+			<if test="record.buyerNick != null">
+				buyer_nick = #{record.buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isShipping != null">
+				is_shipping = #{record.isShipping,jdbcType=BIT},
+			</if>
+			<if test="record.orderShippingId != null">
+				order_shipping_id = #{record.orderShippingId,jdbcType=BIGINT},
+			</if>
+			<if test="record.isInvoice != null">
+				is_invoice = #{record.isInvoice,jdbcType=BIT},
+			</if>
+			<if test="record.invoiceId != null">
+				invoice_id = #{record.invoiceId,jdbcType=BIGINT},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=BIT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_order
+		set order_id = #{record.orderId,jdbcType=VARCHAR},
+		buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+		payment = #{record.payment,jdbcType=DECIMAL},
+		shipping_type = #{record.shippingType,jdbcType=TINYINT},
+		status =
+		#{record.status,jdbcType=TINYINT},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{record.updateTime,jdbcType=TIMESTAMP},
+		check_payment_time = #{record.checkPaymentTime,jdbcType=TIMESTAMP},
+		delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+		consign_time = #{record.consignTime,jdbcType=TIMESTAMP},
+		end_time = #{record.endTime,jdbcType=TIMESTAMP},
+		close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+		shipping_name =
+		#{record.shippingName,jdbcType=VARCHAR},
+		shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
+		cancle_reason =
+		#{record.cancleReason,jdbcType=VARCHAR},
+		buyer_message = #{record.buyerMessage,jdbcType=VARCHAR},
+		buyer_nick =
+		#{record.buyerNick,jdbcType=VARCHAR},
+		is_shipping = #{record.isShipping,jdbcType=BIT},
+		order_shipping_id =
+		#{record.orderShippingId,jdbcType=BIGINT},
+		is_invoice = #{record.isInvoice,jdbcType=BIT},
+		invoice_id =
+		#{record.invoiceId,jdbcType=BIGINT},
+		is_delete = #{record.isDelete,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.TbOrder">
+		update tb_order
+		<set>
+			<if test="buyerId != null">
+				buyer_id = #{buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="payment != null">
+				payment = #{payment,jdbcType=DECIMAL},
+			</if>
+			<if test="shippingType != null">
+				shipping_type = #{shippingType,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="checkPaymentTime != null">
+				check_payment_time = #{checkPaymentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deliveryTime != null">
+				delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consignTime != null">
+				consign_time = #{consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				close_time = #{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shippingName != null">
+				shipping_name = #{shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingCode != null">
+				shipping_code = #{shippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cancleReason != null">
+				cancle_reason = #{cancleReason,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerMessage != null">
+				buyer_message = #{buyerMessage,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerNick != null">
+				buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="isShipping != null">
+				is_shipping = #{isShipping,jdbcType=BIT},
+			</if>
+			<if test="orderShippingId != null">
+				order_shipping_id = #{orderShippingId,jdbcType=BIGINT},
+			</if>
+			<if test="isInvoice != null">
+				is_invoice = #{isInvoice,jdbcType=BIT},
+			</if>
+			<if test="invoiceId != null">
+				invoice_id = #{invoiceId,jdbcType=BIGINT},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.TbOrder">
+		update tb_order
+		set buyer_id = #{buyerId,jdbcType=VARCHAR},
+		payment
+		= #{payment,jdbcType=DECIMAL},
+		shipping_type = #{shippingType,jdbcType=TINYINT},
+		status = #{status,jdbcType=TINYINT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		check_payment_time =
+		#{checkPaymentTime,jdbcType=TIMESTAMP},
+		delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+		consign_time =
+		#{consignTime,jdbcType=TIMESTAMP},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		close_time =
+		#{closeTime,jdbcType=TIMESTAMP},
+		shipping_name = #{shippingName,jdbcType=VARCHAR},
+		shipping_code =
+		#{shippingCode,jdbcType=VARCHAR},
+		cancle_reason = #{cancleReason,jdbcType=VARCHAR},
+		buyer_message =
+		#{buyerMessage,jdbcType=VARCHAR},
+		buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+		is_shipping = #{isShipping,jdbcType=BIT},
+		order_shipping_id = #{orderShippingId,jdbcType=BIGINT},
+		is_invoice = #{isInvoice,jdbcType=BIT},
+		invoice_id =
+		#{invoiceId,jdbcType=BIGINT},
+		is_delete = #{isDelete,jdbcType=BIT}
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+	<sql id="Example_By_Status">
+		<choose>
+			<when test="status==5">
+				AND `status` &gt;=3 AND `status` &lt;=#{status}
+			</when>
+			<otherwise>
+				AND `status`=#{status}
+			</otherwise>
+		</choose>
+	</sql>
+	<select id="selectCountByStatus" parameterType="java.lang.Object" resultType="java.lang.Long">
+		SELECT COUNT(0) FROM tb_order WHERE
+		is_delete=false AND buyer_id=#{buyerId}
+		<include refid="Example_By_Status" />
+	</select>
+	<resultMap type="com.honpe.pojo.ext.OrderExt" id="OrderExtResultMap" extends="BaseResultMap">
+		<collection property="orderItems" ofType="com.honpe.po.OrderItem">
+			<id column="id" property="id" jdbcType="BIGINT" />
+			<result column="item_id" property="itemId" jdbcType="VARCHAR" />
+			<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+			<result column="inquiry_id" property="inquiryId" jdbcType="VARCHAR" />
+			<result column="number" property="number" jdbcType="INTEGER" />
+			<result column="code" property="code" jdbcType="VARCHAR" />
+			<result column="title" property="title" jdbcType="VARCHAR" />
+			<result column="price" property="price" jdbcType="DECIMAL" />
+			<result column="total_fee" property="totalFee" jdbcType="DECIMAL" />
+			<result column="pic_path" property="picPath" jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+	<select id="selectByConditions" parameterType="java.lang.Object" resultMap="OrderExtResultMap">
+		SELECT * FROM tb_order INNER JOIN order_item ON tb_order.order_id=order_item.order_id AND
+		tb_order.is_delete=false
+		<if test="search!=null and search!=''">
+			AND (tb_order.order_id LIKE '%${search}%' OR order_item.title LIKE '%${search}%')
+		</if>
+		<if test="buyerId!=null and buyerId!=''">
+			AND tb_order.buyer_id=#{buyerId}
+		</if>
+		<if test="beginTime!=null">
+			AND tb_order.end_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null">
+			AND tb_order.end_time &lt;= #{endTime}
+		</if>
+		<if test="status!=null">
+			<include refid="Example_By_Status" />
+		</if>
+	</select>
+</mapper>

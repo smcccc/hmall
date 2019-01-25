@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.InvoiceInfoMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.InvoiceInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="acc_id" property="accId" jdbcType="VARCHAR" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+		<result column="invoice_rise" property="invoiceRise" jdbcType="VARCHAR" />
+		<result column="tax" property="tax" jdbcType="VARCHAR" />
+		<result column="check_taker" property="checkTaker" jdbcType="VARCHAR" />
+		<result column="taker_phone" property="takerPhone" jdbcType="VARCHAR" />
+		<result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
+		<result column="receive_address_detail" property="receiveAddressDetail" jdbcType="VARCHAR" />
+		<result column="is_default" property="isDefault" jdbcType="BIT" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, acc_id, company_name, invoice_rise, tax, check_taker, taker_phone, receive_address,
+		receive_address_detail, is_default, is_delete
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.InvoiceInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from invoice_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from invoice_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from invoice_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.InvoiceInfoExample">
+		delete from invoice_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.InvoiceInfo">
+		insert into invoice_info (id, acc_id, company_name,
+		invoice_rise, tax, check_taker,
+		taker_phone, receive_address, receive_address_detail,
+		is_default, is_delete)
+		values (#{id,jdbcType=BIGINT}, #{accId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
+		#{invoiceRise,jdbcType=VARCHAR}, #{tax,jdbcType=VARCHAR}, #{checkTaker,jdbcType=VARCHAR},
+		#{takerPhone,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, #{receiveAddressDetail,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=BIT}, #{isDelete,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.InvoiceInfo">
+		insert into invoice_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="accId != null">
+				acc_id,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="invoiceRise != null">
+				invoice_rise,
+			</if>
+			<if test="tax != null">
+				tax,
+			</if>
+			<if test="checkTaker != null">
+				check_taker,
+			</if>
+			<if test="takerPhone != null">
+				taker_phone,
+			</if>
+			<if test="receiveAddress != null">
+				receive_address,
+			</if>
+			<if test="receiveAddressDetail != null">
+				receive_address_detail,
+			</if>
+			<if test="isDefault != null">
+				is_default,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="accId != null">
+				#{accId,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				#{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceRise != null">
+				#{invoiceRise,jdbcType=VARCHAR},
+			</if>
+			<if test="tax != null">
+				#{tax,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTaker != null">
+				#{checkTaker,jdbcType=VARCHAR},
+			</if>
+			<if test="takerPhone != null">
+				#{takerPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveAddress != null">
+				#{receiveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveAddressDetail != null">
+				#{receiveAddressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=BIT},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.InvoiceInfoExample" resultType="java.lang.Integer">
+		select count(*) from invoice_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update invoice_info
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.accId != null">
+				acc_id = #{record.accId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.companyName != null">
+				company_name = #{record.companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.invoiceRise != null">
+				invoice_rise = #{record.invoiceRise,jdbcType=VARCHAR},
+			</if>
+			<if test="record.tax != null">
+				tax = #{record.tax,jdbcType=VARCHAR},
+			</if>
+			<if test="record.checkTaker != null">
+				check_taker = #{record.checkTaker,jdbcType=VARCHAR},
+			</if>
+			<if test="record.takerPhone != null">
+				taker_phone = #{record.takerPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.receiveAddress != null">
+				receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="record.receiveAddressDetail != null">
+				receive_address_detail = #{record.receiveAddressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isDefault != null">
+				is_default = #{record.isDefault,jdbcType=BIT},
+			</if>
+			<if test="record.isDelete != null">
+				is_delete = #{record.isDelete,jdbcType=BIT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update invoice_info
+		set id = #{record.id,jdbcType=BIGINT},
+		acc_id = #{record.accId,jdbcType=VARCHAR},
+		company_name = #{record.companyName,jdbcType=VARCHAR},
+		invoice_rise = #{record.invoiceRise,jdbcType=VARCHAR},
+		tax = #{record.tax,jdbcType=VARCHAR},
+		check_taker = #{record.checkTaker,jdbcType=VARCHAR},
+		taker_phone = #{record.takerPhone,jdbcType=VARCHAR},
+		receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+		receive_address_detail = #{record.receiveAddressDetail,jdbcType=VARCHAR},
+		is_default = #{record.isDefault,jdbcType=BIT},
+		is_delete = #{record.isDelete,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.InvoiceInfo">
+		update invoice_info
+		<set>
+			<if test="accId != null">
+				acc_id = #{accId,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				company_name = #{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceRise != null">
+				invoice_rise = #{invoiceRise,jdbcType=VARCHAR},
+			</if>
+			<if test="tax != null">
+				tax = #{tax,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTaker != null">
+				check_taker = #{checkTaker,jdbcType=VARCHAR},
+			</if>
+			<if test="takerPhone != null">
+				taker_phone = #{takerPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveAddress != null">
+				receive_address = #{receiveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveAddressDetail != null">
+				receive_address_detail = #{receiveAddressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault,jdbcType=BIT},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.InvoiceInfo">
+		update invoice_info
+		set acc_id = #{accId,jdbcType=VARCHAR},
+		company_name = #{companyName,jdbcType=VARCHAR},
+		invoice_rise = #{invoiceRise,jdbcType=VARCHAR},
+		tax = #{tax,jdbcType=VARCHAR},
+		check_taker = #{checkTaker,jdbcType=VARCHAR},
+		taker_phone = #{takerPhone,jdbcType=VARCHAR},
+		receive_address = #{receiveAddress,jdbcType=VARCHAR},
+		receive_address_detail = #{receiveAddressDetail,jdbcType=VARCHAR},
+		is_default = #{isDefault,jdbcType=BIT},
+		is_delete = #{isDelete,jdbcType=BIT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectCountByAccId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(0) FROM invoice_info
+		WHERE acc_id=#{accId} AND is_delete=false;
+	</select>
+</mapper>

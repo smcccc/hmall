@@ -1,0 +1,33 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
+		overflowToDisk="true" maxElementsOnDisk="10000000" diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<!-- password retry cache -->
+	<cache name="passwordRetryCache" maxEntriesLocalHeap="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- login times cache -->
+	<cache name="loginTimesCache" maxEntriesLocalHeap="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- permission cache -->
+	<cache name="authorizationCache" maxEntriesLocalHeap="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- auth cache -->
+	<cache name="authenticationCache" maxEntriesLocalHeap="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- session cache -->
+	<cache name="shiro-activeSessionCache" maxEntriesLocalHeap="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
+	</cache>
+
+</ehcache>

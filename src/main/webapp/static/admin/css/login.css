@@ -1,0 +1,36 @@
+body {
+	padding-bottom: 20px;
+}
+
+.has-error .control-label {
+	color: #ed5565;
+}
+
+#error {
+	display: none;
+}
+
+.bg {
+	padding: 120px 0;
+	background-color: #4a2f68;
+}
+
+.error {
+	color: #ed5565;
+}
+
+.captcha-wrap input[type=text] {
+	width: 55%;
+	display: inline-block;
+}
+
+.captcha-wrap img {
+	float: right;
+	vertical-align: baseline;
+	cursor: pointer;
+}
+
+.title {
+	font-size: 32px;
+	line-height: 2em;
+}

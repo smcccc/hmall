@@ -1,0 +1,37 @@
+.main {
+  width: 1200px;
+  margin: 15px auto 35px auto;
+}
+.nav {
+  width: 232px;
+  border: 1px solid #DEDEDE;
+}
+.nav li {
+  font-size: 22px;
+}
+.nav li:first-of-type {
+  padding: 25px 0;
+  color: #FFF;
+  text-align: center;
+  background-color: #11aeff;
+}
+.nav li a {
+  padding: 25px 0;
+  display: block;
+  font-size: inherit;
+  text-align: center;
+  transition: all .3s;
+}
+.nav li a:hover {
+  text-decoration: none;
+  background-color: #d7edf8;
+}
+.nav .this a {
+  background-color: #d7edf8;
+  color: #11aeff;
+}
+.validate-error {
+  color: #FF1E00;
+  font-size: 12px;
+  margin-left: 125px;
+}

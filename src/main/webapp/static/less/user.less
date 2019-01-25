@@ -1,0 +1,248 @@
+@import "header.less";
+@import "footer.less";
+@import "common.less";
+.context {
+    width: 951px;
+    border: 1px solid #DEDEDE;
+    margin-left: 15px;
+    .info {
+        section {
+            h2 {
+                font-size: 22px;
+                text-align: center;
+                padding: 15px 0;
+                background-color: #d7edf8;
+                color: #014d7f;
+            }
+            p {
+                font-size: 16px;
+                line-height: 2em;
+                margin-left: 50px;
+                &:first-of-type {
+                    margin-top: 15px;
+                }
+            }
+            &>div {
+                padding: 15px 100px;
+            }
+            form {
+                margin-top: 25px;
+                &>ul>li:not(:last-of-type) {
+                    margin-bottom: 15px;
+                }
+            }
+            li {
+                &>div {
+                    padding: 5px 0;
+                    display: inline-block;
+                    input[type=radio] {
+                        width: 15px;
+                        height: 15px;
+                        vertical-align: sub;
+                    }
+                    label {
+                        margin-right: 10px;
+                        font-size: 15px;
+                    }
+                }
+                .chosen-select+.chosen-container {
+                    margin-top: 2px;
+                }
+                &>label {
+                    width: 90px;
+                    padding-right: 16px;
+                    margin-right: 15px;
+                    font-size: 15px;
+                    display: inline-block;
+                    vertical-align: top;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: right;
+                }
+                &>input[type=text],
+                &>textarea {
+                    width: 350px;
+                    padding: 5px 10px;
+                    outline: none;
+                    border: 1px solid #aaa;
+                    border-radius: 3px;
+                    margin-left: 4px;
+                    resize: vertical;
+                    font-size: 15px;
+                    &:focus {
+                        outline: 1px solid #11AEFF;
+                    }
+                }
+                textarea {
+                    vertical-align: top;
+                }
+                .img-warp {
+                    margin-left: 10px;
+                    display: inline-block;
+                    min-width: 120px;
+                    max-width: 350px;
+                    min-height: 120px;
+                    overflow: hidden;
+                    padding: 0;
+                    border: 2px dashed #DDD;
+                    position: relative;
+                    background: url(../icon/plus.png) no-repeat center center;
+                    img {
+                        width: 100%;
+                    }
+                    input[type=file] {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                    }
+                }
+                input[type=submit] {
+                    margin-left: 129px;
+                    font-size: 16px;
+                    border: none;
+                    outline: none;
+                    padding: 5px 10px;
+                    color: #FFF;
+                    background-color: #11a0ea;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    &:hover {
+                        background-color: #0d91d6;
+                    }
+                }
+                .align-top {
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+    .reset {
+        padding: 120px 0;
+        li {
+            margin-bottom: 25px;
+            margin-left: 25%;
+            p.validate-error {
+                margin-left: 135px;
+            }
+            label {
+                display: inline-block;
+                width: 120px;
+                font-size: 16px;
+                line-height: 34px;
+                text-align: right;
+                margin-right: 10px;
+                &:before {
+                    content: "*";
+                    color: #FF1E00;
+                    margin-right: 10px;
+                }
+                i {
+                    font-style: inherit;
+                    float: right;
+                }
+            }
+            div {
+                display: inline-block;
+                border: 1px solid #ccc;
+                padding: 4px 15px;
+                border-radius: 3px;
+                i {
+                    font-size: 16px;
+                    color: #888;
+                    &::after {
+                        content: "|";
+                        display: inline;
+                        font-size: 18px;
+                        margin-left: 12px;
+                    }
+                }
+                input {
+                    margin-left: 12px;
+                    border: none;
+                    outline: none;
+                    font-size: 16px;
+                    color: #888;
+                }
+            }
+            &:last-of-type {
+                padding-left: 135px;
+                input {
+                    border: none;
+                    outline: none;
+                    width: 255px;
+                    height: 34px;
+                    line-height: 34px;
+                    text-align: center;
+                    background-color: #0d89c9;
+                    font-size: 16px;
+                    color: #FFF;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #0c7bb4;
+                    }
+                }
+            }
+        }
+    }
+    .suggest {
+        padding: 25px;
+        li:last-of-type {
+            margin-top: 20px;
+            text-align: right;
+        }
+        label {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+        textarea {
+            width: 90%;
+            border-radius: 5px;
+            resize: vertical;
+            padding: 10px;
+            vertical-align: text-top;
+            font-size: 16px;
+            outline: none;
+            border-color: #aaa;
+            &:focus {
+                outline: 1px solid #11AEFF;
+            }
+        }
+        input[type=submit] {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            padding: 5px 25px;
+            background-color: #0d89c9;
+            border-radius: 3px;
+            color: #FFF;
+            margin-right: 5px;
+            cursor: pointer;
+            &:hover {
+                background-color: #0c7bb4;
+            }
+        }
+    }
+}
+
+.chosen-container-single {
+    .chosen-single {
+        border-radius: 3px;
+        span {
+            color: #333;
+        }
+        div b {
+            background-position: 0px 3px;
+        }
+    }
+    &.chosen-with-drop {
+        .chosen-single div b {
+            background-position: -18px 3px;
+        }
+    }
+}

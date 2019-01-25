@@ -1,0 +1,133 @@
+header {
+    .bottom {
+        &>div:first-child {
+            h2 {
+                display: inline-block;
+                font-size: 35px;
+                margin-left: 45px;
+                color: #4C4C4C;
+                font-family: inherit;
+                vertical-align: super;
+            }
+        }
+        &>.right {
+            ul {
+                padding-top: 0;
+            }
+            .timeline {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                .this {
+                    div {
+                        background-color: #c73844;
+                        &::after {
+                            background-color: #c73844;
+                        }
+                        &::before {
+                            background-color: #c73844;
+                        }
+                    }
+                    p {
+                        color: #c73844;
+                    }
+                }
+                .past {
+                    opacity: .65;
+                    filter: alpha(opacity=65);
+                }
+                li:first-of-type div::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 80px;
+                    height: 2px;
+                    right: -80px;
+                    top: 14px;
+                }
+                li:nth-of-type(2) {
+                    margin-left: 115px;
+                    margin-right: 65px;
+                    div {
+                        &::before {
+                            content: "";
+                            display: block;
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            left: -80px;
+                            top: 14px;
+                        }
+                        &::after {
+                            content: "";
+                            display: block;
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            right: -80px;
+                            top: 14px;
+                        }
+                    }
+                }
+                li:nth-of-type(3) {
+                    margin-left: 65px;
+                    margin-right: 65px;
+                    div {
+                        &::before {
+                            content: "";
+                            display: block;
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            left: -80px;
+                            top: 14px;
+                        }
+                        &::after {
+                            content: "";
+                            display: block;
+                            position: absolute;
+                            width: 80px;
+                            height: 2px;
+                            right: -80px;
+                            top: 14px;
+                        }
+                    }
+                }
+                li:last-of-type div::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 80px;
+                    height: 2px;
+                    left: -80px;
+                    top: 14px;
+                }
+                p {
+                    font-size: 14px;
+                    color: #DCDCDC;
+                }
+                div {
+                    position: relative;
+                    margin: 0 auto;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: #DCDCDC;
+                    text-align: center;
+                    margin-bottom: 5px;
+                    &::after {
+                        background-color: #DCDCDC;
+                    }
+                    &::before {
+                        background-color: #DCDCDC;
+                    }
+                    img {
+                        vertical-align: bottom;
+                        margin-top: 6px;
+                    }
+                }
+            }
+        }
+    }
+}

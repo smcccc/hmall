@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.SysPermMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.SysPerm">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="type_id" property="typeId" jdbcType="INTEGER" />
+		<result column="permissions" property="permissions" jdbcType="VARCHAR" />
+		<result column="permissions_name" property="permissionsName" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="creater" property="creater" jdbcType="VARCHAR" />
+		<result column="editor" property="editor" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, type_id, permissions, permissions_name, remark, create_time, edit_time, status,
+		creater, editor
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.SysPermExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_perm
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_perm
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_perm
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.SysPermExample">
+		delete from sys_perm
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.SysPerm">
+		insert into sys_perm (id, type_id, permissions,
+		permissions_name, remark,
+		create_time,
+		edit_time, status, creater,
+		editor)
+		values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER},
+		#{permissions,jdbcType=VARCHAR},
+		#{permissionsName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT},
+		#{creater,jdbcType=VARCHAR},
+		#{editor,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.SysPerm">
+		insert into sys_perm
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="permissions != null">
+				permissions,
+			</if>
+			<if test="permissionsName != null">
+				permissions_name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="editTime != null">
+				edit_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="permissions != null">
+				#{permissions,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionsName != null">
+				#{permissionsName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				#{editor,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.SysPermExample" resultType="java.lang.Integer">
+		select count(*) from sys_perm
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_perm
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.typeId != null">
+				type_id = #{record.typeId,jdbcType=INTEGER},
+			</if>
+			<if test="record.permissions != null">
+				permissions = #{record.permissions,jdbcType=VARCHAR},
+			</if>
+			<if test="record.permissionsName != null">
+				permissions_name = #{record.permissionsName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.remark != null">
+				remark = #{record.remark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.editTime != null">
+				edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=TINYINT},
+			</if>
+			<if test="record.creater != null">
+				creater = #{record.creater,jdbcType=VARCHAR},
+			</if>
+			<if test="record.editor != null">
+				editor = #{record.editor,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_perm
+		set id = #{record.id,jdbcType=INTEGER},
+		type_id = #{record.typeId,jdbcType=INTEGER},
+		permissions =
+		#{record.permissions,jdbcType=VARCHAR},
+		permissions_name = #{record.permissionsName,jdbcType=VARCHAR},
+		remark =
+		#{record.remark,jdbcType=VARCHAR},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP},
+		edit_time =
+		#{record.editTime,jdbcType=TIMESTAMP},
+		status = #{record.status,jdbcType=TINYINT},
+		creater =
+		#{record.creater,jdbcType=VARCHAR},
+		editor = #{record.editor,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.SysPerm">
+		update sys_perm
+		<set>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="permissions != null">
+				permissions = #{permissions,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionsName != null">
+				permissions_name = #{permissionsName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editTime != null">
+				edit_time = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.SysPerm">
+		update sys_perm
+		set type_id = #{typeId,jdbcType=INTEGER},
+		permissions = #{permissions,jdbcType=VARCHAR},
+		permissions_name = #{permissionsName,jdbcType=VARCHAR},
+		remark =
+		#{remark,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		edit_time = #{editTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT},
+		creater = #{creater,jdbcType=VARCHAR},
+		editor = #{editor,jdbcType=VARCHAR}
+		where id
+		= #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByRoleId" resultType="java.lang.String" parameterType="java.lang.Object">
+		SELECT DISTINCT sys_perm.permissions
+		FROM sys_perm,sys_role_perm WHERE sys_perm.id=sys_role_perm.perm_id AND sys_role_perm.role_id = #{roleId}
+	</select>
+	<resultMap id="PermExtResultMap" type="com.honpe.pojo.ext.PermExt" extends="BaseResultMap">
+		<result column="type_name" property="typeName" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectByTypeIdAndPermissionName" parameterType="java.lang.Object" resultMap="PermExtResultMap">
+		SELECT sys_perm.*,sys_perm_type.type_name FROM sys_perm INNER JOIN sys_perm_type ON sys_perm.type_id =
+		sys_perm_type.type_id
+		<if test="typeId!=null">
+			AND sys_perm.type_id=#{typeId}
+		</if>
+		<if test="permName!=null and permName!=''">
+			AND sys_perm.permissions_name LIKE '%${permName}%'
+		</if>
+		ORDER BY id
+	</select>
+</mapper>

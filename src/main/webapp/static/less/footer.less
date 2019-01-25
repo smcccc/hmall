@@ -1,0 +1,76 @@
+footer {
+    overflow: hidden;
+    .top {
+        background: #c63944;
+        overflow: hidden;
+        .warp {
+            width: 1200px;
+            padding: 40px 0;
+            margin: 0 auto;
+            &>div:first-child {
+                width: 470px;
+                padding: 0 22px;
+                display: flex;
+                div {
+                    flex: 1;
+                    padding-top: 10px;
+                    ul {
+                        margin-top: 50px;
+                        li {
+                            margin-bottom: 25px;
+                            a {
+                                color: #FFF;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+            &>div:nth-child(2) {
+                border-left: 1px solid #FFF;
+                border-right: 1px solid #FFF;
+                width: 378px;
+                text-align: center;
+                color: #FFF;
+                p:first-of-type {
+                    font-size: 30px;
+                    margin-top: 64px;
+                }
+                p:nth-of-type(2) {
+                    font-size: 16px;
+                    margin-top: 34px;
+                }
+                p:last-of-type {
+                    font-size: 14px;
+                    margin-top: 15px;
+                    margin-bottom: 60px;
+                }
+            }
+            &>div:last-child {
+                figure {
+                    margin-top: 65px;
+                    margin-left: 80px;
+                    img {
+                        width: 96px;
+                        height: 96px;
+                    }
+                    figcaption {
+                        color: #FFF;
+                        margin-top: 20px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    .bottom {
+        background-color: #2F4056;
+        color: #FFF;
+        text-align: center;
+        font-size: 16px;
+        padding: 12px 0;
+        span {
+            margin-right: 80px;
+        }
+    }
+}

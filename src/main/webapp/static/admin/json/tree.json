@@ -1,0 +1,37 @@
+[
+	{
+		"id": "1",
+		"text": "CRM管理",
+		"state": {
+			"opened": true,
+			"disabled": true
+		},
+		"children": [
+			{
+				"id": "11",
+				"text": "用户统计图",
+				"children": [
+					{
+						"id": "111",
+						"text": "查看",
+						"state": {
+							"selected": true
+						}
+					}
+				]
+			}, {
+				"id": "12",
+				"text": "潜在用户",
+				"children": [
+					{
+						"id": "121",
+						"text": "指派业务员"
+					}, {
+						"id": "122",
+						"text": "发送邮件"
+					}
+				]
+			}
+		]
+	}
+]

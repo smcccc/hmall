@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="pifuzhuti" unicode="&#59677;" d="M768 508v-475.2c0-17.6-14.4-32-32-32H288c-17.6 0-32 14.4-32 32V505.6l-72.8-40c-8-4-17.6-1.6-21.6 6.4L72 628c-4.8 8-1.6 17.6 6.4 21.6l216 117.6h46.4c6.4 0 12.8-4 15.2-10.4 19.2-51.2 82.4-89.6 156.8-89.6 75.2 0 137.6 37.6 156.8 89.6 2.4 6.4 8 10.4 15.2 10.4h46.4l214.4-117.6c8-4 10.4-14.4 5.6-21.6l-88-156c-4-8-14.4-10.4-21.6-5.6L768 508z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

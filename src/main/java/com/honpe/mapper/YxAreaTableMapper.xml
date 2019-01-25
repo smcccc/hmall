@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.YxAreaTableMapper" >
+  <resultMap id="BaseResultMap" type="com.honpe.po.YxAreaTable" >
+    <id column="YAT_ID" property="yatId" jdbcType="INTEGER" />
+    <result column="YAT_PARENT_ID" property="yatParentId" jdbcType="INTEGER" />
+    <result column="YAT_PATH" property="yatPath" jdbcType="VARCHAR" />
+    <result column="YAT_LEVEL" property="yatLevel" jdbcType="INTEGER" />
+    <result column="YAT_CNNAME" property="yatCnname" jdbcType="VARCHAR" />
+    <result column="YAT_ENNAME" property="yatEnname" jdbcType="VARCHAR" />
+    <result column="YAT_CNPINYIN" property="yatCnpinyin" jdbcType="VARCHAR" />
+    <result column="YAT_CODE" property="yatCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    YAT_ID, YAT_PARENT_ID, YAT_PATH, YAT_LEVEL, YAT_CNNAME, YAT_ENNAME, YAT_CNPINYIN, 
+    YAT_CODE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.YxAreaTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yx_area_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yx_area_table
+    where YAT_ID = #{yatId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yx_area_table
+    where YAT_ID = #{yatId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.honpe.po.YxAreaTableExample" >
+    delete from yx_area_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.honpe.po.YxAreaTable" >
+    insert into yx_area_table (YAT_ID, YAT_PARENT_ID, YAT_PATH, 
+      YAT_LEVEL, YAT_CNNAME, YAT_ENNAME, 
+      YAT_CNPINYIN, YAT_CODE)
+    values (#{yatId,jdbcType=INTEGER}, #{yatParentId,jdbcType=INTEGER}, #{yatPath,jdbcType=VARCHAR}, 
+      #{yatLevel,jdbcType=INTEGER}, #{yatCnname,jdbcType=VARCHAR}, #{yatEnname,jdbcType=VARCHAR}, 
+      #{yatCnpinyin,jdbcType=VARCHAR}, #{yatCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.honpe.po.YxAreaTable" >
+    insert into yx_area_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yatId != null" >
+        YAT_ID,
+      </if>
+      <if test="yatParentId != null" >
+        YAT_PARENT_ID,
+      </if>
+      <if test="yatPath != null" >
+        YAT_PATH,
+      </if>
+      <if test="yatLevel != null" >
+        YAT_LEVEL,
+      </if>
+      <if test="yatCnname != null" >
+        YAT_CNNAME,
+      </if>
+      <if test="yatEnname != null" >
+        YAT_ENNAME,
+      </if>
+      <if test="yatCnpinyin != null" >
+        YAT_CNPINYIN,
+      </if>
+      <if test="yatCode != null" >
+        YAT_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yatId != null" >
+        #{yatId,jdbcType=INTEGER},
+      </if>
+      <if test="yatParentId != null" >
+        #{yatParentId,jdbcType=INTEGER},
+      </if>
+      <if test="yatPath != null" >
+        #{yatPath,jdbcType=VARCHAR},
+      </if>
+      <if test="yatLevel != null" >
+        #{yatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="yatCnname != null" >
+        #{yatCnname,jdbcType=VARCHAR},
+      </if>
+      <if test="yatEnname != null" >
+        #{yatEnname,jdbcType=VARCHAR},
+      </if>
+      <if test="yatCnpinyin != null" >
+        #{yatCnpinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="yatCode != null" >
+        #{yatCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.honpe.po.YxAreaTableExample" resultType="java.lang.Integer" >
+    select count(*) from yx_area_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yx_area_table
+    <set >
+      <if test="record.yatId != null" >
+        YAT_ID = #{record.yatId,jdbcType=INTEGER},
+      </if>
+      <if test="record.yatParentId != null" >
+        YAT_PARENT_ID = #{record.yatParentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.yatPath != null" >
+        YAT_PATH = #{record.yatPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yatLevel != null" >
+        YAT_LEVEL = #{record.yatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.yatCnname != null" >
+        YAT_CNNAME = #{record.yatCnname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yatEnname != null" >
+        YAT_ENNAME = #{record.yatEnname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yatCnpinyin != null" >
+        YAT_CNPINYIN = #{record.yatCnpinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yatCode != null" >
+        YAT_CODE = #{record.yatCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yx_area_table
+    set YAT_ID = #{record.yatId,jdbcType=INTEGER},
+      YAT_PARENT_ID = #{record.yatParentId,jdbcType=INTEGER},
+      YAT_PATH = #{record.yatPath,jdbcType=VARCHAR},
+      YAT_LEVEL = #{record.yatLevel,jdbcType=INTEGER},
+      YAT_CNNAME = #{record.yatCnname,jdbcType=VARCHAR},
+      YAT_ENNAME = #{record.yatEnname,jdbcType=VARCHAR},
+      YAT_CNPINYIN = #{record.yatCnpinyin,jdbcType=VARCHAR},
+      YAT_CODE = #{record.yatCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.YxAreaTable" >
+    update yx_area_table
+    <set >
+      <if test="yatParentId != null" >
+        YAT_PARENT_ID = #{yatParentId,jdbcType=INTEGER},
+      </if>
+      <if test="yatPath != null" >
+        YAT_PATH = #{yatPath,jdbcType=VARCHAR},
+      </if>
+      <if test="yatLevel != null" >
+        YAT_LEVEL = #{yatLevel,jdbcType=INTEGER},
+      </if>
+      <if test="yatCnname != null" >
+        YAT_CNNAME = #{yatCnname,jdbcType=VARCHAR},
+      </if>
+      <if test="yatEnname != null" >
+        YAT_ENNAME = #{yatEnname,jdbcType=VARCHAR},
+      </if>
+      <if test="yatCnpinyin != null" >
+        YAT_CNPINYIN = #{yatCnpinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="yatCode != null" >
+        YAT_CODE = #{yatCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where YAT_ID = #{yatId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.honpe.po.YxAreaTable" >
+    update yx_area_table
+    set YAT_PARENT_ID = #{yatParentId,jdbcType=INTEGER},
+      YAT_PATH = #{yatPath,jdbcType=VARCHAR},
+      YAT_LEVEL = #{yatLevel,jdbcType=INTEGER},
+      YAT_CNNAME = #{yatCnname,jdbcType=VARCHAR},
+      YAT_ENNAME = #{yatEnname,jdbcType=VARCHAR},
+      YAT_CNPINYIN = #{yatCnpinyin,jdbcType=VARCHAR},
+      YAT_CODE = #{yatCode,jdbcType=VARCHAR}
+    where YAT_ID = #{yatId,jdbcType=INTEGER}
+  </update>
+</mapper>

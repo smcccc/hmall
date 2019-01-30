@@ -47,7 +47,7 @@
 						</div>
 						<div class="tools clearfix">
 							<div class="left">
-								<input type="search" name="title" placeholder="请输入询价单名称" autocomplete="off" value="${inquiryTitle}" /> <button id="search-btn">询价单搜索</button>
+								<input type="search" name="search" placeholder="请输入询价单号或询价单标题" autocomplete="off" value="${search}" /> <button id="search-btn">询价单搜索</button>
 							</div>
 							<div class="right">
 								<div class="select">

@@ -15,7 +15,9 @@
 					</c:when>
 					<c:otherwise>
 						<div class="right links-me">
-							<a href="cart.html">我的购物车</a>
+							<a class="cart" href="${baseUrl}/shipping/cart/list"><span>购物车</span><img src="${baseUrl}/static/icon/cart_03.png" />
+								<div><span class="animated ${sessionScope.CART_NUM==0|| empty sessionScope.CART_NUM?'':'has'}">${empty sessionScope.CART_NUM?0:sessionScope.CART_NUM}</span></div>
+							</a>
 							<a href="${baseUrl}/user/info">${sessionScope.CUSTOMER.loginEmail}</a>
 							<div>
 								<img onclick="userMenutrigger()" src="${baseUrl}/static/icon/xia.svg" />

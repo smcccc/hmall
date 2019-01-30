@@ -125,7 +125,8 @@
 							<ul>
 								<li>
 									<label>报价截止日期</label>
-									<input id="endDate" type="text" name="endDate" autocomplete="off" value="<fmt:formatDate value="${inquiry.endDate}" pattern="yyyy-MM-dd"/>" />
+									<input id="endDate" type="text" name="endDate" autocomplete="off" value="<fmt:formatDate value='${inquiry.endDate}' pattern='yyyy-MM-dd'/>"
+									/>
 								</li>
 								<li id="buy">
 									<label for="">采购类型</label>

@@ -528,7 +528,9 @@
 		SELECT * FROM tb_order INNER JOIN order_item ON tb_order.order_id=order_item.order_id AND
 		tb_order.is_delete=false
 		<if test="search!=null and search!=''">
-			AND (tb_order.order_id LIKE '%${search}%' OR order_item.title LIKE '%${search}%')
+			AND tb_order.order_id in (SELECT tb_order.order_id FROM tb_order INNER JOIN order_item ON
+			tb_order.order_id=order_item.order_id AND (tb_order.order_id LIKE '%${search}%' OR order_item.title LIKE
+			'%${search}%'))
 		</if>
 		<if test="buyerId!=null and buyerId!=''">
 			AND tb_order.buyer_id=#{buyerId}
@@ -542,5 +544,6 @@
 		<if test="status!=null">
 			<include refid="Example_By_Status" />
 		</if>
+		ORDER BY create_time DESC
 	</select>
 </mapper>

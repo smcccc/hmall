@@ -44,25 +44,23 @@
                 margin-left: 22px;
                 transform-origin: center;
                 transform: rotateZ(-45deg);
-                transition: all .3s;
             }
             ul {
                 display: none;
                 li {
-                    padding: 25px 0 25px 65px;
-                    background-color: #FFF;
                     transition: all .3s;
-                    a:hover {
-                        text-decoration: none;
-                    }
-                    &:hover {
-                        background-color: #ebf6fb;
-                    }
-                }
-                .this {
-                    background-color: #d7edf8;
                     a {
+                        display: block;
+                        padding: 25px 0 25px 65px;
+                        background-color: #FFF;
+                        &:hover {
+                            text-decoration: none;
+                            background-color: #ebf6fb;
+                        }
+                    }
+                    &.this a {
                         color: #11aeff;
+                        background-color: #d7edf8;
                     }
                 }
             }

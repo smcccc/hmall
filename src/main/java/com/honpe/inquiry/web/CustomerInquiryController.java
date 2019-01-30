@@ -72,16 +72,16 @@ public class CustomerInquiryController {
 
 	@GetMapping("/my/list")
 	@RequiredAuth
-	public String inquiryList(Byte status, @RequestParam(defaultValue = "1") Integer page, Integer days, String title,
+	public String inquiryList(Byte status, @RequestParam(defaultValue = "1") Integer page, Integer days, String search,
 			HttpServletRequest request) {
 		String customerId = getCustomer(request).getId();
 		long accept = inquiryService.findCountByCustomerId(customerId, (byte) InquiryEnum.STATUS_ACCEPT.status);
 		request.setAttribute("ACCEPT", accept);
 		PageInfo<InquiryExt> pageInfo = inquiryService.findCustomerInqiyrByCondition(page, customerId, status, days,
-				title);
+				search);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("days", days);
-		request.setAttribute("inquiryTitle", title);
+		request.setAttribute("search", search);
 		request.setAttribute("status", status);
 		return "inquiry-list";
 	}

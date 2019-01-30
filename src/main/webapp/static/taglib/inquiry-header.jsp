@@ -11,7 +11,7 @@
 			<div>
 				<form action="${baseUrl}/inquiry/my/list" method="get">
 					<div class="search">
-						<input type="search" name="title" placeholder="请输入询价单标题" autocomplete="off"/>
+						<input type="search" name="search" placeholder="请输入询价单号或询价单标题" autocomplete="off" />
 						<input type="submit" value="搜索" />
 					</div>
 				</form>

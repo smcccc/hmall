@@ -127,7 +127,7 @@ var totalPrice = function() {
 	var total = 0;
 	$('.body .count').each(function() {
 		var text = $(this).children('span').text();
-		var subtotal = Number.parseFloat(text).toFixed(2);
+		var subtotal = Number.parseFloat(text);
 		total += subtotal
 	})
 	total = Number.parseFloat(total).toFixed(2)

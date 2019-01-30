@@ -35,8 +35,8 @@ var changePage = function(page, days) {
 }
 
 $('#search-btn').on('click', function() {
-	var title = $(this).prev('input[name=title]').val();
-	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&title=' + title;
+	var search = $(this).prev('input[name=search]').val();
+	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&search=' + search;
 })
 $('.tools').on('change', 'select[name=days]', function() {
 	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&title=' + TITLE + '&days=' + $(this).val();

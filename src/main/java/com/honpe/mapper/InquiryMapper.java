@@ -37,5 +37,5 @@ public interface InquiryMapper {
 	long selectCountByCustomerIdAndStatus(@Param("customerId") String customerId, @Param("status") Byte status);
 
 	List<InquiryExt> selectInquiryByCondition(@Param("customerId") String customerId, @Param("status") Byte status,
-			@Param("days") Integer days, @Param("title") String title);
+			@Param("days") Integer days, @Param("search") String search);
 }

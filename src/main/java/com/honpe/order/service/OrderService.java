@@ -29,6 +29,10 @@ public interface OrderService {
 			Date endTime, Byte status);
 
 	Map<String, Long> getStatusCount(String buyerId);
+
+	void deleteOrder(String orderId, String buyerId);
+
+	void addMessage(String orderId, String buyerMessage);
 	
-	void deleteOrder(String orderId,String buyerId);
+	List<DictInfo> findAllOrderStatus();
 }

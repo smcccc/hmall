@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.OrderDiscountMapper" >
+  <resultMap id="BaseResultMap" type="com.honpe.po.OrderDiscount" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="linkphone" property="linkphone" jdbcType="VARCHAR" />
+    <result column="discount_payment" property="discountPayment" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="discount_reason" property="discountReason" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="salesman_id" property="salesmanId" jdbcType="INTEGER" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, buyer_id, linkman, linkphone, discount_payment, status, discount_reason, 
+    apply_time, check_time, salesman_id, refuse_reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.OrderDiscountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_discount
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_discount
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.honpe.po.OrderDiscountExample" >
+    delete from order_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.honpe.po.OrderDiscount" >
+    insert into order_discount (order_id, buyer_id, linkman, 
+      linkphone, discount_payment, status, 
+      discount_reason, apply_time, check_time, 
+      salesman_id, refuse_reason)
+    values (#{orderId,jdbcType=VARCHAR}, #{buyerId,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
+      #{linkphone,jdbcType=VARCHAR}, #{discountPayment,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
+      #{discountReason,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, 
+      #{salesmanId,jdbcType=INTEGER}, #{refuseReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.honpe.po.OrderDiscount" >
+    insert into order_discount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="linkphone != null" >
+        linkphone,
+      </if>
+      <if test="discountPayment != null" >
+        discount_payment,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="discountReason != null" >
+        discount_reason,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="salesmanId != null" >
+        salesman_id,
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkphone != null" >
+        #{linkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="discountPayment != null" >
+        #{discountPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="discountReason != null" >
+        #{discountReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesmanId != null" >
+        #{salesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.honpe.po.OrderDiscountExample" resultType="java.lang.Integer" >
+    select count(*) from order_discount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_discount
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerId != null" >
+        buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkphone != null" >
+        linkphone = #{record.linkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discountPayment != null" >
+        discount_payment = #{record.discountPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.discountReason != null" >
+        discount_reason = #{record.discountReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyTime != null" >
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkTime != null" >
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.salesmanId != null" >
+        salesman_id = #{record.salesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="record.refuseReason != null" >
+        refuse_reason = #{record.refuseReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_discount
+    set order_id = #{record.orderId,jdbcType=VARCHAR},
+      buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      linkphone = #{record.linkphone,jdbcType=VARCHAR},
+      discount_payment = #{record.discountPayment,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=TINYINT},
+      discount_reason = #{record.discountReason,jdbcType=VARCHAR},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      salesman_id = #{record.salesmanId,jdbcType=INTEGER},
+      refuse_reason = #{record.refuseReason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.OrderDiscount" >
+    update order_discount
+    <set >
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkphone != null" >
+        linkphone = #{linkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="discountPayment != null" >
+        discount_payment = #{discountPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="discountReason != null" >
+        discount_reason = #{discountReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesmanId != null" >
+        salesman_id = #{salesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.honpe.po.OrderDiscount" >
+    update order_discount
+    set buyer_id = #{buyerId,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linkphone = #{linkphone,jdbcType=VARCHAR},
+      discount_payment = #{discountPayment,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      discount_reason = #{discountReason,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      salesman_id = #{salesmanId,jdbcType=INTEGER},
+      refuse_reason = #{refuseReason,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

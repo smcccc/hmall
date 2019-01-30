@@ -15,6 +15,7 @@ import com.honpe.account.service.OrderShippingService;
 import com.honpe.constant.Constant;
 import com.honpe.mapper.DictInfoMapper;
 import com.honpe.mapper.FileInfoMapper;
+import com.honpe.mapper.OrderDiscountMapper;
 import com.honpe.mapper.OrderItemMapper;
 import com.honpe.mapper.OrderPaymentMapper;
 import com.honpe.mapper.TbOrderMapper;
@@ -22,6 +23,7 @@ import com.honpe.order.enums.OrderEnum;
 import com.honpe.order.service.OrderService;
 import com.honpe.po.DictInfo;
 import com.honpe.po.FileInfo;
+import com.honpe.po.OrderDiscount;
 import com.honpe.po.OrderItem;
 import com.honpe.po.OrderItemExample;
 import com.honpe.po.OrderPayment;
@@ -49,6 +51,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderShippingService orderShippingService;
 	@Autowired
 	private FileInfoMapper fileInfoMapper;
+	@Autowired
+	private OrderDiscountMapper orderDiscountMapper;
 
 	private final String idPrefix = "HD";
 
@@ -173,6 +177,7 @@ public class OrderServiceImpl implements OrderService {
 			Date beginTime, Date endTime, Byte status) {
 		PageHelper.startPage(page, ORDER_PAGE_SIZE);
 		List<OrderExt> orders = tbOrderMapper.selectByConditions(search, customerId, beginTime, endTime, status);
+		orders.forEach(item -> item.setOrderDiscount(orderDiscountMapper.selectByPrimaryKey(item.getOrderId())));
 		return new PageInfo<OrderExt>(orders);
 	}
 
@@ -198,5 +203,18 @@ public class OrderServiceImpl implements OrderService {
 		TbOrder tbOrder = new TbOrder();
 		tbOrder.setIsDelete(true);
 		tbOrderMapper.updateByExampleSelective(tbOrder, tbOrderExample);
+	}
+
+	@Override
+	public void addMessage(String orderId, String buyerMessage) {
+		TbOrder tbOrder = new TbOrder();
+		tbOrder.setOrderId(orderId);
+		tbOrder.setBuyerMessage(buyerMessage);
+		tbOrderMapper.updateByPrimaryKeySelective(tbOrder);
+	}
+
+	@Override
+	public List<DictInfo> findAllOrderStatus() {
+		return dictInfoMapper.selectByTypeCode(Constant.OrderConst.ORDER_STATUS);
 	}
 }

@@ -28,7 +28,7 @@ public interface InquiryService {
 	List<InquiryExt> findInquiryByCustomerIdAndStatus(String customerId, Byte status);
 
 	PageInfo<InquiryExt> findCustomerInqiyrByCondition(Integer page, String customerId, Byte status, Integer days,
-			String title);
+			String search);
 
 	void revoceInquiry(Inquiry inquiry, String operator);
 

@@ -68,7 +68,15 @@
 						</p>
 					</div>
 					<div class="right">
-						<fmt:formatNumber value="${order.payment}" /> 元
+						<c:choose>
+							<c:when test="${!empty discount && discount.status==2}">
+								优惠价
+								<fmt:formatNumber value="${discount.discountPayment}" /> 元
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${order.payment}" /> 元
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

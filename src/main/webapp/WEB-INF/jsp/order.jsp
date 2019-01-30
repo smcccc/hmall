@@ -112,7 +112,15 @@
 							</div>
 						</div>
 						<div class="body">
-							<c:set var="payment" value="${empty orderItem?0:orderItem.buyNum*orderItem.finalPrice}"></c:set>
+							<c:choose>
+								<c:when test="${!empty orderItem}">
+									<c:set var="payment" value="${empty orderItem?0:orderItem.buyNum*orderItem.finalPrice}"></c:set>
+								</c:when>
+								<c:otherwise>
+									<c:set var="payment" value="0"></c:set>
+								</c:otherwise>
+							</c:choose>
+
 							<c:choose>
 								<c:when test="${!empty orderItem}">
 									<div class="row" data-id="201811171245">
@@ -143,29 +151,30 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${orderItems}" var="item" varStatus="vs">
+										<c:set var="payment" value="${payment+item.inquiryMateriel.finalPrice*item.number}"></c:set>
 										<div class="row">
-											<input form="orderForm" type="hidden" name="items[${vs.index}].itemId" value="${item.id}" />
-											<input form="orderForm" type="hidden" name="items[${vs.index}].inquiryId" value="${orderItem.inquiryId}" />
-											<input form="orderForm" type="hidden" name="items[${vs.index}].code" value="${item.code}" />
-											<input form="orderForm" type="hidden" name="items[${vs.index}].title" value="${item.name}" />
-											<input form="orderForm" type="hidden" name="items[${vs.index}].price" value="${item.finalPrice}" />
+											<input form="orderForm" type="hidden" name="items[${vs.index}].itemId" value="${item.itemId}" />
+											<input form="orderForm" type="hidden" name="items[${vs.index}].inquiryId" value="${item.inquiryMateriel.inquiryId}" />
+											<input form="orderForm" type="hidden" name="items[${vs.index}].code" value="${item.inquiryMateriel.code}" />
+											<input form="orderForm" type="hidden" name="items[${vs.index}].title" value="${item.inquiryMateriel.name}" />
+											<input form="orderForm" type="hidden" name="items[${vs.index}].price" value="${item.inquiryMateriel.finalPrice}" />
 											<div class="col">
-												<a title="点击查看详情" href="${baseUrl}/inquiry/offer?id=${orderItem.id}">${item.code}</a>
+												<a title="点击查看详情" href="${baseUrl}/inquiry/offer?id=${item.inquiryMateriel.inquiryId}">${item.inquiryMateriel.code}</a>
 											</div>
 											<div class="col">
-												${item.code}
+												${item.inquiryMateriel.code}
 											</div>
 											<div class="col price">
-												&yen; <span>${item.finalPrice}</span>
+												&yen; <span>${item.inquiryMateriel.finalPrice}</span>
 											</div>
 											<div class="col">
 												<div class="num">
-													<span class="disabled" disabled="disabled">-</span><input min="${item.buyNum}" name="items[${vs.index}].number"
-													 type="number" form="orderForm" name="number" value="${item.buyNum}" /><span>+</span>
+													<span class="disabled">-</span><input min="${item.inquiryMateriel.buyNum}" name="items[${vs.index}].number"
+													 type="number" form="orderForm" name="number" value="${item.number}" /><span>+</span>
 												</div>
 											</div>
 											<div class="col count">
-												&yen; <span>${item.buyNum*item.finalPrice}</span>
+												&yen; <span>${item.number*item.inquiryMateriel.finalPrice}</span>
 											</div>
 										</div>
 									</c:forEach>

@@ -142,10 +142,10 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public PageInfo<InquiryExt> findCustomerInqiyrByCondition(Integer page, String customerId, Byte status,
-			Integer days, String title) {
+			Integer days, String search) {
 		overInquiry();
 		PageHelper.startPage(page, LIST_PAGE_SIZE);
-		List<InquiryExt> inquiries = inquiryMapper.selectInquiryByCondition(customerId, status, days, title);
+		List<InquiryExt> inquiries = inquiryMapper.selectInquiryByCondition(customerId, status, days, search);
 		if (inquiries != null && inquiries.size() > 0) {
 			for (InquiryExt inquiry : inquiries) {
 				inquiry.setStatusInfo(InquiryEnum.getInstance(inquiry.getStatus()).statusInfo);

@@ -61,29 +61,28 @@
 								<div class="left">
 									<input type="search" form="searchForm" name="search" placeholder="请输入订单编号或商品标题" autocomplete="off" value="${search}" />
 									<button id="search-btn">订单搜索</button>
-									<a href="javascript:;" onclick="moreCondition()">更多筛选条件
+									<a <c:if test="${isOpen}">class="up"</c:if> href="javascript:;" onclick="moreCondition()">更多筛选条件
 										<i class="icon iconfont">&#xe607;</i>
 									</a>
 								</div>
 							</div>
-							<div class="condition">
+							<div class="condition" <c:if test="${isOpen}">style="display: block;"</c:if> >
 								<form id="searchForm" action="${baseUrl}/order/my/list" method="get">
 									<input type="hidden" name="page" />
 									<div class="wrap">
 										<label>成交时间</label>
-										<input id="beginDate" type="text" name="beginDate" autocomplete="off" value="<fmt:formatDate value="${beginDate}" pattern="yyyy-MM-dd"/>" /> - <input id="endDate" type="text" name="endDate" value="<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd"/>" autocomplete="off" />
+										<input id="beginDate" type="text" name="beginDate" autocomplete="off" value="<fmt:formatDate value='${beginDate}' pattern='yyyy-MM-dd'/>"
+										/> - <input id="endDate" type="text" name="endDate" value="<fmt:formatDate value='${endDate}' pattern='yyyy-MM-dd' />"
+										 autocomplete="off" />
 									</div>
 									<div class="wrap">
 										<label>交易状态</label>
 										<div class="select">
 											<select name="status">
 												<option value="">全部</option>
-												<option <c:if test="${status==0}">selected="selected"</c:if> value="0">等待买家付款</option>
-												<option <c:if test="${status==1}">selected="selected"</c:if> value="1">付款确认中</option>
-												<option <c:if test="${status==2}">selected="selected"</c:if> value="2">买家已付款</option>
-												<option <c:if test="${status==6}">selected="selected"</c:if> value="6">卖家已发货</option>
-												<option <c:if test="${status==7}">selected="selected"</c:if> value="7">交易成功</option>
-												<option <c:if test="${status==8}">selected="selected"</c:if> value="8">交易关闭</option>
+												<c:forEach items="${orderStatus}" var="item">
+													<option <c:if test="${status==item.dictCode}">selected="selected"</c:if> value="${item.dictCode}">${item.info}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -122,7 +121,7 @@
 										<c:forEach items="${pageInfo.list}" var="item">
 											<div class="item">
 												<div>
-													<time>下单时间：<fmt:formatDate value="${item.createTime}" type="date"/> </time><span>询价单号：${item.orderId}</span>
+													<time>下单时间：<fmt:formatDate value="${item.createTime}" type="date"/> </time><span>订单编号：${item.orderId}</span>
 													<c:if test="${item.status==8}">
 														<a href="javascript:;" onclick="delOrder('${item.orderId}')"><i class="icon iconfont">&#xe606;</i> </a>
 													</c:if>
@@ -134,8 +133,10 @@
 																<div>
 																	<a href="//${orderItem.attach}" title="点击下载"><img src="${baseUrl}/static/icon/ysb.png" alt="" /></a>
 																	<div>
-																		<p>${orderItem.code}</p>
-																		<p>${orderItem.title}</p>
+																		<a href="${baseUrl}/inquiry/offer?id=${orderItem.inquiryId}">
+																			<p>${orderItem.code}</p>
+																			<p>${orderItem.title}</p>
+																		</a>
 																	</div>
 																</div>
 																<div>
@@ -148,7 +149,35 @@
 														</c:forEach>
 													</div>
 													<div>
-														<fmt:formatNumber value="${item.payment}" type="currency" />
+														<c:choose>
+															<c:when test="${empty item.orderDiscount}">
+																<p>
+																	<fmt:formatNumber value="${item.payment}" type="currency" />
+																</p>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${item.orderDiscount.status==2}">
+																		<del><fmt:formatNumber value="${item.payment}" type="currency" /></del>
+																		<p>优惠价
+																			<fmt:formatNumber value="${item.orderDiscount.discountPayment}" type="currency" />
+																		</p>
+																	</c:when>
+																	<c:when test="${item.orderDiscount.status==1}">
+																		<p>
+																			<fmt:formatNumber value="${item.payment}" type="currency" />
+																		</p>
+																		<p>申请优惠已拒绝</p>
+																	</c:when>
+																	<c:otherwise>
+																		<p>
+																			<fmt:formatNumber value="${item.payment}" type="currency" />
+																		</p>
+																		<p>申请优惠审核中...</p>
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
 													</div>
 													<div>
 														<c:choose>
@@ -177,6 +206,9 @@
 													<div>
 														<c:if test="${item.status==0}">
 															<a href="${basUrl}/order/topayment?orderId=${item.orderId}">立即付款</a>
+															<c:if test="${empty item.orderDiscount}">
+																<a href="javascript:;" onclick="discount('${item.orderId}')">申请优惠</a>
+															</c:if>
 															<a href="javascript:;" onclick="cancelOrder('${item.orderId}')">取消订单</a>
 														</c:if>
 													</div>
@@ -210,9 +242,34 @@
 				请选择关闭理由
 			</div>
 		</div>
+		<div class="discount" id="discount">
+			<div class="tips">
+				<img src="${baseUrl}/static/icon/gantanhao.svg" />
+				<div>单个订单申请一次，申请完成后，我们将会有业务员电话联系您，请保持电话畅通，如果申请审核通过，订单总价将以新的优惠价格为准，已经支付的或者完成的订单不可以申请优惠。</div>
+			</div>
+			<div>
+				<p>填写申请信息</p>
+				<form>
+					<input type="hidden" name="orderId" />
+					<div>
+						<label>联系人</label>
+						<input type="text" name="linkman" placeholder="填写申请优惠联系人称呼" />
+					</div>
+					<div>
+						<label>联系电话</label>
+						<input type="text" name="linkphone" placeholder="电话号码、手机号必须填写一项" />
+					</div>
+					<div><label>申请优惠原因</label>
+						<textarea name="discountReason" rows="3"></textarea>
+					</div>
+				</form>
+			</div>
+		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/order-list.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

@@ -213,7 +213,7 @@
 
 						</div>
 						<ul class="clear">
-							<c:forEach items="${news}" begin="1" end="5" var="item">
+							<c:forEach items="${news}" begin="1" end="6" var="item">
 								<li>
 									<a href="${baseUrl}/news/detail?id=${item.id}"><span>${item.title}</span> <time class="right"> <fmt:formatDate
 									value="${item.createTime}" type="date" /></time> </a>
@@ -246,7 +246,7 @@
 						<p>我的</p>
 						<p>购物车</p>
 					</div>
-					<a href="cart.html"><img src="${baseUrl}/static/icon/buy_car.jpg" /></a>
+					<a href="${baseUrl}/shipping/cart/list"><img src="${baseUrl}/static/icon/buy_car.jpg" /></a>
 				</li>
 				<li>
 					<div>

@@ -1,12 +1,14 @@
 package com.honpe.account.web;
 
-
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,17 +19,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.RequestContext;
 import com.honpe.account.service.AccountService;
 import com.honpe.po.Account;
+import com.honpe.pojo.dto.CartDto;
 import com.honpe.pojo.vo.Result;
 import com.honpe.utils.CodeHelper;
 import com.honpe.utils.EncryptUtils;
+import com.honpe.utils.JsonUtils;
 import com.honpe.utils.PasswordHelper;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 @Controller
 public class AccountAuthController {
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private CacheManager cacheManager;
+
 	@Value("${web.domain}")
 	private String domain;
+
+	private void inputShippingCartNumber(HttpSession session) {
+		Cache cartCache = cacheManager.getCache("shippingCartCache");
+		Element element = cartCache.get(((Account) session.getAttribute("CUSTOMER")).getId());
+		int cartNum = 0;
+		if (element != null) {
+			String cartjson = (String) element.getObjectValue();
+			if (StringUtils.isNoneBlank(cartjson)) {
+				List<CartDto> cart = JsonUtils.jsonToList(cartjson, CartDto.class);
+				if (cart != null)
+					cartNum = cart.size();
+			}
+		}
+		session.setAttribute("CART_NUM", cartNum);
+	}
 
 	@PostMapping("/login")
 	public @ResponseBody Result login(String loginEmail, String password, HttpServletRequest request) {
@@ -42,6 +68,7 @@ public class AccountAuthController {
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("CUSTOMER", account);
+		inputShippingCartNumber(session);
 		return new Result(200, null, null);
 	}
 
@@ -50,6 +77,7 @@ public class AccountAuthController {
 		session.invalidate();
 		return "redirect:/index";
 	}
+
 	@PostMapping("/regist")
 	public @ResponseBody Result regist(Account account, String companyName, String code, HttpServletRequest request)
 			throws Exception {
@@ -120,7 +148,7 @@ public class AccountAuthController {
 		accountService.resetPassword(account);
 		return new Result(200, null, null);
 	}
-	
+
 	private Boolean checkLoginEmailIsExist(String loginEmail) {
 		Account account = accountService.findAccountByLoginEmail(loginEmail);
 		return account != null;

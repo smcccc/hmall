@@ -167,7 +167,9 @@
 													<c:if test="${inquiry.status!=1}">
 														<c:if test="${item.status==3}">
 															<a class="blue" href="${baseUrl}/order/single/place?itemId=${item.id}">立即下单</a>
-															<a class="red" href="javascript:;">加入购物车</a>
+															<a class="red" href="javascript:;" onclick="addShippingCart('${item.id}',${item.buyNum})">
+																加入购物车 
+															</a>
 														</c:if>
 													</c:if>
 												</td>
@@ -183,7 +185,9 @@
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${baseUrl}/static/js/offer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/lib/fly/fly.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/lib/fly/requestAnimationFrame.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/js/offer.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

@@ -665,8 +665,8 @@
 		<if test="days!=null">
 			AND create_time>= DATE_SUB(NOW(),INTERVAL #{days} DAY)
 		</if>
-		<if test="title !=null and title != ''">
-			AND title LIKE '%${title}%'
+		<if test="search !=null and search != ''">
+			AND (id LIKE '%${search}%' OR title LIKE '%${search}%')
 		</if>
 		ORDER BY create_time DESC
 	</select>

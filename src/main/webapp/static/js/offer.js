@@ -93,3 +93,41 @@ var delMateriel = function(id) {
 		})
 	})
 }
+var addShippingCart = function(itemId, number) {
+	var $this = $(event.target);
+	$.post(BASEURL + '/shipping/cart/add', {
+		itemId: itemId,
+		number: number
+	}, function(ret) {
+		if(ret.status === 200) {
+			$this.append('<span class="fly"></span>')
+			var $animated = $('.cart').find('.animated')
+			$('.fly').fly({
+				start: {
+					left: $this.offset().left + 75,
+					top: $this.offset().top,
+				},
+				end: {
+					left: $animated.offset().left,
+					top: $animated.offset().top,
+					width: 5,
+					height: 5,
+				},
+				autoPlay: true,
+				speed: 1.5,
+				onEnd: function() {
+					if(!$animated.hasClass('has')) $animated.addClass('has');
+					if(ret.data)
+						$animated.text(Number.parseInt($animated.text()) + 1);
+					$animated.addClass('bounceIn')
+					setTimeout(function() {
+						$animated.removeClass('bounceIn')
+					}, 1000)
+					$('.fly').remove();
+				}
+			});
+		} else {
+			window.location = BASEURL + '/tologin';
+		}
+	})
+}

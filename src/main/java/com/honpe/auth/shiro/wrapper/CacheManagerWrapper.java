@@ -21,9 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import net.sf.ehcache.Ehcache;
-
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -37,7 +35,7 @@ public class CacheManagerWrapper implements CacheManager {
 	public void setCacheManager(org.springframework.cache.CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public <K, V> Cache<K, V> getCache(String name) throws CacheException {
@@ -60,7 +58,7 @@ public class CacheManagerWrapper implements CacheManager {
 			}
 			return value;
 		}
-
+		
 		@Override
 		public Object put(Object key, Object value) throws CacheException {
 			springCache.put(key, value);
@@ -77,7 +75,7 @@ public class CacheManagerWrapper implements CacheManager {
 		public void clear() throws CacheException {
 			springCache.clear();
 		}
-
+		
 		@Override
 		public int size() {
 			if (springCache.getNativeCache() instanceof Ehcache) {

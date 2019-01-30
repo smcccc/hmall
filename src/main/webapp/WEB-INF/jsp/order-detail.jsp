@@ -81,14 +81,30 @@
 								<label>收货地址</label>
 								<div>
 									${orderShipping.receiverName},${orderShipping.receiverPhone},${orderShipping.receiverAddress} ${orderShipping.receiverAddressDetail},${orderShipping.zipCode}</p>
-									<c:if test="${order.status<5||!order.isShipping}">
-										<a href="javascript:;" onclick="changeShipping('${order.orderId}')">更换地址</a>
-									</c:if>
+									<p>
+										<c:if test="${order.status<5||!order.isShipping}">
+											<a href="javascript:;" onclick="changeShipping('${order.orderId}')">更换地址</a>
+										</c:if>
+										<c:if test="${order.status<=2 && empty order.buyerMessage}">
+											<a href="javascript:;" onclick="showMessage()">添加留言</a>
+										</c:if>
+									</p>
 								</div>
 							</li>
-							<li>
+							<li class="message" <c:if test="${!empty order.buyerMessage}">style="display: flex;"</c:if> >
 								<label>买家留言</label>
-								<div>${order.buyerMessage}</div>
+								<div>
+									<c:choose>
+										<c:when test="${empty order.buyerMessage}">
+											<textarea id="msg" name="buyerMessage" rows="3"></textarea>
+											<p>请填写留言内容</p>
+											<button onclick="addMessage('${order.orderId}')">留言</button>
+										</c:when>
+										<c:otherwise>
+											${order.buyerMessage}
+										</c:otherwise>
+									</c:choose>
+								</div>
 							</li>
 							<li>
 								<label>订单编号</label>
@@ -129,6 +145,9 @@
 										</c:if>
 									</p>
 									<p>您可以
+										<c:if test="${empty discount}">
+											<a class="paymentBtn" href="javascript:;" onclick="discount('${order.orderId}')">申请优惠</a>
+										</c:if>
 										<a class="paymentBtn" href="${baseUrl}/order/topayment?orderId=${order.orderId}">付款</a>
 										<a class="cancelBtn" href="javascript:;" onclick="cancelOrder('${order.orderId}')">取消订单</a>
 									</p>
@@ -185,7 +204,6 @@
 								<div>
 									${item.number}
 								</div>
-
 							</div>
 						</c:forEach>
 					</div>
@@ -203,11 +221,22 @@
 						<p><b>支付方式</b>
 							<span>${payment.paymentTypeInfo.info}</span>
 						</p>
-						<p><b>订单总价</b>
-							<span><fmt:formatNumber value="${order.payment}" type="currency"/></span>
-						</p>
-						<p><b>需付款</b><span><fmt:formatNumber value="${order.payment}" type="currency"/></span>
-						</p>
+						<c:choose>
+							<c:when test="${!empty discount && discount.status==2}">
+								<p><del><b>订单总价</b>
+									<span><fmt:formatNumber value="${order.payment}" type="currency"/></span>
+								</del></p>
+								<p><b>优惠价格</b><span><fmt:formatNumber value="${discount.discountPayment}" type="currency"/></span></p>
+								<p><b>需付款</b><span><fmt:formatNumber value="${discount.discountPayment}" type="currency"/></span>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p><b>订单总价</b><span><fmt:formatNumber value="${order.payment}" type="currency"/></span></p>
+								<p><b>需付款</b><span><fmt:formatNumber value="${order.payment}" type="currency"/></span>
+								</p>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 				</div>
 			</div>
@@ -244,9 +273,34 @@
 				请选择关闭理由
 			</div>
 		</div>
+		<div class="discount" id="discount">
+			<div class="tips">
+				<img src="${baseUrl}/static/icon/gantanhao.svg" />
+				<div>单个订单申请一次，申请完成后，我们将会有业务员电话联系您，请保持电话畅通，如果申请审核通过，订单总价将以新的优惠价格为准，已经支付的或者完成的订单不可以申请优惠。</div>
+			</div>
+			<div>
+				<p>填写申请信息</p>
+				<form>
+					<input type="hidden" name="orderId" />
+					<div>
+						<label>联系人</label>
+						<input type="text" name="linkman" placeholder="填写申请优惠联系人称呼" />
+					</div>
+					<div>
+						<label>联系电话</label>
+						<input type="text" name="linkphone" placeholder="电话号码、手机号必须填写一项" />
+					</div>
+					<div><label>申请优惠原因</label>
+						<textarea name="discountReason" rows="3"></textarea>
+					</div>
+				</form>
+			</div>
+		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/limitedTextarea/limitedTextarea.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/order-detail.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

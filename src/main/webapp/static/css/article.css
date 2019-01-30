@@ -157,13 +157,32 @@ header .top > div > div .right.links a:first-of-type::after {
   background-color: #FFF;
   vertical-align: middle;
 }
-header .top > div > div .right.links-me img {
+header .top > div > div .right.links-me .cart {
+  margin-right: 15px;
+}
+header .top > div > div .right.links-me .cart:hover {
+  text-decoration: none;
+}
+header .top > div > div .right.links-me .cart img {
   vertical-align: sub;
-  margin-left: 10px;
-  cursor: pointer;
-  height: 15px;
-  transition: all .3s;
-  transform-origin: center;
+}
+header .top > div > div .right.links-me .cart div {
+  display: inline-block;
+  width: 20px;
+  height: 18px;
+}
+header .top > div > div .right.links-me .cart div span {
+  display: block;
+  width: 20px;
+  height: 18px;
+  font-size: 13px;
+  text-align: center;
+  background-color: #ccc;
+  border-radius: 50%;
+  line-height: 18px;
+}
+header .top > div > div .right.links-me .cart div span.has {
+  background-color: #C73844;
 }
 header .top > div > div .right.links-me .arrow {
   transform: rotateX(180deg);
@@ -171,6 +190,14 @@ header .top > div > div .right.links-me .arrow {
 header .top > div > div .right.links-me div {
   display: inline-block;
   position: relative;
+}
+header .top > div > div .right.links-me div img {
+  vertical-align: sub;
+  margin-left: 10px;
+  cursor: pointer;
+  height: 15px;
+  transition: all .3s;
+  transform-origin: center;
 }
 header .top > div > div .right.links-me div ul {
   width: 125px;
@@ -201,6 +228,32 @@ header .bottom {
   overflow: hidden;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+header .bottom .search {
+  border: 3px solid #29adec;
+  height: 43px;
+  box-sizing: border-box;
+}
+header .bottom .search input[type=search] {
+  border: none;
+  outline: none;
+  width: 550px;
+  height: 36px;
+  font-size: 16px;
+  padding: 5px 15px;
+}
+header .bottom .search input[type=submit] {
+  margin-right: -1px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  width: 120px;
+  height: 37px;
+  color: #FFF;
+  font-size: 18px;
+  line-height: 37px;
+  letter-spacing: 8px;
+  background-color: #29adec;
 }
 header .bottom > .right ul {
   padding-top: 15px;
@@ -238,6 +291,63 @@ header .bottom > .right .right img {
   top: 0;
   width: 100%;
   height: 2px;
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  z-index: 100;
+}
+.bounceIn {
+  -webkit-animation-name: bounceIn;
+  animation-name: bounceIn;
+}
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+  70% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+  70% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
 }
 footer {
   overflow: hidden;

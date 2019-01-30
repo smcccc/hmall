@@ -35,5 +35,6 @@ public class Constant {
 		public static final String PAYMENT_TYPE = "PAYMENT_TYPE";
 		public static final String PAYMENT_CHANNEL = "PAYMENT_CHANNEL";
 		public static final byte ACCOUNT_DEADLINE = 2;// 账期支付
+		public static final String ORDER_STATUS = "ORDER_STATUS";
 	}
 }

@@ -30,4 +30,11 @@
 		timeToLiveSeconds="0" overflowToDisk="false" statistics="true">
 	</cache>
 
+	<!-- shipping cart cache -->
+	<cache name="shippingCartCache" maxElementsOnDisk="0" eternal="true" overflowToDisk="true" maxElementsInMemory="1"
+		diskPersistent="true">
+		<bootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"
+			properties="bootstrapAsynchronously=true" />
+	</cache>
+
 </ehcache>

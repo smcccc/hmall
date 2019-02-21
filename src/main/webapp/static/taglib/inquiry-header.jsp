@@ -3,18 +3,20 @@
 <header>
 	<%@include file="/static/taglib/top.jsp"%>
 	<div class="bottom">
-		<div class="left">
-			<a href="${baseUrl}/"> <img src="${baseUrl}/static/icon/login_svg.svg" />
-			</a>
-		</div>
-		<div class="right">
-			<div>
-				<form action="${baseUrl}/inquiry/my/list" method="get">
-					<div class="search">
-						<input type="search" name="search" placeholder="请输入询价单号或询价单标题" autocomplete="off" />
-						<input type="submit" value="搜索" />
-					</div>
-				</form>
+		<div class="clearfix">
+			<div class="left">
+				<a href="${baseUrl}/"> <img src="${baseUrl}/static/icon/login_svg.svg" />
+				</a>
+			</div>
+			<div class="right">
+				<div>
+					<form action="${baseUrl}/inquiry/my/list" method="get">
+						<div class="search">
+							<input type="search" name="search" placeholder="请输入询价单号或询价单标题" autocomplete="off" />
+							<input type="submit" value="搜索" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

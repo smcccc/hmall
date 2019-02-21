@@ -83,7 +83,8 @@
 	</sql>
 	<sql id="Base_Column_List">
 		id, is_active, com_id, phone, login_email, certify, captcha, captcha_time, login_pass,
-		salt, user_name, inviter_id, inviter_name, sex, order_num, deal_money, salesman_id,
+		salt, user_name,
+		inviter_id, inviter_name, sex, order_num, deal_money, salesman_id,
 		salesman_name, register_time, yat_id
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.AccountExample">
@@ -122,15 +123,19 @@
 		captcha, captcha_time, login_pass,
 		salt, user_name, inviter_id,
 		inviter_name, sex, order_num,
-		deal_money, salesman_id, salesman_name,
+		deal_money, salesman_id,
+		salesman_name,
 		register_time, yat_id)
-		values (#{id,jdbcType=VARCHAR}, #{isActive,jdbcType=BIT}, #{comId,jdbcType=BIGINT},
+		values (#{id,jdbcType=VARCHAR}, #{isActive,jdbcType=BIT},
+		#{comId,jdbcType=BIGINT},
 		#{phone,jdbcType=VARCHAR}, #{loginEmail,jdbcType=VARCHAR}, #{certify,jdbcType=VARCHAR},
 		#{captcha,jdbcType=VARCHAR}, #{captchaTime,jdbcType=TIMESTAMP}, #{loginPass,jdbcType=VARCHAR},
 		#{salt,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{inviterId,jdbcType=INTEGER},
 		#{inviterName,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{orderNum,jdbcType=INTEGER},
-		#{dealMoney,jdbcType=DECIMAL}, #{salesmanId,jdbcType=INTEGER}, #{salesmanName,jdbcType=VARCHAR},
-		#{registerTime,jdbcType=TIMESTAMP}, #{yatId,jdbcType=INTEGER})
+		#{dealMoney,jdbcType=DECIMAL},
+		#{salesmanId,jdbcType=INTEGER}, #{salesmanName,jdbcType=VARCHAR},
+		#{registerTime,jdbcType=TIMESTAMP},
+		#{yatId,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="com.honpe.po.Account">
 		<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
@@ -340,23 +345,32 @@
 		update account
 		set id = #{record.id,jdbcType=VARCHAR},
 		is_active = #{record.isActive,jdbcType=BIT},
-		com_id = #{record.comId,jdbcType=BIGINT},
+		com_id =
+		#{record.comId,jdbcType=BIGINT},
 		phone = #{record.phone,jdbcType=VARCHAR},
-		login_email = #{record.loginEmail,jdbcType=VARCHAR},
+		login_email =
+		#{record.loginEmail,jdbcType=VARCHAR},
 		certify = #{record.certify,jdbcType=VARCHAR},
-		captcha = #{record.captcha,jdbcType=VARCHAR},
+		captcha =
+		#{record.captcha,jdbcType=VARCHAR},
 		captcha_time = #{record.captchaTime,jdbcType=TIMESTAMP},
-		login_pass = #{record.loginPass,jdbcType=VARCHAR},
+		login_pass =
+		#{record.loginPass,jdbcType=VARCHAR},
 		salt = #{record.salt,jdbcType=VARCHAR},
-		user_name = #{record.userName,jdbcType=VARCHAR},
+		user_name =
+		#{record.userName,jdbcType=VARCHAR},
 		inviter_id = #{record.inviterId,jdbcType=INTEGER},
-		inviter_name = #{record.inviterName,jdbcType=VARCHAR},
+		inviter_name =
+		#{record.inviterName,jdbcType=VARCHAR},
 		sex = #{record.sex,jdbcType=TINYINT},
-		order_num = #{record.orderNum,jdbcType=INTEGER},
+		order_num =
+		#{record.orderNum,jdbcType=INTEGER},
 		deal_money = #{record.dealMoney,jdbcType=DECIMAL},
-		salesman_id = #{record.salesmanId,jdbcType=INTEGER},
+		salesman_id =
+		#{record.salesmanId,jdbcType=INTEGER},
 		salesman_name = #{record.salesmanName,jdbcType=VARCHAR},
-		register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+		register_time =
+		#{record.registerTime,jdbcType=TIMESTAMP},
 		yat_id = #{record.yatId,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -428,10 +442,12 @@
 	<update id="updateByPrimaryKey" parameterType="com.honpe.po.Account">
 		update account
 		set is_active = #{isActive,jdbcType=BIT},
-		com_id = #{comId,jdbcType=BIGINT},
+		com_id =
+		#{comId,jdbcType=BIGINT},
 		phone = #{phone,jdbcType=VARCHAR},
 		login_email = #{loginEmail,jdbcType=VARCHAR},
-		certify = #{certify,jdbcType=VARCHAR},
+		certify =
+		#{certify,jdbcType=VARCHAR},
 		captcha = #{captcha,jdbcType=VARCHAR},
 		captcha_time = #{captchaTime,jdbcType=TIMESTAMP},
 		login_pass = #{loginPass,jdbcType=VARCHAR},
@@ -439,12 +455,14 @@
 		user_name = #{userName,jdbcType=VARCHAR},
 		inviter_id = #{inviterId,jdbcType=INTEGER},
 		inviter_name = #{inviterName,jdbcType=VARCHAR},
-		sex = #{sex,jdbcType=TINYINT},
+		sex =
+		#{sex,jdbcType=TINYINT},
 		order_num = #{orderNum,jdbcType=INTEGER},
 		deal_money = #{dealMoney,jdbcType=DECIMAL},
 		salesman_id = #{salesmanId,jdbcType=INTEGER},
 		salesman_name = #{salesmanName,jdbcType=VARCHAR},
-		register_time = #{registerTime,jdbcType=TIMESTAMP},
+		register_time =
+		#{registerTime,jdbcType=TIMESTAMP},
 		yat_id = #{yatId,jdbcType=INTEGER}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
@@ -471,5 +489,11 @@
 			AND account.salesman_name LIKE '%${salesman}%'
 		</if>
 		ORDER BY account.register_time DESC
+	</select>
+	<select id="selectCountCurrentMonth" resultType="java.lang.Long">
+		SELECT COUNT(0) FROM account WHERE is_active=TRUE AND
+		DATE(register_time) &gt; DATE_SUB(CURRENT_DATE(),INTERVAL (DAY(NOW()))
+		DAY) AND DATE(register_time) &lt;=
+		CURRENT_DATE()
 	</select>
 </mapper>

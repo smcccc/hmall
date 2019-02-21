@@ -6,5 +6,5 @@ public interface FileService {
 
 	void saveTempFile(FileInfo fileInfo);
 
-	Boolean isMd5Exist(String md5, String filename);
+	String isMd5Exist(String md5, String filename);
 }

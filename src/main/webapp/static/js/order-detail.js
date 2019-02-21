@@ -135,7 +135,6 @@ var discount = function(orderId) {
 			_this.restoreDicount(layero);
 		}
 	})
-
 }
 
 var restoreChecked = function(layero) {

@@ -59,19 +59,19 @@ public class InquiryAdminController {
 	@GetMapping("/my/list-json")
 	@RequiresPermissions("inquiry:view")
 	public @ResponseBody TableResult<InquiryExt> allInquiries(Integer page, Integer pageSize, Byte status,
-			String customerName, String customerCompany, Boolean isOffered) {
+			String search, Boolean isOffered) {
 		SysUser salesman = (SysUser) SecurityUtils.getSubject().getSession().getAttribute("SYS_USER");
 		PageInfo<InquiryExt> pageInfo = inquiryService.findAllInquiryByCondition(page, pageSize, salesman.getUserId(),
-				status, customerName, customerCompany, isOffered);
+				status, search, isOffered);
 		return new TableResult<>(pageInfo.getTotal(), pageInfo.getList());
 	}
 
 	@GetMapping("/list-json")
 	@RequiresPermissions("inquiry:view:all")
 	public @ResponseBody TableResult<InquiryExt> allInquiries(Integer page, Integer pageSize, Integer salesmanId,
-			Byte status, String customerName, String customerCompany, Boolean isOffered) {
+			Byte status, String search, Boolean isOffered) {
 		PageInfo<InquiryExt> pageInfo = inquiryService.findAllInquiryByCondition(page, pageSize, salesmanId, status,
-				customerName, customerCompany, isOffered);
+				search, isOffered);
 		return new TableResult<>(pageInfo.getTotal(), pageInfo.getList());
 	}
 

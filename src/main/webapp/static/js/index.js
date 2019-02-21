@@ -188,7 +188,6 @@ var checkEmail = function(val) {
 	var mail = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
 	return mail.test(val);
 }
-
 window.onload = function() {
 	hoverShowAndHide();
 }

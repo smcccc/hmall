@@ -35,31 +35,39 @@ $(function() {
 			error.appendTo(element.closest('li'));
 		},
 		submitHandler: function(form) {
-			$.ajax({
-				url: BASEURL + '/materiel/save',
-				type: 'post',
-				data: $(form).serialize(),
-				dataType: 'json',
-				success: function(ret) {
-					if(ret.status === 200) {
-						layer.msg('保存成功', {
-							anim: 0,
-							icon: 1
-						}, function() {
-							window.location = BASEURL + '/inquiry/materiel?id=' + $(form).find('input[name=inquiryId]').val();
-						})
-					} else if(ret.status === 401) {
-						layer.msg('请登录', {
-							anim: 0,
-							time: 1000
-						}, function() {
-							window.location = '${baseUrl}/tologin';
-						})
-					} else {
-						layer.msg('请求异常，请稍后重试');
+			var attachId = $(form).find('input[name=attachId]').val();
+			if(attachId) {
+				$.ajax({
+					url: BASEURL + '/materiel/save',
+					type: 'post',
+					data: $(form).serialize(),
+					dataType: 'json',
+					success: function(ret) {
+						if(ret.status === 200) {
+							layer.msg('保存成功', {
+								anim: 0,
+								icon: 1
+							}, function() {
+								window.location = BASEURL + '/inquiry/materiel?id=' + $(form).find('input[name=inquiryId]').val();
+							})
+						} else if(ret.status === 401) {
+							layer.msg('请登录', {
+								anim: 0,
+								time: 1000
+							}, function() {
+								window.location = '${baseUrl}/tologin';
+							})
+						} else {
+							layer.msg('请求异常，请稍后重试');
+						}
 					}
-				}
-			})
+				})
+			} else {
+				layer.msg('请上传图纸资料', {
+					icon: 5,
+					anim: 6
+				})
+			}
 		}
 	});
 	$list = $('#fileList');
@@ -106,6 +114,7 @@ $(function() {
 					uploader.upload();
 				} else {
 					$('#' + file.id).find('p.state').css('color', '#28C24D').text('文件已上传');
+					$('#materielForm').find('input[name=attachId]').val(ret.data);
 				}
 			});
 		});

@@ -176,4 +176,10 @@ public class AccountServiceImpl implements AccountService {
 		List<AccountExt> accounts = accountMapper.selectByCondition(orderNum, userName, company, salesman);
 		return new PageInfo<AccountExt>(accounts);
 	}
+
+	@Override
+	public long findCurrentMonthRegistered() {
+		// TODO Auto-generated method stub
+		return accountMapper.selectCountCurrentMonth();
+	}
 }

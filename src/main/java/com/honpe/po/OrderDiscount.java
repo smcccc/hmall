@@ -12,6 +12,8 @@ public class OrderDiscount {
 
     private String linkphone;
 
+    private BigDecimal payment;
+
     private BigDecimal discountPayment;
 
     private Byte status;
@@ -56,6 +58,14 @@ public class OrderDiscount {
 
     public void setLinkphone(String linkphone) {
         this.linkphone = linkphone == null ? null : linkphone.trim();
+    }
+
+    public BigDecimal getPayment() {
+        return payment;
+    }
+
+    public void setPayment(BigDecimal payment) {
+        this.payment = payment;
     }
 
     public BigDecimal getDiscountPayment() {

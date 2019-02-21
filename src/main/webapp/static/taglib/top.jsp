@@ -20,7 +20,7 @@
 							</a>
 							<a href="${baseUrl}/user/info">${sessionScope.CUSTOMER.loginEmail}</a>
 							<div>
-								<img onclick="userMenutrigger()" src="${baseUrl}/static/icon/xia.svg" />
+								<img src="${baseUrl}/static/icon/xia.svg" />
 								<ul>
 									<li>
 										<a href="${baseUrl}/user/info">帐号资料</a>
@@ -46,16 +46,3 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	var userMenutrigger = function() {
-		event.stopPropagation();
-		var $this = $(event.target);
-		var isArrow = $this.hasClass('arrow');
-		if(isArrow) {
-			$this.removeClass('arrow');
-		} else {
-			$this.addClass('arrow');
-		}
-		$this.siblings('ul').toggle();
-	}
-</script>

@@ -194,7 +194,7 @@
                         flex: 4;
                         display: flex;
                         div:first-of-type {
-                            flex: 2;
+                            flex: 3;
                         }
                         div:not(:first-of-type) {
                             flex: 1;
@@ -236,19 +236,27 @@
                             display: flex;
                             &>div {
                                 &:first-child {
-                                    flex: 2;
+                                    flex: 3;
                                     padding: 10px 15px;
-                                    a:hover{
+                                    a:hover {
                                         text-decoration: none;
                                         color: #FF1800;
                                     }
                                     div {
                                         display: inline-block;
-                                        padding-top: 10px;
+                                        width: 135px;
                                         height: 50px;
-                                        margin-left: 10px;
+                                        padding-top: 10px;
+                                        margin-left: 5px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
                                         vertical-align: top;
                                     }
+                                }
+                                &:last-child a:hover {
+                                    text-decoration: none;
+                                    color: #FF1800;
                                 }
                                 &:not(:first-child) {
                                     flex: 1;

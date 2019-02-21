@@ -13,7 +13,7 @@
 		<meta name="description" content="honpe mall" />
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/iconfont/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/css/result.css" />
+		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/css/result_v.css" />
 	</head>
 
 	<body>
@@ -22,9 +22,9 @@
 			<div class="warp">
 				<div class="step">
 					<ol class="clearfix">
-						<li class="step-item step-current step-item-past">1.创建询价单</li>
-						<li class="step-item step-current step-item-past">2.添加询价产品</li>
-						<li class="step-item step-current">3.发布询价成功</li>
+						<li class="step-item step-current step-item-past">创建询价单</li>
+						<li class="step-item step-current step-item-past">添加询价产品</li>
+						<li class="step-item step-current">发布询价成功</li>
 					</ol>
 				</div>
 				<div class="success">

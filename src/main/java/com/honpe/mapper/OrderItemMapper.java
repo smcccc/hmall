@@ -10,7 +10,7 @@ public interface OrderItemMapper {
 
     int deleteByExample(OrderItemExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String orderItemId);
 
     int insert(OrderItem record);
 
@@ -18,7 +18,7 @@ public interface OrderItemMapper {
 
     List<OrderItem> selectByExample(OrderItemExample example);
 
-    OrderItem selectByPrimaryKey(Long id);
+    OrderItem selectByPrimaryKey(String orderItemId);
 
     int updateByExampleSelective(@Param("record") OrderItem record, @Param("example") OrderItemExample example);
 

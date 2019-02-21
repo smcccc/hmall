@@ -162,6 +162,32 @@ var cancelOrder = function(orderId) {
 		}
 	})
 }
+var receivedOrder = function(orderId) {
+	layer.confirm('您确认收到订单全部商品吗？', {
+		title: '确认收货',
+		icon: 3
+	}, function() {
+		$.post(BASEURL + '/order/received', {
+			orderId: orderId
+		}, function(ret) {
+			if(ret.status === 200) {
+				layer.msg('确认收货成功', {
+					anim: 0,
+					icon: 1,
+					time: 1500
+				}, function() {
+					window.location.reload();
+				})
+			} else if(ret.status === 401) {
+				window.location = BASEURL + '/tologin';
+			} else {
+				layer.msg(ret.msg, {
+					icon: 5
+				});
+			}
+		})
+	})
+}
 var changePage = function(page) {
 	$('#searchForm').find('input[name=page]').val(page);
 	$('#searchForm').submit();

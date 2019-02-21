@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.honpe.mapper.OrderServiceMapper" >
   <resultMap id="BaseResultMap" type="com.honpe.po.OrderService" >
-    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <id column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="handle" property="handle" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
+    <result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, buyer_id, content, handle, status
+    service_id, item_id, order_id, buyer_id, reason, number, remark, status, shipping_name, 
+    shipping_code
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.OrderServiceExample" >
     select
@@ -87,11 +93,11 @@
     select 
     <include refid="Base_Column_List" />
     from order_service
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from order_service
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.honpe.po.OrderServiceExample" >
     delete from order_service
@@ -100,45 +106,79 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.honpe.po.OrderService" >
-    insert into order_service (order_id, buyer_id, content, 
-      handle, status)
-    values (#{orderId,jdbcType=VARCHAR}, #{buyerId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{handle,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+    insert into order_service (service_id, item_id, order_id, 
+      buyer_id, reason, number, 
+      remark, status, shipping_name, 
+      shipping_code)
+    values (#{serviceId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{buyerId,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{shippingName,jdbcType=VARCHAR}, 
+      #{shippingCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.honpe.po.OrderService" >
     insert into order_service
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
       <if test="orderId != null" >
         order_id,
       </if>
       <if test="buyerId != null" >
         buyer_id,
       </if>
-      <if test="content != null" >
-        content,
+      <if test="reason != null" >
+        reason,
       </if>
-      <if test="handle != null" >
-        handle,
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="status != null" >
         status,
       </if>
+      <if test="shippingName != null" >
+        shipping_name,
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="buyerId != null" >
         #{buyerId,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
       </if>
-      <if test="handle != null" >
-        #{handle,jdbcType=VARCHAR},
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="shippingName != null" >
+        #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingCode != null" >
+        #{shippingCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -151,20 +191,35 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update order_service
     <set >
+      <if test="record.serviceId != null" >
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
       <if test="record.buyerId != null" >
         buyer_id = #{record.buyerId,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
       </if>
-      <if test="record.handle != null" >
-        handle = #{record.handle,jdbcType=VARCHAR},
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.shippingName != null" >
+        shipping_name = #{record.shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingCode != null" >
+        shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -173,11 +228,16 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update order_service
-    set order_id = #{record.orderId,jdbcType=VARCHAR},
+    set service_id = #{record.serviceId,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
       buyer_id = #{record.buyerId,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      handle = #{record.handle,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT}
+      reason = #{record.reason,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      shipping_name = #{record.shippingName,jdbcType=VARCHAR},
+      shipping_code = #{record.shippingCode,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,27 +245,47 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.OrderService" >
     update order_service
     <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
       <if test="buyerId != null" >
         buyer_id = #{buyerId,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
       </if>
-      <if test="handle != null" >
-        handle = #{handle,jdbcType=VARCHAR},
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
+      <if test="shippingName != null" >
+        shipping_name = #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingCode != null" >
+        shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      </if>
     </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.honpe.po.OrderService" >
     update order_service
-    set buyer_id = #{buyerId,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      handle = #{handle,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT}
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    set item_id = #{itemId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      shipping_name = #{shippingName,jdbcType=VARCHAR},
+      shipping_code = #{shippingCode,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -2,12 +2,11 @@ package com.honpe.order.web;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.github.pagehelper.PageInfo;
 import com.honpe.account.annotation.RequiredAuth;
 import com.honpe.account.service.InvoiceService;
 import com.honpe.account.service.OrderShippingService;
 import com.honpe.constant.Constant;
 import com.honpe.inquiry.service.InquiryMaterielService;
 import com.honpe.order.service.OrderDiscountService;
+import com.honpe.order.service.ItemApplyService;
 import com.honpe.order.service.OrderOperateService;
 import com.honpe.order.service.OrderService;
 import com.honpe.po.Account;
@@ -36,9 +35,12 @@ import com.honpe.po.OrderPayment;
 import com.honpe.po.OrderShipping;
 import com.honpe.po.TbOrder;
 import com.honpe.pojo.dto.CartDto;
+import com.honpe.pojo.dto.OrderItemDto;
 import com.honpe.pojo.ext.OrderExt;
 import com.honpe.pojo.model.OrderConditionModel;
 import com.honpe.pojo.model.OrderModel;
+import com.honpe.pojo.vo.OrderVo;
+import com.honpe.pojo.vo.PageBean;
 import com.honpe.pojo.vo.Result;
 
 @Controller
@@ -50,7 +52,7 @@ public class OrderController {
 	@Autowired
 	private OrderShippingService orderShippingService;
 	@Autowired
-	private InquiryMaterielService InquiryMaterielService;
+	private InquiryMaterielService inquiryMaterielService;
 	@Autowired
 	private OrderService orderService;
 	@Autowired
@@ -87,7 +89,7 @@ public class OrderController {
 	public String myOrderList(@RequestParam(defaultValue = "1") Integer page, OrderConditionModel condition,
 			HttpServletRequest request) throws ParseException {
 		String customerId = getCustomer(request).getId();
-		PageInfo<OrderExt> pageInfo = orderService.findCustomerOrderByCondition(page, condition.getSearch(), customerId,
+		PageBean<OrderVo> pageBean = orderService.findCustomerOrderByCondition(page, condition.getSearch(), customerId,
 				condition.getBeginDate(), condition.getEndDate(), condition.getStatus());
 		Map<String, Long> count = orderService.getStatusCount(customerId);
 		count.entrySet().forEach(item -> request.setAttribute(item.getKey(), item.getValue()));
@@ -97,7 +99,7 @@ public class OrderController {
 			isOpen = true;
 		}
 		request.setAttribute("orderStatus", orderStatus);
-		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("pageBean", pageBean);
 		request.setAttribute("search", condition.getSearch());
 		request.setAttribute("beginDate", condition.getBeginDate());
 		request.setAttribute("endDate", condition.getEndDate());
@@ -111,7 +113,7 @@ public class OrderController {
 	public String placeAnOrder(String itemId, HttpServletRequest request) {
 		Account customer = getCustomer(request);
 		inputSelectData(request, customer.getId());
-		InquiryMateriel orderItem = InquiryMaterielService.findOneById(itemId);
+		InquiryMateriel orderItem = inquiryMaterielService.findOneById(itemId);
 		request.setAttribute("orderItem", orderItem);
 		return "order";
 	}
@@ -124,7 +126,7 @@ public class OrderController {
 		List<CartDto> cartItems = orderModel.getCartItems();
 		List<CartDto> orderItems = cartItems.stream().filter(item -> StringUtils.isNoneBlank(item.getItemId()))
 				.collect(Collectors.toList());
-		orderItems.forEach(item -> item.setInquiryMateriel(InquiryMaterielService.findOneById(item.getItemId())));
+		orderItems.forEach(item -> item.setInquiryMateriel(inquiryMaterielService.findOneById(item.getItemId())));
 		request.setAttribute("orderItems", orderItems);
 		return "order";
 	}
@@ -200,6 +202,15 @@ public class OrderController {
 		orderService.paymentOrder(orderPayment);
 		recordOrderOperate(getCustomer(request), orderPayment.getOrderId(), "提交支付凭证");
 		return new Result(200, null, orderPayment.getOrderId());
+	}
+
+	@PostMapping("/received")
+	@RequiredAuth
+	public @ResponseBody Result sureReceived(String orderId, HttpServletRequest request) {
+		Account customer = getCustomer(request);
+		orderService.sureReceived(getCustomer(request).getId(), customer, orderId);
+		recordOrderOperate(customer, orderId, "确认收货");
+		return new Result(200, null, null);
 	}
 
 	@PostMapping("/del")

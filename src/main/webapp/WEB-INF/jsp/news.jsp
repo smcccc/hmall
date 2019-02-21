@@ -52,8 +52,8 @@
 									<a href="javascript:goPage(${page});">${page}</a>
 								</li>
 							</c:forEach>
-							<li>
-								<a class="omit" href="javascript:;">...</a>
+							<li class="omit">
+								<a href="javascript:goPage(${pageBean.currentPage+3})"></a>
 							</li>
 							<li>
 								<a href="javascript:goPage(${pageBean.totalPage});">${pageBean.totalPage}</a>

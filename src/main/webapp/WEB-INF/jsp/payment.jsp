@@ -24,37 +24,39 @@
 		<header>
 			<%@include file="/static/taglib/top.jsp"%>
 			<div class="bottom">
-				<div class="left">
-					<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
-					<h2>订单付款</h2>
-				</div>
-				<div class="right">
-					<ul class="timeline">
-						<li class="this past">
-							<div>
-								<img src="${baseUrl}/static/icon/order_03.png" alt="" />
-							</div>
-							<p>提交订单</p>
-						</li>
-						<li class="this">
-							<div>
-								<img src="${baseUrl}/static/icon/pay.png" alt="" />
-							</div>
-							<p>买家付款</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
-							</div>
-							<p>卖家发货</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
-							</div>
-							<p>确认收货</p>
-						</li>
-					</ul>
+				<div class="clearfix">
+					<div class="left">
+						<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
+						<h2>订单付款</h2>
+					</div>
+					<div class="right">
+						<ul class="timeline">
+							<li class="this past">
+								<div>
+									<img src="${baseUrl}/static/icon/order_03.png" alt="" />
+								</div>
+								<p>提交订单</p>
+							</li>
+							<li class="this">
+								<div>
+									<img src="${baseUrl}/static/icon/pay.png" alt="" />
+								</div>
+								<p>买家付款</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
+								</div>
+								<p>卖家发货</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
+								</div>
+								<p>确认收货</p>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</header>

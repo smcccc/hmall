@@ -27,8 +27,8 @@
 			<div class="warp">
 				<div class="step">
 					<ol class="clearfix">
-						<li class="step-item step-item-past step-current">1.${inquiry.isActive?'修改询价单':'创建询价单'}</li>
-						<li class="step-item step-current">2.${inquiry.isActive?'修改询价产品':'添加询价产品'}</li>
+						<li class="step-item step-item-past step-current">${inquiry.isActive?'修改询价单':'创建询价单'}</li>
+						<li class="step-item step-current">${inquiry.isActive?'修改询价产品':'添加询价产品'}</li>
 						<c:if test="${!inquiry.isActive}">
 							<li class="step-item">发布询价成功</li>
 						</c:if>
@@ -155,7 +155,9 @@
 												<div class="head">
 													<time>添加时间：<fmt:formatDate value="${item.createTime}" type="both" /> </time>
 													<a data-id="${item.id}" href="javascript:;" onclick="deleteItem()">删除</a>
-													<a href="${baseUrl}/inquiry/get/materiel?id=${item.id}">修改</a>
+													<c:if test="${item.status!=3}">
+														<a href="${baseUrl}/inquiry/get/materiel?id=${item.id}">修改</a>
+													</c:if>
 												</div>
 												<ul>
 													<li><span><strong>物料编号</strong>${item.code}</span><span><strong>物料名称：</strong>${item.name}</span></li>

@@ -23,11 +23,13 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public Boolean isMd5Exist(String md5, String filename) {
+	public String isMd5Exist(String md5, String filename) {
 		FileInfoExample fileInfoExample = new FileInfoExample();
 		fileInfoExample.createCriteria().andMd5EqualTo(md5).andFileNameEqualTo(filename);
 		List<FileInfo> files = fileInfoMapper.selectByExample(fileInfoExample);
-		return files != null && files.size() > 0;
+		if (files != null && files.size() > 0)
+			return files.get(0).getFileId();
+		return null;
 	}
 
 }

@@ -4,6 +4,7 @@ import com.honpe.po.Inquiry;
 import com.honpe.po.InquiryExample;
 import com.honpe.pojo.ext.InquiryExt;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,11 +32,13 @@ public interface InquiryMapper {
 	int updateByPrimaryKey(Inquiry record);
 
 	List<InquiryExt> selectByCondition(@Param("salesmanId") Integer salesmanId, @Param("status") Byte status,
-			@Param("customerName") String customerName, @Param("companyName") String companyName,
-			@Param("isOffered") Boolean isOffered);
+			@Param("search") String search, @Param("isOffered") Boolean isOffered);
 
 	long selectCountByCustomerIdAndStatus(@Param("customerId") String customerId, @Param("status") Byte status);
 
 	List<InquiryExt> selectInquiryByCondition(@Param("customerId") String customerId, @Param("status") Byte status,
 			@Param("days") Integer days, @Param("search") String search);
+
+	long selectCountByDate(@Param("beginDate") Date beginDate, @Param("endDate") Date endDate,
+			@Param("dayDate") Date dayDate);
 }

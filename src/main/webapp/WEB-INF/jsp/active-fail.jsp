@@ -12,7 +12,7 @@
 		<meta name="description" content="honpe mall" />
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/iconfont/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/css/result.css" />
+		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/css/result_v.css" />
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 

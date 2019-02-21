@@ -42,6 +42,7 @@
 	<mvc:view-controller path="/admin/customer/suggest" view-name="admin/customer/customer-suggest" />
 	<mvc:view-controller path="/admin/dict/list" view-name="admin/dict/dict-list" />
 	<mvc:view-controller path="/admin/my/info" view-name="admin/sysuser/my-info" />
+	<mvc:view-controller path="/admin/order/my/list" view-name="admin/order/order-my-list" />
 	<mvc:view-controller path="/405" view-name="405" />
 	<mvc:view-controller path="/suggest" view-name="suggest" />
 	<mvc:resources location="/static/" mapping="/static/**" />

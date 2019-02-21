@@ -14,7 +14,7 @@ import com.honpe.po.OrderOperateExample;
 @Service
 @Transactional
 public class OrderOperateServiceImpl implements OrderOperateService {
-	
+
 	@Autowired
 	private OrderOperateMapper orderOperateMapper;
 
@@ -26,7 +26,7 @@ public class OrderOperateServiceImpl implements OrderOperateService {
 	@Override
 	public List<OrderOperate> findAllByOrderId(String orderId) {
 		OrderOperateExample orderOperateExample = new OrderOperateExample();
-		orderOperateExample.setOrderByClause("operation_time DESC");
+		orderOperateExample.setOrderByClause("operation_time ASC");
 		orderOperateExample.createCriteria().andOrderIdEqualTo(orderId);
 		return orderOperateMapper.selectByExample(orderOperateExample);
 	}

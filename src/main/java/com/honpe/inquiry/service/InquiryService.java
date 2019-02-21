@@ -1,5 +1,7 @@
 package com.honpe.inquiry.service;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import com.github.pagehelper.PageInfo;
@@ -35,11 +37,15 @@ public interface InquiryService {
 	void deleteInquiry(String inquiryId, String customerId);
 
 	PageInfo<InquiryExt> findAllInquiryByCondition(Integer page, Integer pageSize, Integer salesmanId, Byte status,
-			String customerName, String customerCompany, Boolean isOffered);
+			String search, Boolean isOffered);
 
 	void assginOfferSalesman(String inquiryId, Integer salesmanId, String salesman);
 
 	long findCountByCustomerId(String customerId, Byte status);
-	
+
 	Boolean signIsOfferedStatus(String inquiryId);
+
+	long findCurrentMonthAddedNumber() throws ParseException;
+
+	long[] findInquiryNumberOfCurrentWeek() throws ParseException;
 }

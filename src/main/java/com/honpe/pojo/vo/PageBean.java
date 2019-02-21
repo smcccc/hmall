@@ -8,7 +8,6 @@ public class PageBean<T> {
 	private int pageSize;// 每页显示记录数
 	private int totalPage;// 总共页数
 	private List<T> data;// 数据
-
 	private int start;// 起始页
 	private int end;// 终止页
 

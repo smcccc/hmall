@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.honpe.mapper.ItemServiceApplyMapper">
+	<resultMap id="BaseResultMap" type="com.honpe.po.ItemServiceApply">
+		<id column="order_item_id" property="orderItemId" jdbcType="VARCHAR" />
+		<result column="item_id" property="itemId" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="number" property="number" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+		<result column="handle_time" property="handleTime" jdbcType="TIMESTAMP" />
+		<result column="consign_time" property="consignTime" jdbcType="TIMESTAMP" />
+		<result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+		<result column="revoke_time" property="revokeTime" jdbcType="TIMESTAMP" />
+		<result column="return_consign_time" property="returnConsignTime" jdbcType="TIMESTAMP" />
+		<result column="return_shipping_name" property="returnShippingName" jdbcType="VARCHAR" />
+		<result column="return_shipping_code" property="returnShippingCode" jdbcType="VARCHAR" />
+		<result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
+		<result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		order_item_id, item_id, order_id, buyer_id, reason, number, remark, status, apply_time,
+		handle_time, consign_time, receive_time, revoke_time, return_consign_time, return_shipping_name,
+		return_shipping_code, shipping_name, shipping_code
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.ItemServiceApplyExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from item_service_apply
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from item_service_apply
+		where order_item_id = #{orderItemId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from item_service_apply
+		where order_item_id = #{orderItemId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.honpe.po.ItemServiceApplyExample">
+		delete from item_service_apply
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.honpe.po.ItemServiceApply">
+		insert into item_service_apply (order_item_id, item_id, order_id,
+		buyer_id, reason, number,
+		remark, status, apply_time,
+		handle_time, consign_time, receive_time,
+		revoke_time, return_consign_time, return_shipping_name,
+		return_shipping_code, shipping_name, shipping_code
+		)
+		values (#{orderItemId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR},
+		#{buyerId,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{applyTime,jdbcType=TIMESTAMP},
+		#{handleTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP},
+		#{revokeTime,jdbcType=TIMESTAMP}, #{returnConsignTime,jdbcType=TIMESTAMP}, #{returnShippingName,jdbcType=VARCHAR},
+		#{returnShippingCode,jdbcType=VARCHAR}, #{shippingName,jdbcType=VARCHAR}, #{shippingCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.honpe.po.ItemServiceApply">
+		insert into item_service_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderItemId != null">
+				order_item_id,
+			</if>
+			<if test="itemId != null">
+				item_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="buyerId != null">
+				buyer_id,
+			</if>
+			<if test="reason != null">
+				reason,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="applyTime != null">
+				apply_time,
+			</if>
+			<if test="handleTime != null">
+				handle_time,
+			</if>
+			<if test="consignTime != null">
+				consign_time,
+			</if>
+			<if test="receiveTime != null">
+				receive_time,
+			</if>
+			<if test="revokeTime != null">
+				revoke_time,
+			</if>
+			<if test="returnConsignTime != null">
+				return_consign_time,
+			</if>
+			<if test="returnShippingName != null">
+				return_shipping_name,
+			</if>
+			<if test="returnShippingCode != null">
+				return_shipping_code,
+			</if>
+			<if test="shippingName != null">
+				shipping_name,
+			</if>
+			<if test="shippingCode != null">
+				shipping_code,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderItemId != null">
+				#{orderItemId,jdbcType=VARCHAR},
+			</if>
+			<if test="itemId != null">
+				#{itemId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerId != null">
+				#{buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="applyTime != null">
+				#{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="handleTime != null">
+				#{handleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consignTime != null">
+				#{consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="revokeTime != null">
+				#{revokeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnConsignTime != null">
+				#{returnConsignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnShippingName != null">
+				#{returnShippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="returnShippingCode != null">
+				#{returnShippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingName != null">
+				#{shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingCode != null">
+				#{shippingCode,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.honpe.po.ItemServiceApplyExample" resultType="java.lang.Integer">
+		select count(*) from item_service_apply
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update item_service_apply
+		<set>
+			<if test="record.orderItemId != null">
+				order_item_id = #{record.orderItemId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.itemId != null">
+				item_id = #{record.itemId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orderId != null">
+				order_id = #{record.orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.buyerId != null">
+				buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.reason != null">
+				reason = #{record.reason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.number != null">
+				number = #{record.number,jdbcType=INTEGER},
+			</if>
+			<if test="record.remark != null">
+				remark = #{record.remark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=TINYINT},
+			</if>
+			<if test="record.applyTime != null">
+				apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.handleTime != null">
+				handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.consignTime != null">
+				consign_time = #{record.consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.receiveTime != null">
+				receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.revokeTime != null">
+				revoke_time = #{record.revokeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.returnConsignTime != null">
+				return_consign_time = #{record.returnConsignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.returnShippingName != null">
+				return_shipping_name = #{record.returnShippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.returnShippingCode != null">
+				return_shipping_code = #{record.returnShippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.shippingName != null">
+				shipping_name = #{record.shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.shippingCode != null">
+				shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update item_service_apply
+		set order_item_id = #{record.orderItemId,jdbcType=VARCHAR},
+		item_id = #{record.itemId,jdbcType=VARCHAR},
+		order_id = #{record.orderId,jdbcType=VARCHAR},
+		buyer_id = #{record.buyerId,jdbcType=VARCHAR},
+		reason = #{record.reason,jdbcType=VARCHAR},
+		number = #{record.number,jdbcType=INTEGER},
+		remark = #{record.remark,jdbcType=VARCHAR},
+		status = #{record.status,jdbcType=TINYINT},
+		apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+		handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+		consign_time = #{record.consignTime,jdbcType=TIMESTAMP},
+		receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+		revoke_time = #{record.revokeTime,jdbcType=TIMESTAMP},
+		return_consign_time = #{record.returnConsignTime,jdbcType=TIMESTAMP},
+		return_shipping_name = #{record.returnShippingName,jdbcType=VARCHAR},
+		return_shipping_code = #{record.returnShippingCode,jdbcType=VARCHAR},
+		shipping_name = #{record.shippingName,jdbcType=VARCHAR},
+		shipping_code = #{record.shippingCode,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.honpe.po.ItemServiceApply">
+		update item_service_apply
+		<set>
+			<if test="itemId != null">
+				item_id = #{itemId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerId != null">
+				buyer_id = #{buyerId,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				reason = #{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="applyTime != null">
+				apply_time = #{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="handleTime != null">
+				handle_time = #{handleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="consignTime != null">
+				consign_time = #{consignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveTime != null">
+				receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="revokeTime != null">
+				revoke_time = #{revokeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnConsignTime != null">
+				return_consign_time = #{returnConsignTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnShippingName != null">
+				return_shipping_name = #{returnShippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="returnShippingCode != null">
+				return_shipping_code = #{returnShippingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingName != null">
+				shipping_name = #{shippingName,jdbcType=VARCHAR},
+			</if>
+			<if test="shippingCode != null">
+				shipping_code = #{shippingCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where order_item_id = #{orderItemId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.honpe.po.ItemServiceApply">
+		update item_service_apply
+		set item_id = #{itemId,jdbcType=VARCHAR},
+		order_id = #{orderId,jdbcType=VARCHAR},
+		buyer_id = #{buyerId,jdbcType=VARCHAR},
+		reason = #{reason,jdbcType=VARCHAR},
+		number = #{number,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT},
+		apply_time = #{applyTime,jdbcType=TIMESTAMP},
+		handle_time = #{handleTime,jdbcType=TIMESTAMP},
+		consign_time = #{consignTime,jdbcType=TIMESTAMP},
+		receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+		revoke_time = #{revokeTime,jdbcType=TIMESTAMP},
+		return_consign_time = #{returnConsignTime,jdbcType=TIMESTAMP},
+		return_shipping_name = #{returnShippingName,jdbcType=VARCHAR},
+		return_shipping_code = #{returnShippingCode,jdbcType=VARCHAR},
+		shipping_name = #{shippingName,jdbcType=VARCHAR},
+		shipping_code = #{shippingCode,jdbcType=VARCHAR}
+		where order_item_id = #{orderItemId,jdbcType=VARCHAR}
+	</update>
+	<resultMap type="com.honpe.pojo.ext.ItemServiceApplyExt" id="ItemServiceApplyExyResultMap" extends="BaseResultMap">
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="customer" column="user_name" jdbcType="VARCHAR" />
+		<result property="company" column="company_name" jdbcType="VARCHAR" />
+		<result property="salesman" column="salesman_name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectByConditions" parameterType="java.lang.Object" resultMap="ItemServiceApplyExyResultMap">
+		SELECT * FROM item_service_apply,order_item,account,company WHERE
+		item_service_apply.order_item_id=order_item.order_item_id
+		AND item_service_apply.`status`<![CDATA[!=]]>5
+		AND item_service_apply.buyer_id=account.id AND
+		account.com_id=company.id
+		<if test="search!=null and search!=''">
+			AND (item_service_apply.order_id LIKE '%${search}%' OR account.user_name LIKE '%${search}%' OR
+			order_item.title LIKE '%${search}%')
+		</if>
+		<if test="beginTime!=null">
+			AND item_service_apply.apply_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null">
+			AND item_service_apply.apply_time &lt;= #{endTime}
+		</if>
+		<if test="status!=null">
+			AND item_service_apply.`status`=#{status}
+		</if>
+		<if test="salesmanId!=null">
+			AND account.salesman_id = #{salesmanId}
+		</if>
+		ORDER BY item_service_apply.apply_time DESC
+	</select>
+</mapper>

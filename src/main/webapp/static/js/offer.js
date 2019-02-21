@@ -109,7 +109,7 @@ var addShippingCart = function(itemId, number) {
 				},
 				end: {
 					left: $animated.offset().left,
-					top: $animated.offset().top,
+					top: 9,
 					width: 5,
 					height: 5,
 				},

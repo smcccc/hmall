@@ -38,11 +38,8 @@ public class AdminRealm extends AuthorizingRealm {
 		// 获取登录用户名
 		String loginAccount = (String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-
 		Subject subject = SecurityUtils.getSubject();
-
 		Session session = subject.getSession();
-
 		SysUser sysUser = (SysUser) session.getAttribute("SYS_USER");
 		if (sysUser == null) {
 			sysUser = sysUserService.findByLoginAccount(loginAccount);

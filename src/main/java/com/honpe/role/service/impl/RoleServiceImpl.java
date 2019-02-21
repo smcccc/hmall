@@ -83,7 +83,7 @@ public class RoleServiceImpl implements RoleService {
 		if (sysRoles != null && sysRoles.size() > 0)
 			return false;
 		sysRole.setCreateTime(new Date());
-		sysRoleMapper.insert(sysRole);
+		sysRoleMapper.insertSelective(sysRole);
 		return true;
 	}
 

@@ -15,7 +15,6 @@
 		<link href="${baseUrl}/static/admin/css/font-awesome.min.css?v=4.1.0" rel="stylesheet">
 		<link href="${baseUrl}/static/admin/css/animate.css" rel="stylesheet">
 		<link href="${baseUrl}/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
-
 	</head>
 
 	<body class="gray-bg">
@@ -46,11 +45,7 @@
 						<div id="searchForm" class="form-inline" method="get" action="${baseUrl}/admin/user/list">
 							<input type="hidden" name="page">
 							<div class="form-group">
-								<label class="sr-only">客户姓名</label><input name="customerName" type="text" placeholder="输入客户姓名" class="form-control"
-								 autocomplete="off">
-							</div>
-							<div class="form-group">
-								<label class="sr-only">客户公司</label><input name="companyName" type="text" placeholder="输入客户公司" class="form-control"
+								<label class="sr-only">搜索条件</label><input name="search" type="search" placeholder="输入客户姓名/客户公司" class="form-control"
 								 autocomplete="off">
 							</div>
 							<div class="form-group">
@@ -128,8 +123,7 @@
 							status: $('#searchForm').find('select[name=status]').val(),
 							salesmanId: $('#searchForm').find('select[name=salesmanId]').val(),
 							isOffered: $('#searchForm').find('select[name=isOffered]').val(),
-							customerName: $('#searchForm').find('input[name=customerName]').val(),
-							companyName: $('#searchForm').find('input[name=companyName]').val()
+							search: $('#searchForm').find('input[name=search]').val()
 						}
 					},
 					sidePagination: "server",

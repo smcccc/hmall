@@ -32,4 +32,6 @@ public interface AccountMapper {
 
 	List<AccountExt> selectByCondition(@Param("orderNum") Integer orderNum, @Param("userName") String userName,
 			@Param("company") String company, @Param("salesman") String salesman);
+
+	long selectCountCurrentMonth();
 }

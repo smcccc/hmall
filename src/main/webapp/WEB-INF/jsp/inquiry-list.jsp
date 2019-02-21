@@ -92,7 +92,7 @@
 															<a href="${baseUrl}/inquiry/edit?id=${item.id}">修改询价</a>
 														</c:if>
 														<c:choose>
-															<c:when test="${item.status!=1}">
+															<c:when test="${item.status!=1 && item.status!=2}">
 																<a href="javascript:;" onclick="revoceInquiry('${item.id}','${item.title}')">撤销询价</a>
 															</c:when>
 															<c:otherwise>

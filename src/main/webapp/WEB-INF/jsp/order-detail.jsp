@@ -24,50 +24,52 @@
 		<header>
 			<%@include file="/static/taglib/top.jsp"%>
 			<div class="bottom">
-				<div class="left">
-					<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
-				</div>
-				<div class="right">
-					<c:choose>
-						<c:when test="${order.status==8}">
-							<div>
-								<form action="${baseUrl}/order/my/list" method="get">
-									<div class="search">
-										<input type="search" name="search" placeholder="请输入订单编号或商品标题" autocomplete="off" />
-										<input type="submit" value="搜索" />
-									</div>
-								</form>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<ul class="timeline">
-								<li class="this past">
-									<div>
-										<img src="${baseUrl}/static/icon/order_03.png" alt="" />
-									</div>
-									<p>提交订单</p>
-								</li>
-								<li <c:if test="${order.status>=2}">class="this past"</c:if>>
-									<div>
-										<img src="${baseUrl}/static/icon/pay.png" alt="" />
-									</div>
-									<p>买家付款</p>
-								</li>
-								<li <c:if test="${order.status>=6}">class="this past"</c:if>>
-									<div>
-										<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
-									</div>
-									<p>卖家发货</p>
-								</li>
-								<li <c:if test="${order.status==7}">class="this past"</c:if>>
-									<div>
-										<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
-									</div>
-									<p>确认收货</p>
-								</li>
-							</ul>
-						</c:otherwise>
-					</c:choose>
+				<div class="clearfix">
+					<div class="left">
+						<a href="${baseUrl}/index"><img <c:if test="${order.status==8}">style="margin-top: 0;" </c:if> src="${baseUrl}/static/icon/login_svg.svg" /></a>
+					</div>
+					<div class="right">
+						<c:choose>
+							<c:when test="${order.status==8}">
+								<div>
+									<form action="${baseUrl}/order/my/list" method="get">
+										<div class="search">
+											<input type="search" name="search" placeholder="请输入订单编号或商品标题" autocomplete="off" />
+											<input type="submit" value="搜索" />
+										</div>
+									</form>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<ul class="timeline">
+									<li class="this past">
+										<div>
+											<img src="${baseUrl}/static/icon/order_03.png" alt="" />
+										</div>
+										<p>提交订单</p>
+									</li>
+									<li <c:if test="${order.status>=2}">class="this past"</c:if>>
+										<div>
+											<img src="${baseUrl}/static/icon/pay.png" alt="" />
+										</div>
+										<p>买家付款</p>
+									</li>
+									<li <c:if test="${order.status>=6}">class="this past"</c:if>>
+										<div>
+											<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
+										</div>
+										<p>卖家发货</p>
+									</li>
+									<li <c:if test="${order.status==7}">class="this past"</c:if>>
+										<div>
+											<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
+										</div>
+										<p>确认收货</p>
+									</li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -117,10 +119,14 @@
 														下单时间：
 														<fmt:formatDate value="${order.createTime}" pattern="yyyy年MM月dd日 hh时mm分" />
 													</c:when>
-													<c:when test="${order.status!=7}">
+													<c:when test="${order.status==8}">
+														关闭时间：
+														<fmt:formatDate value="${order.closeTime}" pattern="yyyy年MM月dd日 hh时mm分" />
+													</c:when>
+													<c:otherwise>
 														成交时间：
 														<fmt:formatDate value="${order.endTime}" pattern="yyyy年MM月dd日 hh时mm分" />
-													</c:when>
+													</c:otherwise>
 												</c:choose>
 											</p>
 										</div>
@@ -162,14 +168,11 @@
 									</p>
 								</c:if>
 								<c:if test="${order.status==7}">
-									<p>订单状态：交易完成/p>
-										<p>您可以
-											<a class="payment" href="">付款</a>
-											<a class="cancel" href="">取消订单</a>
-										</p>
+									<p>订单状态：交易完成</p>
 								</c:if>
 								<c:if test="${order.status==8}">
 									<p>交易关闭</p>
+									<p>关闭原因 ：${order.cancleReason}</p>
 								</c:if>
 							</div>
 						</div>

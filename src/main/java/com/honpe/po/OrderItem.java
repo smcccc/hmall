@@ -3,7 +3,7 @@ package com.honpe.po;
 import java.math.BigDecimal;
 
 public class OrderItem {
-    private Long id;
+    private String orderItemId;
 
     private String itemId;
 
@@ -12,6 +12,8 @@ public class OrderItem {
     private String inquiryId;
 
     private Integer number;
+
+    private Integer storeNumber;
 
     private String code;
 
@@ -23,12 +25,14 @@ public class OrderItem {
 
     private String attach;
 
-    public Long getId() {
-        return id;
+    private Boolean isApplyReturns;
+
+    public String getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderItemId(String orderItemId) {
+        this.orderItemId = orderItemId == null ? null : orderItemId.trim();
     }
 
     public String getItemId() {
@@ -61,6 +65,14 @@ public class OrderItem {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Integer getStoreNumber() {
+        return storeNumber;
+    }
+
+    public void setStoreNumber(Integer storeNumber) {
+        this.storeNumber = storeNumber;
     }
 
     public String getCode() {
@@ -101,5 +113,13 @@ public class OrderItem {
 
     public void setAttach(String attach) {
         this.attach = attach == null ? null : attach.trim();
+    }
+
+    public Boolean getIsApplyReturns() {
+        return isApplyReturns;
+    }
+
+    public void setIsApplyReturns(Boolean isApplyReturns) {
+        this.isApplyReturns = isApplyReturns;
     }
 }

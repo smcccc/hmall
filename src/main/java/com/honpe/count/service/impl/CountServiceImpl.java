@@ -17,6 +17,7 @@ public class CountServiceImpl implements CountService {
 
 	@Autowired
 	private ViewCountMapper viewCountMapper;
+	private final Integer INDEX_VIEW_COUNT_ID = 1;
 
 	@Override
 	public void countPageView(ViewCount viewCount) {
@@ -35,6 +36,12 @@ public class CountServiceImpl implements CountService {
 		ViewCountExample viewCountExample = new ViewCountExample();
 		viewCountExample.setOrderByClause("id ASC");
 		return viewCountMapper.selectByExample(viewCountExample);
+	}
+
+	@Override
+	public Long findIndexVisitCount() {
+		ViewCount viewCount = viewCountMapper.selectByPrimaryKey(INDEX_VIEW_COUNT_ID);
+		return viewCount.getCount();
 	}
 
 }

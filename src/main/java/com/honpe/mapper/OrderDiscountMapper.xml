@@ -6,6 +6,7 @@
     <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
     <result column="linkman" property="linkman" jdbcType="VARCHAR" />
     <result column="linkphone" property="linkphone" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="DECIMAL" />
     <result column="discount_payment" property="discountPayment" jdbcType="DECIMAL" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="discount_reason" property="discountReason" jdbcType="VARCHAR" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, buyer_id, linkman, linkphone, discount_payment, status, discount_reason, 
+    order_id, buyer_id, linkman, linkphone, payment, discount_payment, status, discount_reason, 
     apply_time, check_time, salesman_id, refuse_reason
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.honpe.po.OrderDiscountExample" >
@@ -108,13 +109,15 @@
   </delete>
   <insert id="insert" parameterType="com.honpe.po.OrderDiscount" >
     insert into order_discount (order_id, buyer_id, linkman, 
-      linkphone, discount_payment, status, 
-      discount_reason, apply_time, check_time, 
-      salesman_id, refuse_reason)
+      linkphone, payment, discount_payment, 
+      status, discount_reason, apply_time, 
+      check_time, salesman_id, refuse_reason
+      )
     values (#{orderId,jdbcType=VARCHAR}, #{buyerId,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
-      #{linkphone,jdbcType=VARCHAR}, #{discountPayment,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
-      #{discountReason,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, 
-      #{salesmanId,jdbcType=INTEGER}, #{refuseReason,jdbcType=VARCHAR})
+      #{linkphone,jdbcType=VARCHAR}, #{payment,jdbcType=DECIMAL}, #{discountPayment,jdbcType=DECIMAL}, 
+      #{status,jdbcType=TINYINT}, #{discountReason,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{salesmanId,jdbcType=INTEGER}, #{refuseReason,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.honpe.po.OrderDiscount" >
     insert into order_discount
@@ -130,6 +133,9 @@
       </if>
       <if test="linkphone != null" >
         linkphone,
+      </if>
+      <if test="payment != null" >
+        payment,
       </if>
       <if test="discountPayment != null" >
         discount_payment,
@@ -165,6 +171,9 @@
       </if>
       <if test="linkphone != null" >
         #{linkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=DECIMAL},
       </if>
       <if test="discountPayment != null" >
         #{discountPayment,jdbcType=DECIMAL},
@@ -210,6 +219,9 @@
       <if test="record.linkphone != null" >
         linkphone = #{record.linkphone,jdbcType=VARCHAR},
       </if>
+      <if test="record.payment != null" >
+        payment = #{record.payment,jdbcType=DECIMAL},
+      </if>
       <if test="record.discountPayment != null" >
         discount_payment = #{record.discountPayment,jdbcType=DECIMAL},
       </if>
@@ -242,6 +254,7 @@
       buyer_id = #{record.buyerId,jdbcType=VARCHAR},
       linkman = #{record.linkman,jdbcType=VARCHAR},
       linkphone = #{record.linkphone,jdbcType=VARCHAR},
+      payment = #{record.payment,jdbcType=DECIMAL},
       discount_payment = #{record.discountPayment,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=TINYINT},
       discount_reason = #{record.discountReason,jdbcType=VARCHAR},
@@ -264,6 +277,9 @@
       </if>
       <if test="linkphone != null" >
         linkphone = #{linkphone,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=DECIMAL},
       </if>
       <if test="discountPayment != null" >
         discount_payment = #{discountPayment,jdbcType=DECIMAL},
@@ -294,6 +310,7 @@
     set buyer_id = #{buyerId,jdbcType=VARCHAR},
       linkman = #{linkman,jdbcType=VARCHAR},
       linkphone = #{linkphone,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=DECIMAL},
       discount_payment = #{discountPayment,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT},
       discount_reason = #{discountReason,jdbcType=VARCHAR},

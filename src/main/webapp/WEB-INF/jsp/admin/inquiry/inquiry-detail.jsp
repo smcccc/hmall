@@ -214,7 +214,7 @@
 							if(row.status === 0 || row.status == 2) {
 								var elems = [];
 								elems.push(
-									'<input name="customerName" type="number" class="price-input form-control" autocomplete="off">'
+									'<input type="number" class="price-input form-control" autocomplete="off">'
 								)
 								elems.push(
 									'<button type="button" class="offer-btn btn btn-primary btn-sm" style="margin:0 2px;">报价</button>')

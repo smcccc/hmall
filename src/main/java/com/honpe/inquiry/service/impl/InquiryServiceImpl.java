@@ -1,7 +1,11 @@
 package com.honpe.inquiry.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -44,9 +48,9 @@ public class InquiryServiceImpl implements InquiryService {
 	@Autowired
 	private SysUserMapper sysUserMapper;
 	private final String idPrefix = "XJ";
-
 	private final int LIST_PAGE_SIZE = 10;
 	private final int DETAIL_PAGE_SIZE = 5;
+	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public Map<String, List<DictInfo>> getInquiryFormDictData() {
@@ -198,11 +202,10 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public PageInfo<InquiryExt> findAllInquiryByCondition(Integer page, Integer pageSize, Integer salesmanId,
-			Byte status, String customerName, String customerCompany, Boolean isOffered) {
+			Byte status, String search, Boolean isOffered) {
 		overInquiry();
 		PageHelper.startPage(page, pageSize);
-		List<InquiryExt> inquiries = inquiryMapper.selectByCondition(salesmanId, status, customerName, customerCompany,
-				isOffered);
+		List<InquiryExt> inquiries = inquiryMapper.selectByCondition(salesmanId, status, search, isOffered);
 		if (inquiries != null && inquiries.size() > 0) {
 			inquiries.forEach(item -> item.setStatusInfo(InquiryEnum.getInstance(item.getStatus()).statusInfo));
 		}
@@ -244,5 +247,32 @@ public class InquiryServiceImpl implements InquiryService {
 		inquiry.setIsOffered(isOffered);
 		inquiryMapper.updateByPrimaryKeySelective(inquiry);
 		return isOffered;
+	}
+
+	@Override
+	public long findCurrentMonthAddedNumber() throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		Date beginDate = sdf.parse(year + "-" + month + "-1");
+		Date endDate = sdf.parse(year + "-" + month + "-" + calendar.getActualMaximum(Calendar.DATE));
+		return inquiryMapper.selectCountByDate(beginDate, endDate, null);
+	}
+
+	@Override
+	public long[] findInquiryNumberOfCurrentWeek() throws ParseException {
+		long[] inquiryCount = new long[7];
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONDAY) + 1;
+		int day = Calendar.SUNDAY;
+		while (day <= Calendar.SATURDAY) {
+			calendar.set(Calendar.DAY_OF_WEEK, day);
+			Date weekDate = sdf.parse(year + "-" + month + "-" + calendar.get(Calendar.DATE));
+			long count = inquiryMapper.selectCountByDate(null, null, weekDate);
+			inquiryCount[day - 1] = count;
+			day++;
+		}
+		return inquiryCount;
 	}
 }

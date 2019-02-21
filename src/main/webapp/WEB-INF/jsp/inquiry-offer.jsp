@@ -4,7 +4,7 @@
 <html>
 
 	<head>
-		<title>询价单详情 </title>
+		<title>询价单报价详情 </title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Language" content="zh-CN" />
 		<meta name="Copyright" content="honpe" />
@@ -168,7 +168,7 @@
 														<c:if test="${item.status==3}">
 															<a class="blue" href="${baseUrl}/order/single/place?itemId=${item.id}">立即下单</a>
 															<a class="red" href="javascript:;" onclick="addShippingCart('${item.id}',${item.buyNum})">
-																加入购物车 
+																加入购物车
 															</a>
 														</c:if>
 													</c:if>

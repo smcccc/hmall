@@ -26,8 +26,8 @@
 		<div class="main">
 			<div class="step">
 				<ol class="clearfix">
-					<li class="step-current step-item">1.${inquiry.isActive?'修改询价单':'创建询价单'}</li>
-					<li class="step-item">2.${inquiry.isActive?'修改询价产品':'添加询价产品'}</li>
+					<li class="step-current step-item">${inquiry.isActive?'修改询价单':'创建询价单'}</li>
+					<li class="step-item">${inquiry.isActive?'修改询价产品':'添加询价产品'}</li>
 					<c:if test="${!inquiry.isActive}">
 						<li class="step-item">发布询价成功</li>
 					</c:if>

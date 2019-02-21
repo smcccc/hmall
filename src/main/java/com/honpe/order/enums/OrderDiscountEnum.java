@@ -2,7 +2,7 @@ package com.honpe.order.enums;
 
 public enum OrderDiscountEnum {
 
-	APPLYED(0, "未已申请"), REFUSE(1, "已拒绝"), ALLOWED(2, "已已通过");
+	APPLYED(0, "已申请"), REFUSE(1, "已拒绝"), ALLOWED(2, "已通过");
 
 	public int status;
 	public String statusInfo;

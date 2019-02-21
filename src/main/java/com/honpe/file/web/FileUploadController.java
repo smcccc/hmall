@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -121,9 +122,9 @@ public class FileUploadController {
 
 	@PostMapping("/isMd5Exist")
 	public @ResponseBody Result isMd5Exist(String fileMd5, String filename) {
-		boolean md5Exist = fileService.isMd5Exist(fileMd5, filename);
-		if (md5Exist) {
-			return new Result(403, null, null);
+		String fileId = fileService.isMd5Exist(fileMd5, filename);
+		if (StringUtils.isNoneBlank(fileId)) {
+			return new Result(403, null, fileId);
 		}
 		return new Result(200, null, null);
 	}

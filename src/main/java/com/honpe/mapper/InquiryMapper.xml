@@ -634,11 +634,8 @@
 		<if test="status != null">
 			AND status=#{status}
 		</if>
-		<if test="customerName !=null and customerName !=''">
-			AND user_name LIKE '%${customerName}%'
-		</if>
-		<if test="companyName !=null and companyName !=''">
-			AND company_name LIKE '%${companyName}%'
+		<if test="search !=null and search !=''">
+			AND (user_name LIKE '%${search}%' OR company_name LIKE '%${search}%')
 		</if>
 		<if test="isOffered != null">
 			AND is_offered = #{isOffered}
@@ -669,5 +666,16 @@
 			AND (id LIKE '%${search}%' OR title LIKE '%${search}%')
 		</if>
 		ORDER BY create_time DESC
+	</select>
+	<select id="selectCountByDate" resultType="java.lang.Long" parameterType="java.util.Date">
+		SELECT COUNT(0) FROM inquiry WHERE is_active=TRUE
+		<choose>
+			<when test="dayDate!=null">
+				AND DATE(create_time)=#{dayDate}
+			</when>
+			<otherwise>
+				AND DATE(create_time) &gt;=#{beginDate} AND DATE(create_time) &lt;= #{endDate}
+			</otherwise>
+		</choose>
 	</select>
 </mapper>

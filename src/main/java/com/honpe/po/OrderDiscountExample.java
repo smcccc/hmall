@@ -386,6 +386,66 @@ public class OrderDiscountExample {
             return (Criteria) this;
         }
 
+        public Criteria andPaymentIsNull() {
+            addCriterion("payment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentIsNotNull() {
+            addCriterion("payment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentEqualTo(BigDecimal value) {
+            addCriterion("payment =", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentNotEqualTo(BigDecimal value) {
+            addCriterion("payment <>", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentGreaterThan(BigDecimal value) {
+            addCriterion("payment >", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("payment >=", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentLessThan(BigDecimal value) {
+            addCriterion("payment <", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("payment <=", value, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentIn(List<BigDecimal> values) {
+            addCriterion("payment in", values, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentNotIn(List<BigDecimal> values) {
+            addCriterion("payment not in", values, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("payment between", value1, value2, "payment");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymentNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("payment not between", value1, value2, "payment");
+            return (Criteria) this;
+        }
+
         public Criteria andDiscountPaymentIsNull() {
             addCriterion("discount_payment is null");
             return (Criteria) this;

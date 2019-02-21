@@ -24,43 +24,45 @@
 		<header>
 			<%@include file="/static/taglib/top.jsp"%>
 			<div class="bottom">
-				<div class="left">
-					<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
-					<h2>填写核对订单</h2>
-				</div>
-				<div class="right">
-					<ul class="timeline">
-						<li class="this">
-							<div>
-								<img src="${baseUrl}/static/icon/order_03.png" alt="" />
-							</div>
-							<p>提交订单</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/pay.png" alt="" />
-							</div>
-							<p>买家付款</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
-							</div>
-							<p>卖家发货</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
-							</div>
-							<p>确认收货</p>
-						</li>
-					</ul>
+				<div class="clearfix">
+					<div class="left">
+						<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
+						<h2>填写核对订单</h2>
+					</div>
+					<div class="right">
+						<ul class="timeline">
+							<li class="this">
+								<div>
+									<img src="${baseUrl}/static/icon/order_03.png" alt="" />
+								</div>
+								<p>提交订单</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/pay.png" alt="" />
+								</div>
+								<p>买家付款</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/fahuo.png" alt="" />
+								</div>
+								<p>卖家发货</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
+								</div>
+								<p>确认收货</p>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</header>
 		<div class="main">
 			<form id="orderForm">
-				<input type="hidden" name="orderShippingId" value="${address.get(0).id}" />
+				<input type="hidden" name="orderShippingId" value="${empty address?'': address.get(0).id}" />
 			</form>
 			<div class="check">
 				<section class="address">
@@ -120,7 +122,6 @@
 									<c:set var="payment" value="0"></c:set>
 								</c:otherwise>
 							</c:choose>
-
 							<c:choose>
 								<c:when test="${!empty orderItem}">
 									<div class="row" data-id="201811171245">
@@ -197,17 +198,26 @@
 									<label>不开发票</label>
 								</div>
 								<div class="right">
-									<a href="${baseUrl}/invoice/toedit?id=${invoice.id}">修改</a>
-									<a href="${baseUrl}/invoice/info">更换</a>
+									<c:choose>
+										<c:when test="${empty invoice}">
+											<a href="${baseUrl}/invoice/info">添加开票信息</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${baseUrl}/invoice/toedit?id=${invoice.id}">修改开票信息</a>
+											<a href="${baseUrl}/invoice/info">更换开票信息</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							<div class="detail animated fadeInDown">
-								<input form="orderForm" type="hidden" name="invoiceId" value="${invoice.id}" />
-								<ul>
-									<li><span><label>公司名称</label>${invoice.companyName}</span><span><label>发票抬头</label>${invoice.invoiceRise}</span></li>
-									<li><span><label>纳税识别号</label>${invoice.tax}</span><span><label>收票人</label>${invoice.checkTaker}</span></li>
-									<li><span><label>收票人电话</label>${invoice.takerPhone}</span><span><label>收票地址</label>${invoice.receiveAddress} ${invoice.receiveAddressDetail}</span></li>
-								</ul>
+								<c:if test="${!empty invoice}">
+									<input form="orderForm" type="hidden" name="invoiceId" value="${invoice.id}" />
+									<ul>
+										<li><span><label>公司名称</label>${invoice.companyName}</span><span><label>发票抬头</label>${invoice.invoiceRise}</span></li>
+										<li><span><label>纳税识别号</label>${invoice.tax}</span><span><label>收票人</label>${invoice.checkTaker}</span></li>
+										<li><span><label>收票人电话</label>${invoice.takerPhone}</span><span><label>收票地址</label>${invoice.receiveAddress} ${invoice.receiveAddressDetail}</span></li>
+									</ul>
+								</c:if>
 							</div>
 						</div>
 						<div class="foot">

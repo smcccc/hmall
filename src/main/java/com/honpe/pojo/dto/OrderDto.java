@@ -4,13 +4,18 @@ import com.honpe.po.DictInfo;
 import com.honpe.po.TbOrder;
 
 public class OrderDto extends TbOrder {
-
+	
 	private DictInfo shippingTypeInfo;
 	private String statusInfo;
 
 	public OrderDto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public OrderDto(String statusInfo) {
+		super();
+		this.statusInfo = statusInfo;
 	}
 
 	public OrderDto(DictInfo shippingTypeInfo, String statusInfo) {
@@ -34,5 +39,4 @@ public class OrderDto extends TbOrder {
 	public final void setStatusInfo(String statusInfo) {
 		this.statusInfo = statusInfo;
 	}
-	
 }

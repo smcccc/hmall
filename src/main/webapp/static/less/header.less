@@ -1,6 +1,11 @@
 @import 'reset.less';
 //header
 header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 8888;
     .top {
         background-color: #2F4056;
         padding-top: 8px;
@@ -66,16 +71,21 @@ header {
                                 }
                             }
                         }
-                        .arrow {
-                            transform: rotateX(180deg)
-                        }
-                        div {
+                        &>div {
                             display: inline-block;
                             position: relative;
+                            height: 25px;
+                            cursor: pointer;
+                            margin-left: 10px;
+                            margin-bottom: -15px;
+                            &:hover img {
+                                transform: rotateX(180deg);
+                            }
+                            &:hover ul {
+                                display: block;
+                            }
                             img {
                                 vertical-align: sub;
-                                margin-left: 10px;
-                                cursor: pointer;
                                 height: 15px;
                                 transition: all .3s;
                                 transform-origin: center;
@@ -84,7 +94,7 @@ header {
                                 width: 125px;
                                 position: absolute;
                                 right: 0;
-                                top: 162%;
+                                top: 25px;
                                 background-color: #2F4056;
                                 z-index: 1000;
                                 display: none;
@@ -112,11 +122,43 @@ header {
         }
     }
     .bottom {
-        width: 1200px;
-        margin: 0 auto;
-        overflow: hidden;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        background-color: #FFF;
+        box-shadow: 0 2px 1px #F0F0F0;
+        border-bottom: 1px solid #F0F0F0;
+        .clearfix {
+            width: 1200px;
+            margin: 0 auto;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            &>.right {
+                ul {
+                    padding-top: 15px;
+                    li {
+                        display: inline-block;
+                        font-size: 16px;
+                        margin-left: 40px;
+                        a {
+                            color: #333;
+                            font-family: siyuan;
+                            &:hover {
+                                color: #11aeff;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+                .right {
+                    margin-left: 45px;
+                    padding-top: 10px;
+                    font-size: 18px;
+                    color: #11aeff;
+                    img {
+                        vertical-align: sub;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
         .search {
             border: 3px solid #29adec;
             height: 43px;
@@ -141,34 +183,6 @@ header {
                 line-height: 37px;
                 letter-spacing: 8px;
                 background-color: #29adec;
-            }
-        }
-        &>.right {
-            ul {
-                padding-top: 15px;
-                li {
-                    display: inline-block;
-                    font-size: 16px;
-                    margin-left: 40px;
-                    a {
-                        color: #333;
-                        font-family: siyuan;
-                        &:hover {
-                            color: #11aeff;
-                            text-decoration: none;
-                        }
-                    }
-                }
-            }
-            .right {
-                margin-left: 45px;
-                padding-top: 10px;
-                font-size: 18px;
-                color: #11aeff;
-                img {
-                    vertical-align: sub;
-                    margin-right: 5px;
-                }
             }
         }
     }

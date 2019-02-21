@@ -1,31 +1,17 @@
 package com.honpe.page.web;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
 import javax.annotation.PostConstruct;
-import javax.imageio.spi.RegisterableService;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.servlet.support.RequestContext;
-
 import com.github.pagehelper.PageInfo;
 import com.honpe.constant.Constant;
 import com.honpe.content.service.CategoryService;
@@ -95,9 +81,8 @@ public class PageController {
 		List<ContentExt> swipers = getIndexContent(Constant.CategoryConst.INDEX_SWIPER);
 		List<ContentExt> ads = getIndexContent(Constant.CategoryConst.INDEX_AD);
 		ContentExt ad = null;
-		if (ads != null && !ads.isEmpty()) {
+		if (ads != null && !ads.isEmpty())
 			ad = ads.get(0);
-		}
 		List<ContentExt> makes = getIndexContent(Constant.CategoryConst.CASE_MAKE);
 		List<ContentExt> prints = getIndexContent(Constant.CategoryConst.CASE_3D);
 		List<ContentExt> news = getIndexContent(Constant.CategoryConst.NEWS);
@@ -151,9 +136,8 @@ public class PageController {
 	@GetMapping("/about")
 	public String about(@RequestParam(defaultValue = "1") Integer page, Long categoryId, Model model) {
 		List<CategoryDto> categories = categoryService.findAllchilrenById(Constant.CategoryConst.ABOUT_US);
-		if (categoryId == null) {
+		if (categoryId == null)
 			categoryId = Constant.CategoryConst.COMPANY_INSTRODUCE;
-		}
 		ContentCategory category = categoryService.findById(categoryId);
 		model.addAttribute("category", category);
 		model.addAttribute("categories", categories);

@@ -43,6 +43,7 @@
 				/admin/customer/list=perms[customer:view]
 				/admin/customer/suggest=perms[suggest:view]
 				/admin/dict/list=perms[dict:view]
+				/admin/order/my/list=perms[order:view]
 				/admin/login=captchaValidate,authca
 				/admin/logout=logout
 				/admin/**=authca,loginTimes
@@ -92,7 +93,7 @@
 
 	<!-- captcha filter -->
 	<bean id="captchaValidateFilter" class="com.honpe.auth.shiro.filter.CaptchaValidateFilter">
-		<property name="captchaEbabled" value="false" />
+		<property name="captchaEbabled" value="true" />
 		<property name="captchaParam" value="captchaCode" />
 		<property name="failureKeyAttribute" value="shiroLoginFailure" />
 	</bean>

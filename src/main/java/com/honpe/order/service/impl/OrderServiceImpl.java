@@ -1,10 +1,18 @@
 package com.honpe.order.service.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +21,22 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.honpe.account.service.OrderShippingService;
 import com.honpe.constant.Constant;
+import com.honpe.mapper.AccountMapper;
 import com.honpe.mapper.DictInfoMapper;
 import com.honpe.mapper.FileInfoMapper;
+import com.honpe.mapper.ItemServiceApplyMapper;
 import com.honpe.mapper.OrderDiscountMapper;
 import com.honpe.mapper.OrderItemMapper;
 import com.honpe.mapper.OrderPaymentMapper;
 import com.honpe.mapper.TbOrderMapper;
+import com.honpe.order.enums.OrderDiscountEnum;
 import com.honpe.order.enums.OrderEnum;
 import com.honpe.order.service.OrderService;
+import com.honpe.po.Account;
+import com.honpe.po.AccountExample;
 import com.honpe.po.DictInfo;
 import com.honpe.po.FileInfo;
+import com.honpe.po.ItemServiceApply;
 import com.honpe.po.OrderDiscount;
 import com.honpe.po.OrderItem;
 import com.honpe.po.OrderItemExample;
@@ -30,10 +44,16 @@ import com.honpe.po.OrderPayment;
 import com.honpe.po.OrderShipping;
 import com.honpe.po.TbOrder;
 import com.honpe.po.TbOrderExample;
+import com.honpe.po.TbOrderExample.Criteria;
 import com.honpe.pojo.dto.OrderDto;
+import com.honpe.pojo.dto.OrderItemDto;
 import com.honpe.pojo.dto.OrderPaymentDto;
 import com.honpe.pojo.ext.OrderExt;
+import com.honpe.pojo.vo.OrderVo;
+import com.honpe.pojo.vo.PageBean;
 import com.honpe.utils.IDUtils;
+
+import freemarker.template.SimpleDate;
 
 @Service
 @Transactional
@@ -53,10 +73,13 @@ public class OrderServiceImpl implements OrderService {
 	private FileInfoMapper fileInfoMapper;
 	@Autowired
 	private OrderDiscountMapper orderDiscountMapper;
-
+	@Autowired
+	private AccountMapper accountMapper;
+	@Autowired
+	private ItemServiceApplyMapper itemServiceApplyMapper;
 	private final String idPrefix = "HD";
-
 	private final int ORDER_PAGE_SIZE = 10;
+	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public void generateOrder(TbOrder tbOrder, byte paymentType, List<OrderItem> items) {
@@ -173,12 +196,38 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public PageInfo<OrderExt> findCustomerOrderByCondition(Integer page, String search, String customerId,
+	public PageBean<OrderVo> findCustomerOrderByCondition(Integer page, String search, String customerId,
 			Date beginTime, Date endTime, Byte status) {
 		PageHelper.startPage(page, ORDER_PAGE_SIZE);
-		List<OrderExt> orders = tbOrderMapper.selectByConditions(search, customerId, beginTime, endTime, status);
-		orders.forEach(item -> item.setOrderDiscount(orderDiscountMapper.selectByPrimaryKey(item.getOrderId())));
-		return new PageInfo<OrderExt>(orders);
+		List<TbOrder> tbOrders = tbOrderMapper.selectByConditions(search, customerId, beginTime, endTime, status);
+		PageInfo<TbOrder> pageInfo = new PageInfo<>(tbOrders);
+		List<OrderVo> orders = new LinkedList<>();
+		if (tbOrders != null && tbOrders.size() > 0) {
+			for (TbOrder tbOrder : tbOrders) {
+				OrderVo order = new OrderVo();
+				BeanUtils.copyProperties(tbOrder, order);
+				order.setOrderDiscount(orderDiscountMapper.selectByPrimaryKey(order.getOrderId()));
+				OrderItemExample orderItemExample = new OrderItemExample();
+				orderItemExample.createCriteria().andOrderIdEqualTo(order.getOrderId());
+				List<OrderItem> items = orderItemMapper.selectByExample(orderItemExample);
+				if (items != null && items.size() > 0) {
+					List<OrderItemDto> orderItems = new ArrayList<>();
+					for (OrderItem orderItem : items) {
+						OrderItemDto orderItemDto = new OrderItemDto();
+						BeanUtils.copyProperties(orderItem, orderItemDto);
+						if (orderItem.getIsApplyReturns()) {
+							ItemServiceApply itemServiceApply = itemServiceApplyMapper
+									.selectByPrimaryKey(orderItem.getOrderItemId());
+							orderItemDto.setStatus(itemServiceApply.getStatus());
+						}
+						orderItems.add(orderItemDto);
+					}
+					order.setOrderItems(orderItems);
+				}
+				orders.add(order);
+			}
+		}
+		return new PageBean<OrderVo>(page, pageInfo.getTotal(), ORDER_PAGE_SIZE, orders);
 	}
 
 	@Override
@@ -216,5 +265,173 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<DictInfo> findAllOrderStatus() {
 		return dictInfoMapper.selectByTypeCode(Constant.OrderConst.ORDER_STATUS);
+	}
+
+	@Override
+	public PageInfo<OrderExt> findAllOrderByCondition(Integer page, Integer pageSize, String search, Date beginTime,
+			Date endTime, Integer salesmanId, Byte status) {
+		PageHelper.startPage(page, pageSize);
+		List<OrderExt> orders = tbOrderMapper.selectAllByConditions(search, salesmanId, beginTime, endTime, status);
+		if (orders != null && orders.size() > 0) {
+			for (OrderExt order : orders) {
+				order.setStatusInfo(OrderEnum.getInstance(order.getStatus()).statusInfo);
+				OrderDiscount discount = orderDiscountMapper.selectByPrimaryKey(order.getOrderId());
+				if (discount != null)
+					order.setOrderDiscount(discount);
+			}
+		}
+		return new PageInfo<OrderExt>(orders);
+	}
+
+	@Override
+	public List<OrderItem> findOrderItems(String orderId) {
+		OrderItemExample orderItemExample = new OrderItemExample();
+		orderItemExample.createCriteria().andOrderIdEqualTo(orderId);
+		return orderItemMapper.selectByExample(orderItemExample);
+	}
+
+	@Override
+	public void orderPaymentSure(String orderId) {
+		TbOrderExample orderExample = new TbOrderExample();
+		orderExample.createCriteria().andOrderIdEqualTo(orderId).andStatusLessThan((byte) OrderEnum.PAYMENTED.status);
+		TbOrder order = new TbOrder();
+		order.setStatus((byte) OrderEnum.PAYMENTED.status);
+		order.setCheckPaymentTime(new Date());
+		tbOrderMapper.updateByExampleSelective(order, orderExample);
+	}
+
+	@Override
+	public void orderExitStoreSure(String orderId) {
+		TbOrderExample orderExample = new TbOrderExample();
+		orderExample.createCriteria().andOrderIdEqualTo(orderId)
+				.andStatusEqualTo((byte) OrderEnum.NO_EXIT_STORE.status);
+		TbOrder order = new TbOrder();
+		order.setStatus((byte) OrderEnum.EXITED_STORE.status);
+		tbOrderMapper.updateByExampleSelective(order, orderExample);
+	}
+
+	@Override
+	public void orderWaitingDeliver(String orderId) {
+		TbOrderExample orderExample = new TbOrderExample();
+		orderExample.createCriteria().andOrderIdEqualTo(orderId).andStatusEqualTo((byte) OrderEnum.EXITED_STORE.status);
+		TbOrder order = new TbOrder();
+		order.setStatus((byte) OrderEnum.NO_DELIVER.status);
+		order.setDeliveryTime(new Date());
+		tbOrderMapper.updateByExampleSelective(order, orderExample);
+	}
+
+	@Override
+	public void orderDeliverSure(String orderId, String shippingName, String shippingCode) {
+		TbOrderExample orderExample = new TbOrderExample();
+		orderExample.createCriteria().andOrderIdEqualTo(orderId).andStatusEqualTo((byte) OrderEnum.NO_DELIVER.status);
+		TbOrder order = new TbOrder();
+		order.setStatus((byte) OrderEnum.DELIVERED.status);
+		order.setConsignTime(new Date());
+		order.setShippingName(shippingName);
+		order.setShippingCode(shippingCode);
+		tbOrderMapper.updateByExampleSelective(order, orderExample);
+	}
+
+	@Override
+	public Boolean orderItemsEnterStore(String orderId, String orderItemId, Integer storeNumber) {
+		OrderItem orderItem = orderItemMapper.selectByPrimaryKey(orderItemId);
+		orderItem.setStoreNumber(storeNumber + orderItem.getStoreNumber());
+		orderItemMapper.updateByPrimaryKeySelective(orderItem);
+		OrderItemExample orderItemExample = new OrderItemExample();
+		orderItemExample.createCriteria().andOrderIdEqualTo(orderId);
+		List<OrderItem> orderItems = orderItemMapper.selectByExample(orderItemExample);
+		Boolean isAllEnter = true;
+		if (orderItems != null && orderItems.size() > 0) {
+			for (OrderItem item : orderItems) {
+				if (item.getStoreNumber() < item.getNumber()) {
+					isAllEnter = false;
+					break;
+				}
+			}
+		}
+		if (isAllEnter) {
+			TbOrder tbOrder = new TbOrder();
+			tbOrder.setOrderId(orderId);
+			tbOrder.setStatus((byte) OrderEnum.NO_EXIT_STORE.status);
+			tbOrderMapper.updateByPrimaryKeySelective(tbOrder);
+		}
+		return isAllEnter;
+	}
+
+	@Override
+	public void sureReceived(String buyerId, Account buyer, String orderId) {
+		TbOrderExample tbOrderExample = new TbOrderExample();
+		tbOrderExample.createCriteria().andBuyerIdEqualTo(buyerId).andOrderIdEqualTo(orderId);
+		TbOrder tbOrder = new TbOrder();
+		tbOrder.setStatus((byte) OrderEnum.FINISH.status);
+		tbOrder.setEndTime(new Date());
+		tbOrderMapper.updateByExampleSelective(tbOrder, tbOrderExample);
+		OrderDiscount discount = orderDiscountMapper.selectByPrimaryKey(orderId);
+		Account account = new Account();
+		account.setId(buyerId);
+		account.setOrderNum(buyer.getOrderNum() + 1);
+		if (discount != null && (byte) OrderDiscountEnum.ALLOWED.status == discount.getStatus()) {
+			account.setDealMoney(buyer.getDealMoney().add(discount.getDiscountPayment()));
+		} else {
+			TbOrder order = tbOrderMapper.selectByPrimaryKey(orderId);
+			account.setDealMoney(buyer.getDealMoney().add(order.getPayment()));
+		}
+		accountMapper.updateByPrimaryKeySelective(account);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public long findCurentMonthAddedNumber() throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		Date beginDate = sdf.parse(year + "-" + month + "-1");
+		Date endDate = sdf.parse(year + "-" + month + "-" + calendar.getActualMaximum(Calendar.DATE));
+		return tbOrderMapper.selectCountByDate(beginDate, endDate, null);
+	}
+
+	@Override
+	public long[] findOrderNumberOfCurrentWeek() throws ParseException {
+		long[] orderCount = new long[7];
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONDAY) + 1;
+		int day = Calendar.SUNDAY;
+		while (day <= Calendar.SATURDAY) {
+			calendar.set(Calendar.DAY_OF_WEEK, day);
+			Date weekDate = sdf.parse(year + "-" + month + "-" + calendar.get(Calendar.DATE));
+			long count = tbOrderMapper.selectCountByDate(null, null, weekDate);
+			orderCount[day - 1] = count;
+			day++;
+		}
+		return orderCount;
+	}
+
+	@Override
+	public List<OrderExt> findOrdersLikeOrderId(String orderId, Integer salesmanId) {
+		TbOrderExample tbOrderExample = new TbOrderExample();
+		tbOrderExample.setOrderByClause("create_time DESC");
+		Criteria criteria = tbOrderExample.createCriteria();
+		criteria.andStatusNotEqualTo((byte) OrderEnum.CLOSE.status).andStatusNotEqualTo((byte) OrderEnum.FINISH.status);
+		AccountExample accountExample = new AccountExample();
+		accountExample.createCriteria().andIsActiveEqualTo(true).andSalesmanIdEqualTo(salesmanId);
+		List<Account> customers = accountMapper.selectByExample(accountExample);
+		if (customers != null && customers.size() > 0) {
+			List<String> customerIds = customers.stream().map(item -> item.getId()).collect(Collectors.toList());
+			criteria.andBuyerIdIn(customerIds);
+		}
+		if (StringUtils.isNoneBlank(orderId)) {
+			criteria.andOrderIdLike(orderId);
+		}
+		PageHelper.startPage(1, 11);
+		List<TbOrder> tbOrders = tbOrderMapper.selectByExample(tbOrderExample);
+		List<OrderExt> orders = new LinkedList<>();
+		for (TbOrder tbOrder : tbOrders) {
+			OrderExt orderExt = new OrderExt();
+			BeanUtils.copyProperties(tbOrder, orderExt);
+			orderExt.setStatusInfo(OrderEnum.getInstance(tbOrder.getStatus()).statusInfo);
+			orders.add(orderExt);
+		}
+		return orders;
 	}
 }

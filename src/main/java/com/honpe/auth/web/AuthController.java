@@ -1,8 +1,10 @@
 package com.honpe.auth.web;
 
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,16 +14,24 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.honpe.account.service.AccountService;
+import com.honpe.count.service.CountService;
+import com.honpe.inquiry.service.InquiryService;
 import com.honpe.menu.service.MenuService;
+import com.honpe.order.service.OrderService;
 import com.honpe.po.SysMenu;
 import com.honpe.po.SysUser;
+import com.honpe.po.TbOrder;
+import com.honpe.pojo.ext.OrderExt;
 import com.honpe.pojo.vo.Result;
+import com.honpe.utils.JsonUtils;
 
 @Controller
 @RequestMapping("admin")
@@ -29,8 +39,28 @@ public class AuthController {
 
 	@Autowired
 	private MenuService menuService;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private CountService countService;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+	private InquiryService inquiryService;
 
-	@RequestMapping("/login")
+	private void inputEchartsData(Model model) throws ParseException {
+		HashMap<String, Object> map = new HashMap<>();
+		long[] orderCount = orderService.findOrderNumberOfCurrentWeek();
+		long[] inquiryCount = inquiryService.findInquiryNumberOfCurrentWeek();
+		model.addAttribute("orderCount", JsonUtils.objectToJson(orderCount));
+		model.addAttribute("inquiryCount", JsonUtils.objectToJson(inquiryCount));
+		Arrays.sort(orderCount);
+		model.addAttribute("orderMax", orderCount[orderCount.length - 1]);
+		Arrays.sort(inquiryCount);
+		model.addAttribute("inquiryMax", inquiryCount[inquiryCount.length - 1]);
+	}
+
+	@PostMapping("/login")
 	public @ResponseBody Result login(HttpServletRequest req, Model model) {
 		String exceptionClassName = (String) req.getAttribute("shiroLoginFailure");
 		String error = null;
@@ -53,7 +83,7 @@ public class AuthController {
 		return new Result(200, null, null);
 	}
 
-	@RequestMapping("/index")
+	@GetMapping("/index")
 	public String index(HttpSession session, Model model) {
 		SysUser sysUser = (SysUser) session.getAttribute("SYS_USER");
 		Map<SysMenu, List<SysMenu>> menu = menuService.findSysUserMenu(sysUser.getUserId());
@@ -61,7 +91,28 @@ public class AuthController {
 		return "admin/index";
 	}
 
-	@RequestMapping("/logout")
+	@GetMapping("/index_v1")
+	public String indexV(String search, Model model) throws ParseException {
+		Long visit = countService.findIndexVisitCount();
+		Long registed = accountService.findCurrentMonthRegistered();
+		long orderNum = orderService.findCurentMonthAddedNumber();
+		long inquiryNum = inquiryService.findCurrentMonthAddedNumber();
+		model.addAttribute("inquiryNum", inquiryNum);
+		model.addAttribute("orderNum", orderNum);
+		model.addAttribute("registed", registed);
+		model.addAttribute("visit", visit);
+		inputEchartsData(model);
+		return "admin/index_v1";
+	}
+
+	@GetMapping("/order/json")
+	public @ResponseBody Result findOrders(String orderId) {
+		SysUser user = (SysUser) SecurityUtils.getSubject().getSession().getAttribute("SYS_USER");
+		List<OrderExt> orders = orderService.findOrdersLikeOrderId(orderId, user.getUserId());
+		return new Result(200, null, orders);
+	}
+
+	@GetMapping("/logout")
 	public String logout() {
 		return "admin/login";
 	}

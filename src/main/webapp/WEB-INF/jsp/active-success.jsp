@@ -12,13 +12,13 @@
 		<meta name="description" content="honpe mall" />
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link href="${baseUrl}/static/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
-		<link href="${baseUrl}/static/css/result.css" rel="stylesheet" type="text/css" />
+		<link href="${baseUrl}/static/css/result_v.css" rel="stylesheet" type="text/css" />
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
 		<%@include file="/static/taglib/header.jsp"%>
-		<div class="main">
+		<div class="main" style="margin-top: 95px;">
 			<div class="warp">
 				<div class="success" style="padding: 168px 0;">
 					<img src="${baseUrl}/static/icon/duigou.png" />

@@ -2,6 +2,8 @@ package com.honpe.po;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class OrderOperate {
     private Long operateId;
 
@@ -14,7 +16,8 @@ public class OrderOperate {
     private String role;
 
     private String operation;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date operationTime;
 
     public Long getOperateId() {

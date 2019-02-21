@@ -1,4 +1,5 @@
 package com.honpe.account.service;
+
 import com.github.pagehelper.PageInfo;
 import com.honpe.po.Account;
 import com.honpe.po.Company;
@@ -27,4 +28,6 @@ public interface AccountService {
 
 	PageInfo<AccountExt> findCustomers(Integer page, Integer pageSize, Integer orderNum, String userName,
 			String company, String salesman);
+
+	long findCurrentMonthRegistered();
 }

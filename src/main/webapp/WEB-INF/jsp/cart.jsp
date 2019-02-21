@@ -22,31 +22,33 @@
 		<header>
 			<%@include file="/static/taglib/top.jsp"%>
 			<div class="bottom">
-				<div class="left">
-					<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
-					<h2>我的购物车</h2>
-				</div>
-				<div class="right">
-					<ul class="timeline">
-						<li class="this">
-							<div>
-								<img src="${baseUrl}/static/icon/cart_03.png" alt="" />
-							</div>
-							<p>我的购物车</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/order_03.png" alt="" />
-							</div>
-							<p>填写核对订单</p>
-						</li>
-						<li>
-							<div>
-								<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
-							</div>
-							<p>订单提交成功</p>
-						</li>
-					</ul>
+				<div class="clearfix">
+					<div class="left">
+						<a href="${baseUrl}/index"><img src="${baseUrl}/static/icon/login_svg.svg" /></a>
+						<h2>我的购物车</h2>
+					</div>
+					<div class="right">
+						<ul class="timeline">
+							<li class="this">
+								<div>
+									<img src="${baseUrl}/static/icon/cart_03.png" alt="" />
+								</div>
+								<p>我的购物车</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/order_03.png" alt="" />
+								</div>
+								<p>填写核对订单</p>
+							</li>
+							<li>
+								<div>
+									<img src="${baseUrl}/static/icon/gou_03.png" alt="" />
+								</div>
+								<p>订单提交成功</p>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</header>

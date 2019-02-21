@@ -510,30 +510,15 @@
 		is_delete=false AND buyer_id=#{buyerId}
 		<include refid="Example_By_Status" />
 	</select>
-	<resultMap type="com.honpe.pojo.ext.OrderExt" id="OrderExtResultMap" extends="BaseResultMap">
-		<collection property="orderItems" ofType="com.honpe.po.OrderItem">
-			<id column="id" property="id" jdbcType="BIGINT" />
-			<result column="item_id" property="itemId" jdbcType="VARCHAR" />
-			<result column="order_id" property="orderId" jdbcType="VARCHAR" />
-			<result column="inquiry_id" property="inquiryId" jdbcType="VARCHAR" />
-			<result column="number" property="number" jdbcType="INTEGER" />
-			<result column="code" property="code" jdbcType="VARCHAR" />
-			<result column="title" property="title" jdbcType="VARCHAR" />
-			<result column="price" property="price" jdbcType="DECIMAL" />
-			<result column="total_fee" property="totalFee" jdbcType="DECIMAL" />
-			<result column="pic_path" property="picPath" jdbcType="VARCHAR" />
-		</collection>
-	</resultMap>
-	<select id="selectByConditions" parameterType="java.lang.Object" resultMap="OrderExtResultMap">
-		SELECT * FROM tb_order INNER JOIN order_item ON tb_order.order_id=order_item.order_id AND
-		tb_order.is_delete=false
+	<select id="selectByConditions" parameterType="java.lang.Object" resultMap="BaseResultMap">
+		SELECT * FROM tb_order WHERE tb_order.is_delete=false
+		<if test="buyerId!=null and buyerId!=''">
+			AND tb_order.buyer_id=#{buyerId}
+		</if>
 		<if test="search!=null and search!=''">
 			AND tb_order.order_id in (SELECT tb_order.order_id FROM tb_order INNER JOIN order_item ON
 			tb_order.order_id=order_item.order_id AND (tb_order.order_id LIKE '%${search}%' OR order_item.title LIKE
 			'%${search}%'))
-		</if>
-		<if test="buyerId!=null and buyerId!=''">
-			AND tb_order.buyer_id=#{buyerId}
 		</if>
 		<if test="beginTime!=null">
 			AND tb_order.end_time &gt;= #{beginTime}
@@ -544,6 +529,49 @@
 		<if test="status!=null">
 			<include refid="Example_By_Status" />
 		</if>
-		ORDER BY create_time DESC
+		ORDER BY tb_order.create_time DESC
+	</select>
+	<resultMap type="com.honpe.pojo.ext.OrderExt" id="OrderExtResultMap" extends="BaseResultMap">
+		<result property="company" column="company_name" jdbcType="VARCHAR" />
+		<result property="salesman" column="salesman_name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectAllByConditions" parameterType="java.lang.Object" resultMap="OrderExtResultMap">
+		SELECT tb_order.*,company.company_name,account.salesman_name FROM tb_order,account,company WHERE
+		tb_order.buyer_id=account.id AND
+		account.com_id=company.id
+		<if test="beginTime!=null">
+			AND tb_order.create_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null">
+			AND tb_order.create_time &lt;= #{endTime}
+		</if>
+		<if test="status!=null">
+			AND `status`=#{status}
+		</if>
+		<if test="salesmanId!=null">
+			AND account.salesman_id = #{salesmanId}
+		</if>
+		<if test="search!=null and search!=''">
+			AND (tb_order.order_id LIKE '%${search}%' OR tb_order.buyer_nick LIKE '%${search}%' OR tb_order.buyer_id
+			IN (SELECT account.id FROM account,company WHERE
+			company.id=account.com_id AND
+			company.company_name LIKE '%${search}%'
+			))
+		</if>
+		ORDER BY tb_order.create_time DESC
+	</select>
+	<select id="selectCountByDate" resultType="java.lang.Long" parameterType="java.util.Date">
+		SELECT COUNT(0) FROM tb_order WHERE `status`&gt;=2 AND `status`!=8
+		<choose>
+			<when test="dayDate!=null">
+				AND DATE(create_time)=#{dayDate}
+			</when>
+			<otherwise>
+				AND
+				DATE(create_time) &gt;=
+				#{beginDate} AND DATE(create_time) &lt;= #{endDate}
+			</otherwise>
+		</choose>
+
 	</select>
 </mapper>

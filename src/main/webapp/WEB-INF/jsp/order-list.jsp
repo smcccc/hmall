@@ -96,6 +96,7 @@
 									<div>商品</div>
 									<div>单价</div>
 									<div>数量</div>
+									<div>商品操作</div>
 								</div>
 								<div>实付款</div>
 								<div>
@@ -107,23 +108,23 @@
 							</div>
 							<div class="page clearfix">
 								<ul class="right">
-									<li <c:if test="${pageInfo.pageNum==1}">class="disable"</c:if>>
-										<button <c:if test="${pageInfo.pageNum==1}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageInfo.pageNum-1})">上一页</button>
+									<li <c:if test="${pageBean.currentPage==1}">class="disable"</c:if>>
+										<button <c:if test="${pageBean.currentPage==1}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageBean.currentPage-1})">上一页</button>
 									</li>
-									<li <c:if test="${pageInfo.pageNum==pageInfo.pages||pageInfo.pages==0}">class="disable"</c:if>>
-										<button <c:if test="${pageInfo.pageNum==pageInfo.pages||pageInfo.pages==0}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageInfo.pageNum+1})">下一页</button>
+									<li <c:if test="${pageBean.currentPage==pageBean.totalPage||pageBean.totalPage==0}">class="disable"</c:if>>
+										<button <c:if test="${pageBean.currentPage==pageBean.totalPage||pageBean.totalPage==0}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageBean.currentPage+1})">下一页</button>
 									</li>
 								</ul>
 							</div>
 							<c:choose>
-								<c:when test="${!empty pageInfo.list}">
+								<c:when test="${!empty pageBean.data}">
 									<div class="list">
-										<c:forEach items="${pageInfo.list}" var="item">
+										<c:forEach items="${pageBean.data}" var="item">
 											<div class="item">
 												<div>
 													<time>下单时间：<fmt:formatDate value="${item.createTime}" type="date"/> </time><span>订单编号：${item.orderId}</span>
 													<c:if test="${item.status==8}">
-														<a href="javascript:;" onclick="delOrder('${item.orderId}')"><i class="icon iconfont">&#xe606;</i> </a>
+														<a href="javascript:;" title="删除订单" onclick="delOrder('${item.orderId}')"><i class="icon iconfont">&#xe606;</i> </a>
 													</c:if>
 												</div>
 												<div class="row">
@@ -145,6 +146,32 @@
 																<div>
 																	${orderItem.number}
 																</div>
+																<div>
+																	<c:if test="${item.status==7 && !orderItem.isApplyReturns}">
+																		<a href="${baseUrl}/order/item/service/toApply?orderId=${orderItem.orderId}&itemId=${orderItem.itemId}">申请换货</a>
+																	</c:if>
+																	<c:if test="${item.status==7 && orderItem.isApplyReturns}">
+																		<a href="${baseUrl}/order/item/service/detail?orderItemId=${orderItem.orderItemId}">
+																			<c:choose>
+																				<c:when test="${orderItem.status==0}">
+																					申请处理中
+																				</c:when>
+																				<c:when test="${orderItem.status==1}">
+																					已拒绝
+																				</c:when>
+																				<c:when test="${orderItem.status==2}">
+																					已同意
+																				</c:when>
+																				<c:when test="${orderItem.status==5}">
+																					已撤销
+																				</c:when>
+																				<c:when test="${orderItem.status==4}">
+																					换货已发出
+																				</c:when>
+																			</c:choose>
+																		</a>
+																	</c:if>
+																</div>
 															</div>
 														</c:forEach>
 													</div>
@@ -160,7 +187,7 @@
 																	<c:when test="${item.orderDiscount.status==2}">
 																		<del><fmt:formatNumber value="${item.payment}" type="currency" /></del>
 																		<p>优惠价
-																			<fmt:formatNumber value="${item.orderDiscount.discountPayment}" type="currency" />
+																			<fmt:formatNumber value="${item.orderDiscount.payment-item.orderDiscount.discountPayment}" type="currency" />
 																		</p>
 																	</c:when>
 																	<c:when test="${item.orderDiscount.status==1}">
@@ -194,8 +221,7 @@
 																交易完成
 															</c:when>
 															<c:when test="${item.status==8}">
-																<p>交易关闭</p>
-																<p>${item.cancleReason}</p>
+																交易关闭
 															</c:when>
 															<c:otherwise>
 																待发货
@@ -210,6 +236,9 @@
 																<a href="javascript:;" onclick="discount('${item.orderId}')">申请优惠</a>
 															</c:if>
 															<a href="javascript:;" onclick="cancelOrder('${item.orderId}')">取消订单</a>
+														</c:if>
+														<c:if test="${item.status==6}">
+															<a href="javascript:;" onclick="receivedOrder('${item.orderId}')">确认收货</a>
 														</c:if>
 													</div>
 												</div>

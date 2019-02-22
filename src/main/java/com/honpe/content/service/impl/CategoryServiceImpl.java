@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 		contentCategoryExample.createCriteria().andIsDeleteEqualTo(false)
 				.andParentIdEqualTo(Constant.CategoryConst.TOP_PARENT);
 		List<ContentCategory> categories = contentCategoryMapper.selectByExample(contentCategoryExample);
-		TreeResult tree = new TreeResult(0L, "内容类别");
+		TreeResult tree = new TreeResult(0L, "全部类别");
 		if (categories != null && categories.size() > 0) {
 			HashMap<String, Object> state = new HashMap<>();
 			state.put("opened", true);

@@ -15,12 +15,31 @@ body {
 	background-color: #4a2f68;
 }
 
+.login {
+	width: 400px;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+	padding: 10px 35px 25px 35px;
+	border-radius: 5px;
+	box-shadow: 0 0 1px #f2f2f2;
+}
+
+.login h3 {
+	text-align: center;
+}
+
+.login .form-group {
+	margin-bottom: 10px;
+}
+.login button[type=submit]{
+	margin-top: 15px;
+}
 .error {
 	color: #ed5565;
 }
 
 .captcha-wrap input[type=text] {
-	width: 55%;
+	width: 62%;
 	display: inline-block;
 }
 

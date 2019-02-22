@@ -57,10 +57,8 @@ public class ContentServiceImpl implements ContentService {
 		if (content.getId() == null) {
 			content.setCreateTime(new Date());
 			contentMapper.insertSelective(content);
-			ContentWithBLOBs temp = new ContentWithBLOBs();
-			temp.setId(content.getId());
-			temp.setSequence(content.getId());
-			contentMapper.updateByPrimaryKeySelective(temp);
+			content.setSequence(content.getId());
+			contentMapper.updateByPrimaryKeySelective(content);
 		} else {
 			content.setUpdateTime(new Date());
 			contentMapper.updateByPrimaryKeySelective(content);

@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.honpe.constant.Constant;
 import com.honpe.log.annotation.RecordOperateLog;
 import com.honpe.menu.service.MenuService;
 import com.honpe.po.SysMenu;
@@ -26,8 +25,8 @@ public class MenuController {
 
 	@GetMapping("/list-json")
 	@RequiresPermissions("menu:view")
-	public @ResponseBody List<SysMenu> menuList(Model model) {
-		return menuService.findAllMenu();
+	public @ResponseBody List<SysMenu> menuList(@RequestParam(defaultValue = "0") Integer parentId, Model model) {
+		return menuService.findMenuByParentId(parentId);
 	}
 
 	@RequestMapping("/sort")

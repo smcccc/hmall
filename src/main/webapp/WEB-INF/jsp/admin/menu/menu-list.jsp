@@ -42,7 +42,7 @@
 				</div>
 				<div class="ibox-content">
 					<div class="table-warp">
-						<table id="table"></table>
+						<table id="parent"></table>
 					</div>
 				</div>
 			</div>
@@ -73,90 +73,95 @@
 				$('#edit-modal').on('hide.bs.modal', function() {
 					$(this).removeData('bs.modal')
 				});
-				table = $('#table').bootstrapTable({
+				var columns = [{
+					field: 'menuName',
+					title: '菜单名称'
+				}, {
+					field: 'dataUrl',
+					title: '路由'
+				}, {
+					field: 'sequence',
+					title: '排序',
+					width: 120,
+					events: operateEvents,
+					formatter: function(value, row, index) {
+						var elem = [];
+						elem.push('<input type="number" value="' + value + '" min="1" />')
+						elem.push('<button class="sort-btn btn btn-xs btn-primary" style="margin:0 4px;">GO</button>')
+						return elem.join('');
+					}
+				}, {
+					field: 'menuType',
+					title: '菜单类型',
+					align: 'center',
+					width: 120,
+					formatter: function(value, row, index) {
+						var elem;
+						if(value === 0) {
+							elem = '<span class="label label-info">导航菜单</span>'
+						} else {
+							elem = '<span class="label label-success">页内菜单</span>'
+						}
+						return elem;
+					}
+				}, {
+					field: 'display',
+					title: '是否显示',
+					width: 90,
+					align: 'center',
+					events: operateEvents,
+					formatter: function(value, row, index) {
+						var elem;
+						if(value) {
+							elem = '<button title="点击隐藏" class="display-btn btn btn-xs btn-info">显示</button>'
+						} else {
+							elem = '<button title="点击显示" class="display-btn btn btn-xs">隐藏</button>'
+						}
+						return elem;
+					}
+				}, {
+					field: 'createTime',
+					title: '创建时间'
+				}, {
+					field: 'creater',
+					title: '创建人'
+				}, {
+					field: 'editTime',
+					title: '修改时间'
+				}, {
+					field: 'editor',
+					title: '修改人'
+				}, {
+					field: 'operate',
+					title: '操作',
+					align: 'center',
+					width: 100,
+					events: operateEvents,
+					formatter: function(value, row, index) {
+						return '<button class="edit-btn btn btn-info btn-xs">编辑</button>'
+					},
+				}]
+				table = $('#parent').bootstrapTable({
 					url: '${baseUrl}/admin/menu/list-json',
 					striped: true,
 					cache: false,
-					pagination: true,
-					sidePagination: "client",
-					pageNumber: 1,
-					pageSize: 10,
-					pageList: [10],
 					clickToSelect: true,
 					uniqueId: "menuId",
-					columns: [{
-						title: '序号',
-						formatter: function(value, row, index) {
-							return index + 1;
-						}
-					}, {
-						field: 'menuName',
-						title: '菜单名称'
-					}, {
-						field: 'dataUrl',
-						title: '路由'
-					}, {
-						field: 'sequence',
-						title: '排序',
-						width: 120,
-						events: operateEvents,
-						formatter: function(value, row, index) {
-							var elem = [];
-							elem.push('<input type="number" value="' + value + '" min="1" />')
-							elem.push('<button class="sort-btn btn btn-xs btn-primary" style="margin:0 4px;">GO</button>')
-							return elem.join('');
-						}
-					}, {
-						field: 'menuType',
-						title: '菜单类型',
-						align: 'center',
-						width: 120,
-						formatter: function(value, row, index) {
-							var elem;
-							if(value === 0) {
-								elem = '<span class="label label-info">导航菜单</span>'
-							} else {
-								elem = '<span class="label label-success">页内菜单</span>'
-							}
-							return elem;
-						}
-					}, {
-						field: 'display',
-						title: '是否显示',
-						width: 90,
-						align: 'center',
-						events: operateEvents,
-						formatter: function(value, row, index) {
-							var elem;
-							if(value) {
-								elem = '<button title="点击隐藏" class="display-btn btn btn-xs btn-info">显示</button>'
-							} else {
-								elem = '<button title="点击显示" class="display-btn btn btn-xs">隐藏</button>'
-							}
-							return elem;
-						}
-					}, {
-						field: 'createTime',
-						title: '创建时间'
-					}, {
-						field: 'creater',
-						title: '创建人'
-					}, {
-						field: 'editTime',
-						title: '修改时间'
-					}, {
-						field: 'editor',
-						title: '修改人'
-					}, {
-						field: 'operate',
-						title: '操作',
-						align: 'center',
-						width: 100,
-						events: operateEvents,
-						formatter: function(value, row, index) {
-							return '<button class="edit-btn btn btn-info btn-xs">编辑</button>'
-						},
-					}]
+					detailView: true,
+					onExpandRow: function(index, row, $detail) {
+						var childTable = $detail.html('<table></table>').find('table');
+						childTable.bootstrapTable({
+							url: '${baseUrl}/admin/menu/list-json',
+							queryParams: function(params) {
+								return {
+									parentId: row.menuId
+								}
+							},
+							uniqueId: 'menuId',
+							columns: columns
+						})
+					},
+					columns: columns
 				})
 			});
 			window.operateEvents = {

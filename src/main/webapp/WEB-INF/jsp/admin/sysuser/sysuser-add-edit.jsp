@@ -27,8 +27,19 @@
 			<div class="col-sm-10">
 				<select class="form-control" name="dId">
 					<option disabled="disabled" selected="selected">请选择</option>
-					<c:forEach items="${departments}" var="department">
-						<option <c:if test="${user.dId==department.id}">selected</c:if> value="${department.id}">${department.departmentValue}</option>
+					<c:forEach items="${departments}" var="item">
+						<c:choose>
+							<c:when test="${empty item.departments}">
+								<option <c:if test="${user.dId==item.department.id}">selected</c:if> value="${item.department.id}">${item.department.departmentValue}</option>
+							</c:when>
+							<c:otherwise>
+								<optgroup label="${item.department.departmentValue}">
+									<c:forEach items="${item.departments}" var="child">
+										<option <c:if test="${user.dId==child.id}">selected</c:if> value="${child.id}">${child.departmentValue}</option>
+									</c:forEach>
+								</optgroup>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</select>
 			</div>

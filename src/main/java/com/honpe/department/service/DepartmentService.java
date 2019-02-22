@@ -1,11 +1,12 @@
 package com.honpe.department.service;
 
 import java.util.List;
-
 import com.honpe.po.SysDepartment;
+import com.honpe.pojo.dto.DepartmentDto;
 
 public interface DepartmentService {
-	List<SysDepartment> findAllNotParent();
+
+	List<DepartmentDto> findAll();
 
 	List<SysDepartment> findAllByParentId(Integer parentId);
 

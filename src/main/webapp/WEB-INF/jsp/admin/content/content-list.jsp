@@ -308,9 +308,13 @@
 						label: '附加',
 						icon: 'glyphicon glyphicon-paperclip',
 						action: function(data) {
-							$('#attach-modal').modal({
-								remote: '${baseUrl}/admin/category/attach-input?id=' + selectedNode.id
-							})
+							if(isNaN(Number.parseInt(selectedNode.id))) {
+								layer.msg('不可操作');
+							} else {
+								$('#attach-modal').modal({
+									remote: '${baseUrl}/admin/category/attach-input?id=' + selectedNode.id
+								})
+							}
 						}
 					},
 					add: {
@@ -343,35 +347,43 @@
 						label: '修改',
 						icon: 'glyphicon glyphicon-pencil',
 						action: function(data) {
-							tree.jstree('edit', selectedNode, selectedNode.text, function(data) {
-								$.post('${baseUrl}/admin/category/edit', {
-									id: selectedNode.id,
-									title: data.text
-								}, function(ret) {
-									resultHandle(ret, layer, null, function() {
-										tree.jstree('rename_node', selectedNode, selectedNode.text);
-									});
+							if(isNaN(Number.parseInt(selectedNode.id))) {
+								layer.msg('不可操作');
+							} else {
+								tree.jstree('edit', selectedNode, selectedNode.text, function(data) {
+									$.post('${baseUrl}/admin/category/edit', {
+										id: selectedNode.id,
+										title: data.text
+									}, function(ret) {
+										resultHandle(ret, layer, null, function() {
+											tree.jstree('rename_node', selectedNode, selectedNode.text);
+										});
+									})
 								})
-							})
+							}
 						}
 					},
 					del: {
 						label: '删除',
 						icon: 'glyphicon glyphicon-remove',
 						action: function(data) {
-							var msg = selectedNode.children.length === 0 ? '删除后类别相关的内容将删除,你确定删除吗?' : '你确定删除吗?';
-							layer.confirm(msg, {
-								icon: 3,
-								title: '提示'
-							}, function(index) {
-								$.post('${baseUrl}/admin/category/del', {
-									id: selectedNode.id
-								}, function(ret) {
-									resultHandle(ret, layer, function() {
-										tree.jstree('delete_node', selectedNode);
-									});
-								})
-							});
+							if(isNaN(Number.parseInt(selectedNode.id))) {
+								layer.msg('不可操作');
+							} else {
+								var msg = selectedNode.children.length === 0 ? '删除后类别相关的内容将删除,你确定删除吗?' : '你确定删除吗?';
+								layer.confirm(msg, {
+									icon: 3,
+									title: '提示'
+								}, function(index) {
+									$.post('${baseUrl}/admin/category/del', {
+										id: selectedNode.id
+									}, function(ret) {
+										resultHandle(ret, layer, function() {
+											tree.jstree('delete_node', selectedNode);
+										});
+									})
+								});
+							}
 						}
 					}
 				}

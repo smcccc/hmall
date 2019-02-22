@@ -22,32 +22,25 @@
 	<body class="animated fadeInUp">
 		<div class="bg"></div>
 		<div class="jumbotron">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-sm-6">
-						<h2>红品晶英</h2>
-						<h2 class="title">客户管理系统</h2>
+			<div class="login">
+				<h3>后台登录</h3>
+				<div class="alert alert-danger" role="alert" id="error"></div>
+				<form id="loginForm">
+					<div class="form-group">
+						<label for="loginAccount">用户名</label> <input type="text" class="form-control" name="loginAccount" id="loginAccount"
+						 autocomplete="off">
 					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="alert alert-danger" role="alert" id="error"></div>
-						<form id="loginForm">
-							<div class="form-group">
-								<label for="loginAccount">用户名</label> <input type="text" class="form-control" name="loginAccount" id="loginAccount"
-								 autocomplete="off">
-							</div>
-							<div class="form-group">
-								<label for="loginPass">密码</label> <input type="password" name="loginPass" class="form-control" id="password" autocomplete="off">
-							</div>
-							<div class="form-group">
-								<label for="captchaCode">验证码</label>
-								<div class="captcha-wrap">
-									<input type="text" class="form-control" name="captchaCode" id="captchaCode" placeholder="验证码位" autocomplete="off">									<img title="点击换一张" id="captcha" alt="" src="${baseUrl}/captcha.jpg?Match.random()">
-								</div>
-							</div>
-							<button type="submit" id="denglu" class="btn btn-default">登陆</button>
-						</form>
+					<div class="form-group">
+						<label for="loginPass">密码</label> <input type="password" name="loginPass" class="form-control" id="password" autocomplete="off">
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="captchaCode">验证码</label>
+						<div class="captcha-wrap">
+							<input type="text" class="form-control" name="captchaCode" id="captchaCode" placeholder="验证码位" autocomplete="off">							<img title="点击换一张" id="captcha" alt="" src="${baseUrl}/captcha.jpg?Match.random()">
+						</div>
+					</div>
+					<button type="submit" id="denglu" class="btn btn-default">登陆</button>
+				</form>
 			</div>
 		</div>
 		<hr>

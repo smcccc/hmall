@@ -72,7 +72,7 @@
 						</div>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="${baseUrl}/index">网站首页 </a>
+								<a target="_blank" href="${baseUrl}/index">网站首页 </a>
 							</li>
 							<li class="dropdown">
 								<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">${sessionScope.SYS_USER.userName}<i class="fa fa-angle-down"></i>

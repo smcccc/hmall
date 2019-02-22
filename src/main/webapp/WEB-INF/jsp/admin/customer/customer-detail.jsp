@@ -79,13 +79,6 @@
 						</div>
 					</div>
 				</section>
-				<section class="item" style="border: none;">
-					<h4>操作</h4>
-					<div class="form-group">
-						<a href="javascript:;" class="btn btn-info btn-sm">查看历史询价</a>
-						<a href="javascript:;" class="btn btn-primary btn-sm">查看历史订单</a>
-					</div>
-				</section>
 			</div>
 		</div>
 	</body>

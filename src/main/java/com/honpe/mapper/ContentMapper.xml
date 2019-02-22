@@ -88,7 +88,8 @@
 	</sql>
 	<sql id="Base_Column_List">
 		id, times, sequence, category_id, title, en_title, jp_title, sub_title, en_sub_title,
-		jp_sub_title, summary, en_summary, jp_summary, url, pic, pic2, display, index_display,
+		jp_sub_title, summary,
+		en_summary, jp_summary, url, pic, pic2, display, index_display,
 		create_time, update_time
 	</sql>
 	<sql id="Blob_Column_List">
@@ -151,16 +152,23 @@
 		pic2, display, index_display,
 		create_time, update_time, content,
 		en_content, jp_content)
-		values (#{id,jdbcType=BIGINT}, #{times,jdbcType=BIGINT}, #{sequence,jdbcType=BIGINT},
+		values (#{id,jdbcType=BIGINT}, #{times,jdbcType=BIGINT},
+		#{sequence,jdbcType=BIGINT},
 		#{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{enTitle,jdbcType=VARCHAR},
 		#{jpTitle,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, #{enSubTitle,jdbcType=VARCHAR},
 		#{jpSubTitle,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{enSummary,jdbcType=VARCHAR},
 		#{jpSummary,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
-		#{pic2,jdbcType=VARCHAR}, #{display,jdbcType=BIT}, #{indexDisplay,jdbcType=BIT},
-		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR},
-		#{enContent,jdbcType=LONGVARCHAR}, #{jpContent,jdbcType=LONGVARCHAR})
+		#{pic2,jdbcType=VARCHAR},
+		#{display,jdbcType=BIT}, #{indexDisplay,jdbcType=BIT},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR},
+		#{enContent,jdbcType=LONGVARCHAR},
+		#{jpContent,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.honpe.po.ContentWithBLOBs">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		insert into content
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -392,26 +400,36 @@
 		update content
 		set id = #{record.id,jdbcType=BIGINT},
 		times = #{record.times,jdbcType=BIGINT},
-		sequence = #{record.sequence,jdbcType=BIGINT},
+		sequence =
+		#{record.sequence,jdbcType=BIGINT},
 		category_id = #{record.categoryId,jdbcType=BIGINT},
-		title = #{record.title,jdbcType=VARCHAR},
+		title =
+		#{record.title,jdbcType=VARCHAR},
 		en_title = #{record.enTitle,jdbcType=VARCHAR},
-		jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+		jp_title =
+		#{record.jpTitle,jdbcType=VARCHAR},
 		sub_title = #{record.subTitle,jdbcType=VARCHAR},
-		en_sub_title = #{record.enSubTitle,jdbcType=VARCHAR},
+		en_sub_title =
+		#{record.enSubTitle,jdbcType=VARCHAR},
 		jp_sub_title = #{record.jpSubTitle,jdbcType=VARCHAR},
-		summary = #{record.summary,jdbcType=VARCHAR},
+		summary =
+		#{record.summary,jdbcType=VARCHAR},
 		en_summary = #{record.enSummary,jdbcType=VARCHAR},
-		jp_summary = #{record.jpSummary,jdbcType=VARCHAR},
+		jp_summary =
+		#{record.jpSummary,jdbcType=VARCHAR},
 		url = #{record.url,jdbcType=VARCHAR},
 		pic = #{record.pic,jdbcType=VARCHAR},
-		pic2 = #{record.pic2,jdbcType=VARCHAR},
+		pic2 =
+		#{record.pic2,jdbcType=VARCHAR},
 		display = #{record.display,jdbcType=BIT},
-		index_display = #{record.indexDisplay,jdbcType=BIT},
+		index_display =
+		#{record.indexDisplay,jdbcType=BIT},
 		create_time = #{record.createTime,jdbcType=TIMESTAMP},
-		update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{record.updateTime,jdbcType=TIMESTAMP},
 		content = #{record.content,jdbcType=LONGVARCHAR},
-		en_content = #{record.enContent,jdbcType=LONGVARCHAR},
+		en_content =
+		#{record.enContent,jdbcType=LONGVARCHAR},
 		jp_content = #{record.jpContent,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -421,24 +439,33 @@
 		update content
 		set id = #{record.id,jdbcType=BIGINT},
 		times = #{record.times,jdbcType=BIGINT},
-		sequence = #{record.sequence,jdbcType=BIGINT},
+		sequence =
+		#{record.sequence,jdbcType=BIGINT},
 		category_id = #{record.categoryId,jdbcType=BIGINT},
-		title = #{record.title,jdbcType=VARCHAR},
+		title =
+		#{record.title,jdbcType=VARCHAR},
 		en_title = #{record.enTitle,jdbcType=VARCHAR},
-		jp_title = #{record.jpTitle,jdbcType=VARCHAR},
+		jp_title =
+		#{record.jpTitle,jdbcType=VARCHAR},
 		sub_title = #{record.subTitle,jdbcType=VARCHAR},
-		en_sub_title = #{record.enSubTitle,jdbcType=VARCHAR},
+		en_sub_title =
+		#{record.enSubTitle,jdbcType=VARCHAR},
 		jp_sub_title = #{record.jpSubTitle,jdbcType=VARCHAR},
-		summary = #{record.summary,jdbcType=VARCHAR},
+		summary =
+		#{record.summary,jdbcType=VARCHAR},
 		en_summary = #{record.enSummary,jdbcType=VARCHAR},
-		jp_summary = #{record.jpSummary,jdbcType=VARCHAR},
+		jp_summary =
+		#{record.jpSummary,jdbcType=VARCHAR},
 		url = #{record.url,jdbcType=VARCHAR},
 		pic = #{record.pic,jdbcType=VARCHAR},
-		pic2 = #{record.pic2,jdbcType=VARCHAR},
+		pic2 =
+		#{record.pic2,jdbcType=VARCHAR},
 		display = #{record.display,jdbcType=BIT},
-		index_display = #{record.indexDisplay,jdbcType=BIT},
+		index_display =
+		#{record.indexDisplay,jdbcType=BIT},
 		create_time = #{record.createTime,jdbcType=TIMESTAMP},
-		update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+		update_time =
+		#{record.updateTime,jdbcType=TIMESTAMP}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -523,42 +550,53 @@
 		title = #{title,jdbcType=VARCHAR},
 		en_title = #{enTitle,jdbcType=VARCHAR},
 		jp_title = #{jpTitle,jdbcType=VARCHAR},
-		sub_title = #{subTitle,jdbcType=VARCHAR},
+		sub_title =
+		#{subTitle,jdbcType=VARCHAR},
 		en_sub_title = #{enSubTitle,jdbcType=VARCHAR},
-		jp_sub_title = #{jpSubTitle,jdbcType=VARCHAR},
+		jp_sub_title =
+		#{jpSubTitle,jdbcType=VARCHAR},
 		summary = #{summary,jdbcType=VARCHAR},
 		en_summary = #{enSummary,jdbcType=VARCHAR},
 		jp_summary = #{jpSummary,jdbcType=VARCHAR},
 		url = #{url,jdbcType=VARCHAR},
 		pic = #{pic,jdbcType=VARCHAR},
-		pic2 = #{pic2,jdbcType=VARCHAR},
+		pic2 =
+		#{pic2,jdbcType=VARCHAR},
 		display = #{display,jdbcType=BIT},
 		index_display = #{indexDisplay,jdbcType=BIT},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
 		update_time = #{updateTime,jdbcType=TIMESTAMP},
-		content = #{content,jdbcType=LONGVARCHAR},
+		content =
+		#{content,jdbcType=LONGVARCHAR},
 		en_content = #{enContent,jdbcType=LONGVARCHAR},
-		jp_content = #{jpContent,jdbcType=LONGVARCHAR}
+		jp_content =
+		#{jpContent,jdbcType=LONGVARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.honpe.po.Content">
 		update content
 		set times = #{times,jdbcType=BIGINT},
-		sequence = #{sequence,jdbcType=BIGINT},
+		sequence =
+		#{sequence,jdbcType=BIGINT},
 		category_id = #{categoryId,jdbcType=BIGINT},
 		title = #{title,jdbcType=VARCHAR},
-		en_title = #{enTitle,jdbcType=VARCHAR},
+		en_title =
+		#{enTitle,jdbcType=VARCHAR},
 		jp_title = #{jpTitle,jdbcType=VARCHAR},
 		sub_title = #{subTitle,jdbcType=VARCHAR},
 		en_sub_title = #{enSubTitle,jdbcType=VARCHAR},
 		jp_sub_title = #{jpSubTitle,jdbcType=VARCHAR},
-		summary = #{summary,jdbcType=VARCHAR},
+		summary =
+		#{summary,jdbcType=VARCHAR},
 		en_summary = #{enSummary,jdbcType=VARCHAR},
 		jp_summary = #{jpSummary,jdbcType=VARCHAR},
-		url = #{url,jdbcType=VARCHAR},
+		url
+		= #{url,jdbcType=VARCHAR},
 		pic = #{pic,jdbcType=VARCHAR},
 		pic2 = #{pic2,jdbcType=VARCHAR},
-		display = #{display,jdbcType=BIT},
+		display =
+		#{display,jdbcType=BIT},
 		index_display = #{indexDisplay,jdbcType=BIT},
 		create_time = #{createTime,jdbcType=TIMESTAMP},
 		update_time = #{updateTime,jdbcType=TIMESTAMP}

@@ -14,8 +14,10 @@ import com.honpe.inquiry.enums.InquiryEnum;
 import com.honpe.inquiry.enums.MaterileEnum;
 import com.honpe.inquiry.service.InquiryMaterielService;
 import com.honpe.mapper.FileInfoMapper;
+import com.honpe.mapper.InquiryMapper;
 import com.honpe.mapper.InquiryMaterielMapper;
 import com.honpe.po.FileInfo;
+import com.honpe.po.Inquiry;
 import com.honpe.po.InquiryMateriel;
 import com.honpe.po.InquiryMaterielExample;
 import com.honpe.pojo.ext.InquiryMaterielExt;
@@ -27,7 +29,8 @@ public class InquiryMaterielServiceImpl implements InquiryMaterielService {
 
 	@Autowired
 	private InquiryMaterielMapper inquiryMaterielMapper;
-
+	@Autowired
+	private InquiryMapper inquiryMapper;
 	private final String idPrefix = "WL";
 
 	@Override
@@ -74,6 +77,13 @@ public class InquiryMaterielServiceImpl implements InquiryMaterielService {
 			InquiryMateriel inquiryMateriel = inquiryMaterielMapper.selectByPrimaryKey(materielId);
 			inquiryMateriel.setFinalPrice(inquiryMateriel.getOfferPrice());
 			inquiryMaterielMapper.updateByPrimaryKeySelective(inquiryMateriel);
+		}
+		if (MaterileEnum.STATUS_RETRY_OFFER.status == status) {
+			InquiryMateriel materiel = inquiryMaterielMapper.selectByPrimaryKey(materielId);
+			Inquiry inquiry = new Inquiry();
+			inquiry.setId(materiel.getInquiryId());
+			inquiry.setIsOffered(false);
+			inquiryMapper.updateByPrimaryKeySelective(inquiry);
 		}
 		inquiryMaterielMapper.updateStatusByPrimaryKeyAndCustomerId(status, materielId, customerId);
 	}

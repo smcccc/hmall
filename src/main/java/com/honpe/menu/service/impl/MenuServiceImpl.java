@@ -113,15 +113,6 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<SysMenu> findAllMenu() {
-		SysMenuExample sysMenuExample = new SysMenuExample();
-		sysMenuExample.setOrderByClause("sequence ASC");
-		sysMenuExample.createCriteria().andParentIdNotEqualTo(0);
-		List<SysMenu> menus = sysMenuMapper.selectByExample(sysMenuExample);
-		return menus;
-	}
-
-	@Override
 	public void updateMenu(SysMenu sysMenu) {
 		sysMenuMapper.updateByPrimaryKeySelective(sysMenu);
 	}
@@ -137,5 +128,14 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public SysMenu findByMenuId(Integer menuId) {
 		return sysMenuMapper.selectByPrimaryKey(menuId);
+	}
+
+	@Override
+	public List<SysMenu> findMenuByParentId(Integer parentId) {
+		SysMenuExample sysMenuExample = new SysMenuExample();
+		sysMenuExample.setOrderByClause("sequence ASC");
+		sysMenuExample.createCriteria().andParentIdEqualTo(parentId);
+		List<SysMenu> menus = sysMenuMapper.selectByExample(sysMenuExample);
+		return menus;
 	}
 }

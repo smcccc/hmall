@@ -23,6 +23,7 @@ import com.honpe.log.enums.SysUserLockType;
 import com.honpe.po.SysDepartment;
 import com.honpe.po.SysRole;
 import com.honpe.po.SysUser;
+import com.honpe.pojo.dto.DepartmentDto;
 import com.honpe.pojo.ext.SysUserExt;
 import com.honpe.pojo.vo.Result;
 import com.honpe.pojo.vo.TableResult;
@@ -145,7 +146,7 @@ public class SysUserController {
 
 	private void inputRolesAndDepartments(Model model) {
 		List<SysRole> roles = roleService.findAllRoles();
-		List<SysDepartment> departments = departmentService.findAllNotParent();
+		List<DepartmentDto> departments = departmentService.findAll();
 		model.addAttribute("roles", roles);
 		model.addAttribute("departments", departments);
 	}

@@ -39,7 +39,6 @@
 								<c:if test="${!empty invoice}">
 									<input type="hidden" name="id" value="${invoice.id}" />
 								</c:if>
-								<input type="hidden" name="accId" value="${ sessionScope.CUSTOMER.id}" />
 								<ul>
 									<li>
 										<label class="required">发票抬头</label><input type="text" name="invoiceRise" placeholder="请填写发票抬头" autocomplete="off"

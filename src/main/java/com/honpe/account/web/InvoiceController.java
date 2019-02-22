@@ -34,20 +34,34 @@ public class InvoiceController {
 		return "invoice";
 	}
 
-	@GetMapping("/toedit")
-	@RequiredAuth
-	public String toEditInvoiceInfo(Long id, Model model) {
+	private void putInvoiceToModel(Long id, Model model) {
 		InvoiceInfo invoice = invoiceService.findOneById(id);
 		String temp = invoice.getReceiveAddress();
 		String replace = temp.replace(' ', '/');
 		model.addAttribute("initAddress", replace);
 		model.addAttribute("invoice", invoice);
+	}
+
+	@GetMapping("/toedit")
+	@RequiredAuth
+	public String toEditInvoiceInfo(Long id, Model model) {
+		putInvoiceToModel(id, model);
 		return "forward:info";
+	}
+
+	@PostMapping("/toAddEdit")
+	@RequiredAuth
+	public String toAddEditInvoiceInfo(Long id, Model model) {
+		if (id != null)
+			putInvoiceToModel(id, model);
+		return "invoice-add-edit";
 	}
 
 	@PostMapping("/save")
 	@RequiredAuth
-	public @ResponseBody Result saveInvoiceInfo(InvoiceInfo invoiceInfo) {
+	public @ResponseBody Result saveInvoiceInfo(InvoiceInfo invoiceInfo, HttpServletRequest request) {
+		Account customer = (Account) request.getSession().getAttribute("CUSTOMER");
+		invoiceInfo.setAccId(customer.getId());
 		if (invoiceInfo.getId() == null && !invoiceService.isCanAdd(invoiceInfo.getAccId()))
 			return new Result(403, null, null);
 		invoiceService.saveInvoiceInfo(invoiceInfo);

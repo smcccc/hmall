@@ -1,11 +1,8 @@
 package com.honpe.account.web;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +33,9 @@ public class OrderShippingController {
 
 	@PostMapping("/save")
 	@RequiredAuth
-	public @ResponseBody Result addAddress(OrderShipping orderShipping) {
+	public @ResponseBody Result addAddress(OrderShipping orderShipping, HttpServletRequest request) {
+		Account account = (Account) request.getSession().getAttribute("CUSTOMER");
+		orderShipping.setAccId(account.getId());
 		if (orderShipping.getId() == null && !orderShippingService.isCanAdd(orderShipping.getAccId()))
 			return new Result(403, null, null);
 		orderShippingService.saveAddress(orderShipping);
@@ -46,12 +45,24 @@ public class OrderShippingController {
 	@GetMapping("/toedit")
 	@RequiredAuth
 	public String editAddressFormView(Long id, Model model) {
+		putAddressToModel(id, model);
+		return "forward:info";
+	}
+
+	private void putAddressToModel(Long id, Model model) {
 		OrderShipping address = orderShippingService.findById(id);
 		String temp = address.getReceiverAddress();
 		String replace = temp.replace(' ', '/');
 		model.addAttribute("initAddress", replace);
 		model.addAttribute("address", address);
-		return "forward:info";
+	}
+
+	@PostMapping("/toAddEdit")
+	@RequiredAuth
+	public String addEditAddressFormView(Long id, Model model) {
+		if (id != null)
+			putAddressToModel(id, model);
+		return "address-add-edit";
 	}
 
 	@PostMapping("/del")

@@ -38,7 +38,6 @@
 								<c:if test="${!empty address}">
 									<input type="hidden" name="id" value="${address.id}" />
 								</c:if>
-								<input type="hidden" name="accId" value="${sessionScope.CUSTOMER.id}" />
 								<ul>
 									<li><label class="required">地址信息</label>
 										<div class="warp">

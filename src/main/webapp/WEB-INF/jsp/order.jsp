@@ -12,6 +12,8 @@
 		<meta name="description" content="honpe mall" />
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/admin/css/animate.css" />
+		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/lib/pick-pcc/pick-pcc.css" />
+		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/admin/css/plugins/iCheck/blue/custom.css" />
 		<link type="text/css" rel="stylesheet" href="${baseUrl}/static/css/order.css" />
 		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
@@ -78,13 +80,13 @@
 										<hr />
 										<p>${item.receiverAddress} ${item.receiverAddressDetail}</p>
 									</div>
-									<a href="${baseUrl}/address/toedit?id=${item.id}">修改</a>
+									<a href="javscript:;" onclick="openAddressForm('${item.id}')">修改</a>
 								</div>
 							</div>
 						</c:forEach>
 						<div class="item-add left">
 							<div>
-								<a href="${baseUrl}/address/info">
+								<a href="javascript:;" onclick="openAddressForm()">
 									<img src="${baseUrl}/static/icon/tianjia_03.png" alt="" /> 添加新地址
 								</a>
 							</div>
@@ -200,10 +202,10 @@
 								<div class="right">
 									<c:choose>
 										<c:when test="${empty invoice}">
-											<a href="${baseUrl}/invoice/info">添加开票信息</a>
+											<a href="javascript:openInvoiceForm();">添加开票信息</a>
 										</c:when>
 										<c:otherwise>
-											<a href="${baseUrl}/invoice/toedit?id=${invoice.id}">修改开票信息</a>
+											<a href="javascript:;" onclick="openInvoiceForm('${invoice.id}')">修改开票信息</a>
 											<a href="${baseUrl}/invoice/info">更换开票信息</a>
 										</c:otherwise>
 									</c:choose>
@@ -262,8 +264,14 @@
 				</section>
 			</div>
 		</div>
+		<div id="addressLayer" class="layerForm"></div>
+		<div id="invoiceLayer" class="layerForm"></div>
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/iCheck/icheck.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="${baseUrl}/static/lib/pick-pcc/pick-pcc.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/validate/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/limitedTextarea/limitedTextarea.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/order.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>

@@ -134,3 +134,40 @@ var totalPrice = function() {
 	$('#pay_cost').text(total);
 	$('#count_cost').text(total);
 }
+var openAddressForm = function(id) {
+	event.stopPropagation();
+	var title = undefined === id ? '添加收货地址' : '修改收货地址';
+	$('#addressLayer').load(BASEURL + '/address/toAddEdit', {
+		id: id
+	}, function() {
+		var index = layer.open({
+			title: title,
+			type: 1,
+			maxmin: false,
+			btn: ['保存', '取消'],
+			area: '640px',
+			content: $('#addressLayer'),
+			yes: function(index, layero) {
+				$('#addressForm').submit();
+			}
+		})
+	})
+}
+var openInvoiceForm = function(id) {
+	var title = undefined === id ? '添加开票信息' : '修改开票信息';
+	$('#invoiceLayer').load(BASEURL + '/invoice/toAddEdit', {
+		id: id
+	}, function() {
+		var index = layer.open({
+			title: title,
+			type: 1,
+			maxmin: false,
+			btn: ['保存', '取消'],
+			area: '640px',
+			content: $('#invoiceLayer'),
+			yes: function(index, layero) {
+				$('#invoiceForm').submit();
+			}
+		})
+	})
+}

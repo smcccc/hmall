@@ -1022,6 +1022,54 @@ header .bottom .clearfix .right .timeline div img {
   margin-bottom: 2px;
   margin-left: 2px;
 }
+.layerForm .radios {
+  padding-left: 15px;
+  padding-right: 1px;
+}
+.layerForm .radios .radio {
+  width: 100%;
+  margin-bottom: 8px;
+}
+.layerForm .radios .radio:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+.layerForm .radios .radio input[type=radio] {
+  opacity: 0;
+  margin-right: -15px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+}
+.layerForm .radios .radio input[type=radio]:checked + label {
+  color: #C63944;
+}
+.layerForm .radios .radio input[type=radio]:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 3px;
+  top: 6px;
+  border-radius: 50%;
+  background-color: #555;
+}
+.layerForm .radios .radio label {
+  font-size: 15px;
+  position: relative;
+  line-height: 20px;
+}
+.layerForm .radios .radio label:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  border: 2px solid #A6A6A6;
+  margin-bottom: 1px;
+}
 .layerForm .pick-show {
   height: 31px;
   line-height: 31px;

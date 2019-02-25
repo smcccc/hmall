@@ -476,6 +476,54 @@
             }
         }
     }
+    .radios {
+        padding-left: 15px;
+        padding-right: 1px;
+        .radio {
+            width: 100%;
+            margin-bottom: 8px;
+            &:not(:last-of-type) {
+                margin-bottom: 10px;
+            }
+            input[type=radio] {
+                opacity: 0;
+                margin-right: -15px;
+                cursor: pointer;
+                z-index: 1;
+                position: relative;
+                &:checked+label {
+                    color: #C63944;
+                    &:after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        width: 10px;
+                        height: 10px;
+                        left: 3px;
+                        top: 6px;
+                        border-radius: 50%;
+                        background-color: #555;
+                    }
+                }
+            }
+            label {
+                font-size: 15px;
+                position: relative;
+                line-height: 20px;
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                    border: 2px solid #A6A6A6;
+                    margin-bottom: 1px;
+                }
+            }
+        }
+    }
     .pick-show {
         height: 31px;
         line-height: 31px;

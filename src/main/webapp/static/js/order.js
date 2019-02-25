@@ -171,3 +171,32 @@ var openInvoiceForm = function(id) {
 		})
 	})
 }
+var openInvoices = function() {
+	var index = layer.open({
+		title: '更换开票资料',
+		type: 1,
+		maxmin: false,
+		btn: ['确定', '取消'],
+		area: '640px',
+		content: $('#invoiceLayer_1'),
+		yes: function(index, layero) {
+			var id = layero.find('input[type=radio]:checked').val();
+			$.post(BASEURL + '/invoice/default', {
+				id: id
+			}, function(ret) {
+				if(ret.status === 200) {
+					layer.msg('修改成功', {
+						anim: 0,
+						icon: 1
+					}, function() {
+						window.location.reload();
+					})
+				} else {
+					layer.msg(ret.msg, {
+						icon: 5
+					});
+				}
+			})
+		}
+	})
+}

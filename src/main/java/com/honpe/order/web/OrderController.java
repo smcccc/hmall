@@ -2,7 +2,6 @@ package com.honpe.order.web;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -66,9 +65,11 @@ public class OrderController {
 
 	private void inputSelectData(HttpServletRequest request, String customerId) {
 		List<OrderShipping> address = orderShippingService.findAllAddressByAccountId(customerId);
-		InvoiceInfo invoice = invoiceService.findDefaultByCustomerId(customerId);
+		List<InvoiceInfo> invoices = invoiceService.findAllByAccountId(customerId);
+		InvoiceInfo invoice = invoices.stream().filter(item -> item.getIsDefault()).collect(Collectors.toList()).get(0);
 		request.setAttribute("address", address);
 		request.setAttribute("invoice", invoice);
+		request.setAttribute("invoices", invoices);
 		Map<String, List<DictInfo>> orderDictInfo = orderService.getOrderDictInfo();
 		orderDictInfo.entrySet().forEach(item -> request.setAttribute(item.getKey(), item.getValue()));
 	}

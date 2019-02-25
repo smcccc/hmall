@@ -206,7 +206,7 @@
 										</c:when>
 										<c:otherwise>
 											<a href="javascript:;" onclick="openInvoiceForm('${invoice.id}')">修改开票信息</a>
-											<a href="${baseUrl}/invoice/info">更换开票信息</a>
+											<a href="javascript:openInvoices();">更换开票信息</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -266,6 +266,17 @@
 		</div>
 		<div id="addressLayer" class="layerForm"></div>
 		<div id="invoiceLayer" class="layerForm"></div>
+		<div id="invoiceLayer_1" class="layerForm">
+			<div class="radios">
+				<c:forEach items="${invoices}" var="item">
+					<div class="radio">
+						<input <c:if test="${item.id==invoice.id}">checked="checked"</c:if> type="radio" name="invoiceId" value="${item.id}"
+						/>
+						<label>${item.invoiceRise}&#160;&#160;${item.companyName}&#160;&#160;${item.tax}&#160;&#160;${item.checkTaker}</label>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/iCheck/icheck.min.js" type="text/javascript" charset="utf-8"></script>

@@ -19,7 +19,6 @@ import com.honpe.po.SysUserLoginLogExample;
 import com.honpe.pojo.vo.PageBean;
 import com.honpe.role.service.RoleService;
 import com.honpe.utils.IpHelper;
-import com.honpe.utils.XMLHelper;
 
 @Service
 @Transactional
@@ -37,8 +36,8 @@ public class SysUserLoginLogServiceImpl implements SysUserLoginLogService {
 	@Override
 	public void saveSysUserLoginLog(SysUserLoginLog sysUserLoginLog, Integer userId) {
 		// TODO Auto-generated method stub
-		String xml = ipHelper.queryIP(sysUserLoginLog.getIp());
-		sysUserLoginLog.setLoginAddress(XMLHelper.parseXml(xml));
+		String loginAddress = ipHelper.queryIp(sysUserLoginLog.getIp());
+		sysUserLoginLog.setLoginAddress(loginAddress);
 		SysRole sysRole = roleService.findSysUserRoles(userId);
 		if (sysRole != null) {
 			String roleName = sysRole.getRoleName();

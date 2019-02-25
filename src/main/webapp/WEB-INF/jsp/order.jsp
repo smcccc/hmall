@@ -270,8 +270,7 @@
 			<div class="radios">
 				<c:forEach items="${invoices}" var="item">
 					<div class="radio">
-						<input <c:if test="${item.id==invoice.id}">checked="checked"</c:if> type="radio" name="invoiceId" value="${item.id}"
-						/>
+						<input <c:if test="${item.isDefault}">checked="checked"</c:if> type="radio" name="invoiceId" value="${item.id}" />
 						<label>${item.invoiceRise}&#160;&#160;${item.companyName}&#160;&#160;${item.tax}&#160;&#160;${item.checkTaker}</label>
 					</div>
 				</c:forEach>

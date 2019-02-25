@@ -1,23 +1,20 @@
 package com.honpe.test;
 
-import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-
-import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 import com.honpe.utils.EncryptUtils;
-import com.honpe.utils.IDUtils;
-import com.mysql.jdbc.Field;
-
-import freemarker.template.SimpleDate;
+import com.honpe.utils.IpHelper;
 
 public class JunitTest {
 	@Test
-	public void test() throws ParseException {
+	public void test() throws IOException {
+		fn4();
+	}
+
+	private void fn4() {
 		
 	}
 
@@ -27,14 +24,6 @@ public class JunitTest {
 		instance.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(instance.getTime());
-		System.out.println(date);
-		System.out.println(Calendar.SUNDAY);
-		System.out.println(Calendar.MONDAY);
-		System.out.println(Calendar.SATURDAY);
-		// System.out.println(Calendar.SATURDAY);
-		// System.out.println(Calendar.SUNDAY);
-		// System.out.println(Calendar.MONDAY);
-		// System.out.println(i);
 	}
 
 	private void fn3() {

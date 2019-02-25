@@ -16,27 +16,15 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.github.pagehelper.PageInfo;
 import com.honpe.content.service.CategoryService;
 import com.honpe.content.service.ContentService;
 import com.honpe.inquiry.enums.InquiryEnum;
 import com.honpe.inquiry.service.InquiryMaterielService;
 import com.honpe.inquiry.service.InquiryService;
-import com.honpe.log.service.OperateLogService;
-import com.honpe.mapper.InquiryMapper;
 import com.honpe.mapper.TbOrderMapper;
-import com.honpe.menu.service.MenuService;
-import com.honpe.perm.service.PermService;
-import com.honpe.po.InquiryMateriel;
 import com.honpe.po.SysUser;
-import com.honpe.pojo.ext.InquiryExt;
-import com.honpe.pojo.ext.InquiryMaterielExt;
-import com.honpe.role.service.RoleService;
-import com.honpe.user.service.SysUserService;
-import com.honpe.utils.IpHelper;
 import com.honpe.utils.PasswordHelper;
-import com.honpe.utils.XMLHelper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/ctx-bean.xml", "classpath:spring/ctx-jdbc.xml",

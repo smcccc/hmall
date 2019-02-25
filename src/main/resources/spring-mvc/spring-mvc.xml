@@ -99,7 +99,7 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/admin/**" />
 			<bean class="com.honpe.account.interceptor.AccountAuthAndPermsInterceptor">
-				<constructor-arg name="unauthorizedUrl" value="/index" />
+				<constructor-arg name="unauthorizedUrl" value="/tologin" />
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

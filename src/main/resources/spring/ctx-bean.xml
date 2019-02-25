@@ -25,9 +25,7 @@
 	<context:property-placeholder location="classpath:conf.properties" ignore-unresolvable="true" />
 
 	<bean id="ipHelper" class="com.honpe.utils.IpHelper">
-		<constructor-arg name="token" value="${ip.token}" />
-		<constructor-arg name="url" value="${ip.url}" />
-		<constructor-arg name="dataType" value="${ip.dataType}" />
+		<constructor-arg name="ipApi" value="${ip.api}" />
 	</bean>
 	<bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="3" />

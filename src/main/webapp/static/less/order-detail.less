@@ -10,10 +10,12 @@
 .order {
     margin-top: 25px;
     border: 1px solid #DEDEDE;
-    .left {
+    display: flex;
+    .info {
         width: 400px;
         border-right: 1px solid #DEDEDE;
         box-sizing: border-box;
+        background-color: #FBFBFB;
         &>p {
             padding-left: 20px;
             font-size: 15px;
@@ -24,7 +26,6 @@
         }
         ul {
             padding: 20px 10px 20px 20px;
-            background-color: #FBFBFB;
         }
         li {
             display: flex;
@@ -135,9 +136,9 @@
             }
         }
     }
-    .right {
-        width: 798px;
-        padding: 50px 60px;
+    .status {
+        flex: 1;
+        padding: 50px 20px;
         .wrap {
             display: flex;
             &>div:first-child {
@@ -176,6 +177,85 @@
         .cancelBtn {
             color: #0055AA;
             margin-left: 20px;
+        }
+    }
+    .process {
+        width: 260px;
+        border-left: 1px solid #DEDEDE;
+        overflow: hidden;
+        position: relative;
+        p {
+            padding-left: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #555;
+            line-height: 2.4em;
+            background-color: #F3F3F3;
+        }
+        .time {
+            position: absolute;
+            width: 100%;
+            height: 85%;
+            top: 36px;
+            left: 0;
+            ul {
+                list-style-type: none;
+                border-left: 3px solid #cdcdcd;
+                padding-top: 10px;
+                margin: 10px 15px;
+            }
+            li {
+                position: relative;
+                padding-left: 18px;
+                time {
+                    float: right;
+                }
+                span {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: -10px;
+                        width: 14px;
+                        height: 14px;
+                        border: 2px solid #cdcdcd;
+                        border-radius: 50%;
+                        background-color: #fff;
+                    }
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 3px;
+                        left: -7px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background-color: #C0C0C0;
+                    }
+                }
+                div {
+                    padding: 5px;
+                    background-color: #F8F8F8;
+                    height: 30px;
+                    position: relative;
+                    margin-bottom: 15px;
+                    font-size: 13px;
+                    &:hover {
+                        background-color: #F4F4F4;
+                    }
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: -8px;
+                        width: 0;
+                        height: 0;
+                        border-right: 8px solid #F8F8F8;
+                        border-top: 8px solid transparent;
+                        border-bottom: 8px solid transparent;
+                    }
+                }
+            }
         }
     }
 }

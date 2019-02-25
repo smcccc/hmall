@@ -13,6 +13,7 @@
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/iconfont/iconfont.css" />
 		<link type="text/css" rel="stylesheet" href="${baseUrl}/static/css/order-detail.css" />
+		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/lib/mCustomScrollbar/css/jquery.mCustomScrollbar.css" />
 		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -75,107 +76,133 @@
 		</header>
 		<div class="main">
 			<div class="order">
-				<div class="clearfix">
-					<div class="left">
-						<p>订单信息</p>
-						<ul>
-							<li>
-								<label>收货地址</label>
-								<div>
-									${orderShipping.receiverName},${orderShipping.receiverPhone},${orderShipping.receiverAddress} ${orderShipping.receiverAddressDetail},${orderShipping.zipCode}</p>
-									<p>
-										<c:if test="${order.status<5||!order.isShipping}">
-											<a href="javascript:;" onclick="changeShipping('${order.orderId}')">更换地址</a>
-										</c:if>
-										<c:if test="${order.status<=2 && empty order.buyerMessage}">
-											<a href="javascript:;" onclick="showMessage()">添加留言</a>
-										</c:if>
-									</p>
-								</div>
-							</li>
-							<li class="message" <c:if test="${!empty order.buyerMessage}">style="display: flex;"</c:if> >
-								<label>买家留言</label>
-								<div>
-									<c:choose>
-										<c:when test="${empty order.buyerMessage}">
-											<textarea id="msg" name="buyerMessage" rows="3"></textarea>
-											<p>请填写留言内容</p>
-											<button onclick="addMessage('${order.orderId}')">留言</button>
-										</c:when>
-										<c:otherwise>
-											${order.buyerMessage}
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</li>
-							<li>
-								<label>订单编号</label>
-								<div>${order.orderId}
-									<div class="more">更多<i class="icon iconfont">&#xe607;</i>
-										<div>
-											<p>
-												<c:choose>
-													<c:when test="${order.status!=7}">
-														下单时间：
-														<fmt:formatDate value="${order.createTime}" pattern="yyyy年MM月dd日 hh时mm分" />
-													</c:when>
-													<c:when test="${order.status==8}">
-														关闭时间：
-														<fmt:formatDate value="${order.closeTime}" pattern="yyyy年MM月dd日 hh时mm分" />
-													</c:when>
-													<c:otherwise>
-														成交时间：
-														<fmt:formatDate value="${order.endTime}" pattern="yyyy年MM月dd日 hh时mm分" />
-													</c:otherwise>
-												</c:choose>
-											</p>
-										</div>
+				<div class="info">
+					<p>订单信息</p>
+					<ul>
+						<li>
+							<label>收货地址</label>
+							<div>
+								${orderShipping.receiverName},${orderShipping.receiverPhone},${orderShipping.receiverAddress} ${orderShipping.receiverAddressDetail},${orderShipping.zipCode}</p>
+								<p>
+									<c:if test="${order.status<5||!order.isShipping}">
+										<a href="javascript:;" onclick="changeShipping('${order.orderId}')">更换地址</a>
+									</c:if>
+									<c:if test="${order.status<=2 && empty order.buyerMessage}">
+										<a href="javascript:;" onclick="showMessage()">添加留言</a>
+									</c:if>
+								</p>
+							</div>
+						</li>
+						<li class="message" <c:if test="${!empty order.buyerMessage}">style="display: flex;"</c:if> >
+							<label>买家留言</label>
+							<div>
+								<c:choose>
+									<c:when test="${empty order.buyerMessage}">
+										<textarea id="msg" name="buyerMessage" rows="3"></textarea>
+										<p>请填写留言内容</p>
+										<button onclick="addMessage('${order.orderId}')">留言</button>
+									</c:when>
+									<c:otherwise>
+										${order.buyerMessage}
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</li>
+						<li>
+							<label>订单编号</label>
+							<div>${order.orderId}
+								<div class="more">更多<i class="icon iconfont">&#xe607;</i>
+									<div>
+										<p>
+											<c:choose>
+												<c:when test="${order.status!=7}">
+													下单时间：
+													<fmt:formatDate value="${order.createTime}" pattern="yyyy年MM月dd日 hh时mm分" />
+												</c:when>
+												<c:when test="${order.status==8}">
+													关闭时间：
+													<fmt:formatDate value="${order.closeTime}" pattern="yyyy年MM月dd日 hh时mm分" />
+												</c:when>
+												<c:otherwise>
+													成交时间：
+													<fmt:formatDate value="${order.endTime}" pattern="yyyy年MM月dd日 hh时mm分" />
+												</c:otherwise>
+											</c:choose>
+										</p>
 									</div>
 								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="status">
+					<div class="wrap">
+						<div>
+							<img src="${baseUrl}/static/icon/gantanhao.svg" />
+						</div>
+						<div>
+							<c:if test="${order.status==0||order.status==1}">
+								<p>订单状态：
+									<c:if test="${order.status==0}">
+										买家已下单，等待付款
+									</c:if>
+									<c:if test="${order.status==1}">
+										付款确认中
+									</c:if>
+								</p>
+								<p>您可以
+									<c:if test="${empty discount}">
+										<a class="paymentBtn" href="javascript:;" onclick="discount('${order.orderId}')">申请优惠</a>
+									</c:if>
+									<a class="paymentBtn" href="${baseUrl}/order/topayment?orderId=${order.orderId}">付款</a>
+									<a class="cancelBtn" href="javascript:;" onclick="cancelOrder('${order.orderId}')">取消订单</a>
+								</p>
+							</c:if>
+							<c:if test="${order.status>=2 && order.status<6}">
+								<p>订单状态：买家已付款，等待卖家发货</p>
+							</c:if>
+							<c:if test="${order.status==6}">
+								<p>订单状态：卖家已发货，等待确认收货</p>
+								<p>
+									物流：${order.shippingName} 运单号：${order.shippingCode}
+								</p>
+							</c:if>
+							<c:if test="${order.status==7}">
+								<p>订单状态：交易完成</p>
+							</c:if>
+							<c:if test="${order.status==8}">
+								<p>交易关闭</p>
+								<p>关闭原因 ：${order.cancleReason}</p>
+							</c:if>
+						</div>
+					</div>
+				</div>
+				<div class="process">
+					<p>订单生产进程</p>
+					<div class="time">
+						<ul>
+							<li><span></span>
+								<div>工程创建 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div>打磨 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
 							</li>
 						</ul>
-					</div>
-					<div class="right">
-						<div class="wrap">
-							<div>
-								<img src="${baseUrl}/static/icon/gantanhao.svg" />
-							</div>
-							<div>
-								<c:if test="${order.status==0||order.status==1}">
-									<p>订单状态：
-										<c:if test="${order.status==0}">
-											买家已下单，等待付款
-										</c:if>
-										<c:if test="${order.status==1}">
-											付款确认中
-										</c:if>
-									</p>
-									<p>您可以
-										<c:if test="${empty discount}">
-											<a class="paymentBtn" href="javascript:;" onclick="discount('${order.orderId}')">申请优惠</a>
-										</c:if>
-										<a class="paymentBtn" href="${baseUrl}/order/topayment?orderId=${order.orderId}">付款</a>
-										<a class="cancelBtn" href="javascript:;" onclick="cancelOrder('${order.orderId}')">取消订单</a>
-									</p>
-								</c:if>
-								<c:if test="${order.status>=2 && order.status<6}">
-									<p>订单状态：买家已付款，等待卖家发货</p>
-								</c:if>
-								<c:if test="${order.status==6}">
-									<p>订单状态：卖家已发货，等待确认收货</p>
-									<p>
-										物流：${order.shippingName} 运单号：${order.shippingCode}
-									</p>
-								</c:if>
-								<c:if test="${order.status==7}">
-									<p>订单状态：交易完成</p>
-								</c:if>
-								<c:if test="${order.status==8}">
-									<p>交易关闭</p>
-									<p>关闭原因 ：${order.cancleReason}</p>
-								</c:if>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -302,6 +329,7 @@
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/limitedTextarea/limitedTextarea.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/lib/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/validate/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/order-detail.min.js" type="text/javascript" charset="utf-8"></script>

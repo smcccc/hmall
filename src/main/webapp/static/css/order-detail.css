@@ -569,13 +569,15 @@ header .bottom .clearfix .right .timeline div img {
 .order {
   margin-top: 25px;
   border: 1px solid #DEDEDE;
+  display: flex;
 }
-.order .left {
+.order .info {
   width: 400px;
   border-right: 1px solid #DEDEDE;
   box-sizing: border-box;
+  background-color: #FBFBFB;
 }
-.order .left > p {
+.order .info > p {
   padding-left: 20px;
   font-size: 15px;
   font-weight: bold;
@@ -583,28 +585,27 @@ header .bottom .clearfix .right .timeline div img {
   line-height: 2.4em;
   background-color: #F3F3F3;
 }
-.order .left ul {
+.order .info ul {
   padding: 20px 10px 20px 20px;
-  background-color: #FBFBFB;
 }
-.order .left li {
+.order .info li {
   display: flex;
   font-size: 15px;
 }
-.order .left li.message {
+.order .info li.message {
   display: none;
   margin-bottom: 15px;
 }
-.order .left li.message.show {
+.order .info li.message.show {
   display: flex;
 }
-.order .left li.message p {
+.order .info li.message p {
   font-size: 12px;
   color: #FF1E00;
   display: none;
   margin-top: -15px;
 }
-.order .left li.message button {
+.order .info li.message button {
   padding: 3px 10px;
   font-size: 13px;
   background-color: #FFF;
@@ -615,48 +616,48 @@ header .bottom .clearfix .right .timeline div img {
   border-radius: 3px;
   color: #777;
 }
-.order .left li.message button:hover {
+.order .info li.message button:hover {
   text-decoration: none;
   color: #0055AA;
   border-color: #0055AA;
 }
-.order .left li:not(:last-of-type) {
+.order .info li:not(:last-of-type) {
   margin-bottom: 10px;
 }
-.order .left li textarea {
+.order .info li textarea {
   width: 100%;
   padding: 5px 10px;
   border-radius: 3px;
   resize: none;
 }
-.order .left li label {
+.order .info li label {
   width: 90px;
 }
-.order .left li label:after {
+.order .info li label:after {
   content: "：";
 }
-.order .left li > div {
+.order .info li > div {
   flex: 1;
 }
-.order .left li > div p {
+.order .info li > div p {
   margin-top: 15px;
 }
-.order .left li > div p a {
+.order .info li > div p a {
   color: #0055AA;
 }
-.order .left li > div .more {
+.order .info li > div .more {
   display: inline-block;
   float: right;
   position: relative;
   cursor: pointer;
 }
-.order .left li > div .more:hover {
+.order .info li > div .more:hover {
   color: #C63944;
 }
-.order .left li > div .more:hover div {
+.order .info li > div .more:hover div {
   display: block;
 }
-.order .left li > div .more div {
+.order .info li > div .more div {
   position: absolute;
   top: 40px;
   width: 290px;
@@ -670,7 +671,7 @@ header .bottom .clearfix .right .timeline div img {
   color: #777;
   z-index: 5;
 }
-.order .left li > div .more div:before {
+.order .info li > div .more div:before {
   content: "";
   position: absolute;
   display: block;
@@ -681,7 +682,7 @@ header .bottom .clearfix .right .timeline div img {
   bottom: 100%;
   z-index: 2;
 }
-.order .left li > div .more div:after {
+.order .info li > div .more div:after {
   content: "";
   position: absolute;
   display: block;
@@ -692,32 +693,32 @@ header .bottom .clearfix .right .timeline div img {
   bottom: 100%;
   z-index: 1;
 }
-.order .left li > div .more i {
+.order .info li > div .more i {
   font-size: 12px;
 }
-.order .right {
-  width: 798px;
-  padding: 50px 60px;
+.order .status {
+  flex: 1;
+  padding: 50px 20px;
 }
-.order .right .wrap {
+.order .status .wrap {
   display: flex;
 }
-.order .right .wrap > div:first-child {
+.order .status .wrap > div:first-child {
   width: 34px;
   margin-right: 25px;
 }
-.order .right .wrap > div:last-child {
+.order .status .wrap > div:last-child {
   flex: 1;
 }
-.order .right .wrap > div:last-child > p:first-child {
+.order .status .wrap > div:last-child > p:first-child {
   font-size: 18px;
   font-weight: bold;
 }
-.order .right .wrap > div:last-child p:not(:first-of-type) {
+.order .status .wrap > div:last-child p:not(:first-of-type) {
   margin-top: 15px;
   font-size: 16px;
 }
-.order .right .paymentBtn {
+.order .status .paymentBtn {
   display: inline-block;
   width: 80px;
   height: 28px;
@@ -729,14 +730,91 @@ header .bottom .clearfix .right .timeline div img {
   margin-left: 15px;
   transition: all .3s;
 }
-.order .right .paymentBtn:hover {
+.order .status .paymentBtn:hover {
   text-decoration: none;
   color: #0055AA;
   border-color: #0055AA;
 }
-.order .right .cancelBtn {
+.order .status .cancelBtn {
   color: #0055AA;
   margin-left: 20px;
+}
+.order .process {
+  width: 260px;
+  border-left: 1px solid #DEDEDE;
+  overflow: hidden;
+  position: relative;
+}
+.order .process p {
+  padding-left: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #555;
+  line-height: 2.4em;
+  background-color: #F3F3F3;
+}
+.order .process .time {
+  position: absolute;
+  width: 100%;
+  height: 85%;
+  top: 36px;
+  left: 0;
+}
+.order .process .time ul {
+  list-style-type: none;
+  border-left: 3px solid #cdcdcd;
+  padding-top: 10px;
+  margin: 10px 15px;
+}
+.order .process .time li {
+  position: relative;
+  padding-left: 18px;
+}
+.order .process .time li time {
+  float: right;
+}
+.order .process .time li span:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #cdcdcd;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.order .process .time li span:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #C0C0C0;
+}
+.order .process .time li div {
+  padding: 5px;
+  background-color: #F8F8F8;
+  height: 30px;
+  position: relative;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+.order .process .time li div:hover {
+  background-color: #F4F4F4;
+}
+.order .process .time li div:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-right: 8px solid #F8F8F8;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
 }
 .list {
   margin-top: 25px;

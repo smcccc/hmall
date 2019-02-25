@@ -9,7 +9,11 @@ $(function() {
 	} catch(e) {
 		//TODO handle the exception
 	}
-
+	//美化滚动条
+	$.mCustomScrollbar.defaults.axis = "y";
+	$('.time').mCustomScrollbar({
+		theme: 'minimal-dark'
+	});
 	//电话或手机验证规则  
 	$.validator.addMethod("tm", function(value, element) {
 		var tm = /(^1[3|4|5|7|8]\d{9}$)|(^\d{3,4}-\d{7,8}$)|(^\d{7,8}$)|(^\d{3,4}-\d{7,8}-\d{1,4}$)|(^\d{7,8}-\d{1,4}$)/;

@@ -138,7 +138,14 @@
 				<div class="status">
 					<div class="wrap">
 						<div>
-							<img src="${baseUrl}/static/icon/gantanhao.svg" />
+							<c:choose>
+								<c:when test="${order.status==7}">
+									<img src="${baseUrl}/static/icon/gou115.svg" />
+								</c:when>
+								<c:otherwise>
+									<img src="${baseUrl}/static/icon/gantanhao.svg" />
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div>
 							<c:if test="${order.status==0||order.status==1}">
@@ -178,26 +185,26 @@
 					</div>
 				</div>
 				<div class="process">
-					<p>订单生产进程</p>
+					<p>订单跟踪</p>
 					<div class="time">
 						<ul>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
+							<li><span></span>
+								<div> 工程编程 <time>2019-02-21 15:56</time></div>
+							</li>
 							<li><span></span>
 								<div>工程创建 <time>2019-02-21 15:56</time></div>
 							</li>
 							<li><span></span>
 								<div>打磨 <time>2019-02-21 15:56</time></div>
-							</li>
-							<li><span></span>
-								<div> 工程编程 <time>2019-02-21 15:56</time></div>
-							</li>
-							<li><span></span>
-								<div> 工程编程 <time>2019-02-21 15:56</time></div>
-							</li>
-							<li><span></span>
-								<div> 工程编程 <time>2019-02-21 15:56</time></div>
-							</li>
-							<li><span></span>
-								<div> 工程编程 <time>2019-02-21 15:56</time></div>
 							</li>
 							<li><span></span>
 								<div> 工程编程 <time>2019-02-21 15:56</time></div>

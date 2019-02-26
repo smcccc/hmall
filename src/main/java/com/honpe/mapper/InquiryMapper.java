@@ -41,4 +41,6 @@ public interface InquiryMapper {
 
 	long selectCountByDate(@Param("beginDate") Date beginDate, @Param("endDate") Date endDate,
 			@Param("dayDate") Date dayDate);
+
+	InquiryExt selectByPrimaryKeyAndCustomerId(@Param("id") String id, @Param("customerId") String customerId);
 }

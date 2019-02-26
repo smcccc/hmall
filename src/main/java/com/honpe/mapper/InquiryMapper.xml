@@ -624,6 +624,11 @@
 		<result property="companyName" column="company_name" jdbcType="VARCHAR" />
 		<result property="salesmanPhone" column="phone" jdbcType="VARCHAR" />
 	</resultMap>
+	<select id="selectByPrimaryKeyAndCustomerId" parameterType="java.lang.String" resultMap="InquiryExtResultMap">
+		SELECT inquiry.*,
+		DATEDIFF(inquiry.end_date,NOW())'end_days' FROM inquiry WHERE is_delete=FALSE AND id=#{id} AND
+		customer_id=#{customerId}
+	</select>
 	<select id="selectByCondition" resultMap="InquiryExtResultMap" parameterType="java.lang.Object">
 		SELECT inquiry.*,ac.*,DATEDIFF(inquiry.end_date,NOW()) 'end_days' FROM inquiry,(SELECT account.id
 		'account_id',account.user_name,company.company_name FROM account,company WHERE account.com_id=company.id) ac WHERE

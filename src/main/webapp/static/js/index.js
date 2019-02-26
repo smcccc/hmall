@@ -2,6 +2,7 @@ new Swiper('#swiper_banner', {
 	autoplay: {
 		disableOnInteraction: false
 	},
+	simulateTouch:false,
 	parallax: true,
 	loop: true,
 	pagination: {

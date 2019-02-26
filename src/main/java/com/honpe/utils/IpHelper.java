@@ -36,7 +36,8 @@ public class IpHelper {
 				}
 				br.close();
 				ResponseData responseData = JsonUtils.jsonToPojo(builder.toString(), ResponseData.class);
-				return responseData.getData().getAddress();
+				if (responseData != null && responseData.getData() != null)
+					return responseData.getData().getAddress();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

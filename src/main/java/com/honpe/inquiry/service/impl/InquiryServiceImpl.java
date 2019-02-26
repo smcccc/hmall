@@ -81,32 +81,22 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public InquiryDto findInquiryById(String inquiryId, String customerId) {
-		InquiryExample inquiryExample = new InquiryExample();
-		inquiryExample.createCriteria().andIdEqualTo(inquiryId).andCustomerIdEqualTo(customerId)
-				.andIsDeleteEqualTo(false);
-		List<Inquiry> inquiries = inquiryMapper.selectByExample(inquiryExample);
-		if (inquiries != null && inquiries.size() > 0) {
+		InquiryExt inquiryExt = inquiryMapper.selectByPrimaryKeyAndCustomerId(inquiryId, customerId);
+		if (inquiryExt != null) {
 			InquiryDto inquiry = new InquiryDto();
-			BeanUtils.copyProperties(inquiries.get(0), inquiry);
+			BeanUtils.copyProperties(inquiryExt, inquiry);
 			DictInfo offerCurrencyInfo = dictInfoMapper.selectByTypeCodeAndDictCode(inquiry.getOfferCurrency(),
 					Constant.InquiryConst.OFFER_CURRENCY);
 			inquiry.setOfferCurrencyInfo(offerCurrencyInfo);
-
 			DictInfo invoiceTypeInfo = dictInfoMapper.selectByTypeCodeAndDictCode(inquiry.getInvoiceType(),
 					Constant.InquiryConst.INVOICE_TYPE);
 			inquiry.setInvoiceTypeInfo(invoiceTypeInfo);
-
 			DictInfo tradeTypeInfo = dictInfoMapper.selectByTypeCodeAndDictCode(inquiry.getTradeType(),
 					Constant.InquiryConst.TRADE_TYPE);
-
 			inquiry.setTradeTypeInfo(tradeTypeInfo);
-
 			DictInfo buyTypeInfo = dictInfoMapper.selectByTypeCodeAndDictCode(inquiry.getBuyType(),
 					Constant.InquiryConst.BUY_TYPE);
 			inquiry.setBuyTypeInfo(buyTypeInfo);
-			int day = 24 * 60 * 60 * 1000;
-			int endDays = (int) (inquiry.getEndDate().getTime() - System.currentTimeMillis()) / day;
-			inquiry.setEndDays(endDays);
 			inquiry.setStatusInfo(InquiryEnum.getInstance(inquiry.getStatus()).statusInfo);
 			return inquiry;
 		}

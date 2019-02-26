@@ -26,7 +26,18 @@
 					<div class="detail">
 						<h2>${inquiry.title}</h2>
 						<div class="action">
-							<a href="${baseUrl}/inquiry/offer?id=${inquiry.id}">查看报价</a>距离报价结束还剩${inquiry.endDays}天
+							<a href="${baseUrl}/inquiry/offer?id=${inquiry.id}">查看报价</a>
+							<c:choose>
+								<c:when test="${inquiry.status==0}">
+									距离报价结束还剩${inquiry.endDays}天
+								</c:when>
+								<c:when test="${inquiry.status==1}">
+									已撤销报价
+								</c:when>
+								<c:otherwise>
+									报价已截止
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="wrap">
 							<div class="list">

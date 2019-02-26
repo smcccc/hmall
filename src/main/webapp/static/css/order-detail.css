@@ -770,6 +770,9 @@ header .bottom .clearfix .right .timeline div img {
   position: relative;
   padding-left: 18px;
 }
+.order .process .time li:first-of-type span:after {
+  background-color: #888;
+}
 .order .process .time li time {
   float: right;
 }

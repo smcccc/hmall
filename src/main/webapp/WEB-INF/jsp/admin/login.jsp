@@ -64,6 +64,7 @@
 					loginPass: icon + " 登录密码不能为空"
 				},
 				submitHandler: function(form) {
+					var $submit = $(form).find('button[type=submit]').prop('disabled', true);
 					$.ajax({
 						url: '${baseUrl}/admin/login',
 						type: 'post',
@@ -76,6 +77,7 @@
 								$('#error').text(ret.msg).css('display', 'block');
 								$('#captcha').trigger('click');
 							}
+							$submit.prop('disabled', false);
 						}
 					})
 				}

@@ -72,7 +72,7 @@
 						dataType: 'json',
 						success: function(ret) {
 							if(ret.status === 200) {
-								window.location = '${urlBase}/admin/index';
+								window.location = '${baseUrl}/admin/index';
 							} else {
 								$('#error').text(ret.msg).css('display', 'block');
 								$('#captcha').trigger('click');

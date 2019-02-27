@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 	<property resource="conf.properties" />
-	
-	<logger name="com.roncoo" level="debug" />
+
+	<logger name="mall.honpe.com" level="debug" />
 
 	<!-- 控制台设置 -->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -21,7 +21,6 @@
 			<!-- 文件最大保存历史数量 -->
 			<MaxHistory>${log.maxHistory}</MaxHistory>
 		</rollingPolicy>
-
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<pattern>${log.pattern}</pattern>
 		</layout>

@@ -52,7 +52,7 @@
 									<c:forEach items="${item.value}" var="itm">
 										<c:if test="${itm.display}">
 											<li>
-												<a class="J_menuItem" href="${itm.dataUrl}">${itm.menuName}</a>
+												<a class="J_menuItem" href="${baseUrl}${itm.dataUrl}">${itm.menuName}</a>
 											</li>
 										</c:if>
 									</c:forEach>

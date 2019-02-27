@@ -1,7 +1,5 @@
 package com.honpe.auth.shiro.filter;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.ServletRequest;
@@ -18,6 +16,7 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import com.honpe.log.service.SysUserLoginLogService;
 import com.honpe.po.SysUser;
 import com.honpe.po.SysUserLoginLog;
@@ -32,6 +31,9 @@ public class AdminFormAuthenticationFilter extends FormAuthenticationFilter {
 	private SysUserLoginLogService sysUserLoginLogService;
 	@Autowired
 	private SysUserService sysUserService;
+	@Autowired
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+	
 	private String redirectUrl;
 	private static final Logger logger = LoggerFactory.getLogger(AdminFormAuthenticationFilter.class);
 	private static final byte LOGIN_SUCCESS = 1;
@@ -64,7 +66,7 @@ public class AdminFormAuthenticationFilter extends FormAuthenticationFilter {
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request,
 			ServletResponse response) {
@@ -102,15 +104,11 @@ public class AdminFormAuthenticationFilter extends FormAuthenticationFilter {
 		sysUserLoginLog.setSystem(userAgent.getOperatingSystem().toString());
 		sysUserLoginLog.setLoginAccount(sysUser.getLoginAccount());
 		sysUserLoginLog.setLoginResult(loginResult);
-		sysUserLoginLogService.saveSysUserLoginLog(sysUserLoginLog, sysUser.getUserId());
-	}
-
-	private boolean isAjaxRequest(ServletRequest request) {
-		boolean isAjaxRequest = false;
-		String requestType = ((HttpServletRequest) request).getHeader("X-Requested-With");
-		if ("XMLHttpRequest".equals(requestType)) {
-			isAjaxRequest = true;
-		}
-		return isAjaxRequest;
+		threadPoolTaskExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				sysUserLoginLogService.saveSysUserLoginLog(sysUserLoginLog, sysUser.getUserId());
+			}
+		});
 	}
 }

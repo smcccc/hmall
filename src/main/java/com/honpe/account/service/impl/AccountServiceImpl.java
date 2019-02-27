@@ -24,7 +24,6 @@ import com.honpe.pojo.ext.AccountExt;
 import com.honpe.role.service.RoleService;
 import com.honpe.user.service.SysUserService;
 import com.honpe.utils.EncryptUtils;
-import com.honpe.utils.PasswordHelper;
 
 @Service
 @Transactional

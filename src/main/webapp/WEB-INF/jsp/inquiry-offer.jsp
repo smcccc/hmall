@@ -147,10 +147,10 @@
 													${item.unit}
 												</td>
 												<td>
-													${item.offerPrice}
+													<fmt:formatNumber value="${item.offerPrice}" type="currency" />
 												</td>
 												<td>
-													${item.offerPrice*item.buyNum}
+													<fmt:formatNumber value="${item.offerPrice*item.buyNum}" type="currency" />
 												</td>
 												<td>
 													${item.statusInfo}

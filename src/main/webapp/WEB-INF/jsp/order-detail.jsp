@@ -273,9 +273,34 @@
 								</p>
 							</c:otherwise>
 						</c:choose>
-
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="chat">
+			<div class="panel">
+				<p>企业在线 <button><i class="icon iconfont">&#xe600;</i></button></p>
+				<div>
+					您好，欢迎光临！
+				</div>
+				<ul>
+					<li><img src="${baseUrl}/static/icon/chat.png" />
+						<a href="javascript:;">张业务</a>
+					</li>
+					<li><img src="${baseUrl}/static/icon/chat.png" />
+						<a href="javascript:;">张业务</a>
+					</li>
+					<li><img src="${baseUrl}/static/icon/chat.png" />
+						<a href="javascript:;">张业务</a>
+					</li>
+					<li><img src="${baseUrl}/static/icon/chat.png" />
+						<a href="javascript:;">张业务</a>
+					</li>
+				</ul>
+			</div>
+			<div class="panel">
+				<button><i class="icon iconfont">&#xe601;</i></button>
+				<div>点击洽谈</div>
 			</div>
 		</div>
 		<div class="shipping" id="shipping">

@@ -9,8 +9,8 @@
 				<c:choose>
 					<c:when test="${empty sessionScope.CUSTOMER}">
 						<div class="right links">
-							<a href="${baseurl}/tologin">登录</a>
-							<a href="${baseurl}/toregist">注册</a>
+							<a href="${baseUrl}/tologin">登录</a>
+							<a href="${baseUrl}/toregist">注册</a>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -23,7 +23,7 @@
 								<img src="${baseUrl}/static/icon/xia.svg" />
 								<ul>
 									<li>
-										<a href="${baseUrl}/user/info">帐号资料</a>
+										<a href="${baseUrl}/user/info">账户资料</a>
 									</li>
 									<li>
 										<a href="${baseUrl}/address/info">修改地址</a>

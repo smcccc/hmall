@@ -228,3 +228,9 @@ var cancelOrder = function(orderId) {
 		}
 	})
 }
+$('.chat').on('click', 'button', function() {
+	$(this).closest('.panel').toggle().siblings('.panel').toggle();
+})
+$('.chat>.panel:last-child').on('click', 'div', function() {
+	$(this).closest('.panel').toggle().siblings('.panel').toggle();
+})

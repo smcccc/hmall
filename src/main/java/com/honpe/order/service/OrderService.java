@@ -13,7 +13,6 @@ import com.honpe.po.TbOrder;
 import com.honpe.pojo.ext.OrderExt;
 import com.honpe.pojo.vo.OrderVo;
 import com.honpe.pojo.vo.PageBean;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 public interface OrderService {
 	void generateOrder(TbOrder tbOrder, byte paymentType, List<OrderItem> items);

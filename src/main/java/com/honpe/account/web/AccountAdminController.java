@@ -1,16 +1,10 @@
 package com.honpe.account.web;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -102,6 +96,7 @@ public class AccountAdminController {
 	public void exportCustomers(Integer count, Integer customerType, HttpServletResponse response,
 			HttpServletRequest request) throws IOException {
 		List<AccountExt> accounts = accountService.findCustomers(1, count, customerType, null, null, null).getList();
+		@SuppressWarnings("resource")
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
 		if (accounts != null && accounts.size() > 0) {
 			HSSFSheet hssfSheet = hssfWorkbook.createSheet("客户资料");

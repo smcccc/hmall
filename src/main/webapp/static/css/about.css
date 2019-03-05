@@ -599,10 +599,6 @@ footer .bottom span {
   background-color: #0d8fd2;
   color: #FFF;
 }
-.context .page li .disabled {
-  cursor: not-allowed;
-  color: #CCC;
-}
 .context .page .omit {
   border-top: none;
   border-bottom: none;
@@ -617,33 +613,4 @@ footer .bottom span {
 }
 .context .page .this a {
   color: #FFF;
-}
-.context .download table {
-  width: 100%;
-}
-.context .download caption {
-  font-size: 24px;
-  text-align: left;
-  margin-bottom: 25px;
-}
-.context .download thead tr {
-  background: linear-gradient(#0ba9fa, #20a4e8, #0b9ae4);
-}
-.context .download thead tr th {
-  padding: 5px 10px;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-}
-.context .download tbody td {
-  padding: 8px 10px;
-  font-size: 16px;
-  text-align: center;
-}
-.context .download tbody td a {
-  color: #0000CC;
-  text-decoration: underline;
-}
-.context .download tbody tr:nth-of-type(odd) {
-  background-color: #c8eafb;
 }

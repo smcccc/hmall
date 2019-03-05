@@ -312,15 +312,15 @@
 			<properties>
 				<configPath>dev</configPath>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<configPath>prod</configPath>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 		<profile>
 			<id>test</id>

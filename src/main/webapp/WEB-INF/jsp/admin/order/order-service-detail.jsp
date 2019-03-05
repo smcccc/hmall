@@ -200,7 +200,7 @@
 			$('#approvalForm').submit(function() {
 				var status = $(this).find('select[name=status]').val();
 				if(status) {
-					$.post('${bseUrl}/admin/order/service/approval', {
+					$.post('${baseUrl}/admin/order/service/approval', {
 						orderItemId: '${service.orderItemId}',
 						status: status
 					}, function(ret) {

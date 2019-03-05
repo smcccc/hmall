@@ -857,6 +857,11 @@ p.validate-error {
   padding: 5px;
   overflow: hidden;
 }
+.materiel .uploader .info span {
+  display: block;
+  max-width: 285px;
+  float: left;
+}
 .materiel .uploader .info button {
   float: right;
   border: none;

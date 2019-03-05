@@ -21,18 +21,17 @@ import com.honpe.utils.CodeHelper;
 import com.honpe.utils.EncryptUtils;
 import com.honpe.utils.JsonUtils;
 import com.honpe.utils.PasswordHelper;
-
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 @Controller
 public class AccountAuthController {
+	
 	@Autowired
 	private AccountService accountService;
 	@Autowired
 	private CacheManager cacheManager;
-
 	@Value("${web.domain}")
 	private String domain;
 
@@ -55,13 +54,11 @@ public class AccountAuthController {
 	public @ResponseBody Result login(String loginEmail, String password, HttpServletRequest request) {
 		Account account = accountService.findAccountByLoginEmail(loginEmail);
 		RequestContext requestContext = new RequestContext(request);
-		if (account == null) {
+		if (account == null)
 			return new Result(403, requestContext.getMessage("login.error"), null);
-		}
 		String pwd = PasswordHelper.getPwd(password.trim(), account.getSalt());
-		if (!account.getLoginPass().equals(pwd)) {
+		if (!account.getLoginPass().equals(pwd))
 			return new Result(403, requestContext.getMessage("login.error"), null);
-		}
 		HttpSession session = request.getSession();
 		session.setAttribute("CUSTOMER", account);
 		inputShippingCartNumber(session);
@@ -70,7 +67,7 @@ public class AccountAuthController {
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("CUSTOMER");
 		return "redirect:/index";
 	}
 

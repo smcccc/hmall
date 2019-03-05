@@ -94,13 +94,15 @@ $(function() {
 	uploader.on('fileQueued', function(file) {
 		if($list.length > 1) return;
 		$list.append('<div id="' + file.id + '" class="item">' +
-			'<p class="info">' + file.name + '<button type="button" data-id="' + file.id +
+			'<p class="info"><span>' + file.name + '</span><button type="button" data-id="' + file.id +
 			'" class="del-btn"><i class="iconfont icon-shanchu"></i></button></p>' +
 			'<p class="state">正在计算文件MD5</p>' +
 			'</div>');
+		$('.btns').hide();
 		$(".del-btn").click(function() {
 			uploader.removeFile(uploader.getFile($(this).data('id'), true));
 			$(this).parent().parent().fadeOut(300);
+			$('.btns').show();
 		});
 		uploader.options.formData.guid = WebUploader.guid();
 		uploader.md5File(file).then(function(fileMd5) {

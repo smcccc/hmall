@@ -11,14 +11,17 @@ $('#suggestForm').submit(function(event) {
 		$textarea.focus();
 	} else {
 		$.ajax({
-			url: '${baseUrl}/suggest/submit',
+			url: BASEURL + '/suggest/submit',
 			type: 'post',
 			data: $this.serialize(),
 			dataType: 'json',
 			success: function(ret) {
 				if(ret.status === 200) {
 					layer.msg('您的意见已提交', {
+						anim: 0,
 						icon: 6
+					}, function() {
+						window.location.reload();
 					})
 				} else {
 					layer.msg(ret.msg, {

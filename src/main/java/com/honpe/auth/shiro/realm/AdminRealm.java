@@ -46,6 +46,7 @@ public class AdminRealm extends AuthorizingRealm {
 			session.setAttribute("SYS_USER", sysUser);
 		}
 		Integer userId = sysUser.getUserId();
+		@SuppressWarnings("unchecked")
 		Set<String> roles = (Set<String>) session.getAttribute("ROLES");
 		if (roles == null || roles.isEmpty()) {
 			roles = new HashSet<>();
@@ -55,6 +56,7 @@ public class AdminRealm extends AuthorizingRealm {
 		}
 		// 设置角色
 		authorizationInfo.setRoles(roles);
+		@SuppressWarnings("unchecked")
 		Set<String> permisstions = (Set<String>) session.getAttribute("PERMISSIONS");
 		if (permisstions == null || permisstions.isEmpty()) {
 			permisstions = permService.findPermsByUserId(userId);

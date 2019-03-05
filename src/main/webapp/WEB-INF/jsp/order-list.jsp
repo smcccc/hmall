@@ -231,7 +231,7 @@
 													</div>
 													<div>
 														<c:if test="${item.status==0}">
-															<a href="${basUrl}/order/topayment?orderId=${item.orderId}">立即付款</a>
+															<a href="${baseUrl}/order/topayment?orderId=${item.orderId}">立即付款</a>
 															<c:if test="${empty item.orderDiscount}">
 																<a href="javascript:;" onclick="discount('${item.orderId}')">申请优惠</a>
 															</c:if>

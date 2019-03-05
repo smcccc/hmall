@@ -44,23 +44,27 @@
 					</div>
 					<div class="page clearfix">
 						<ul class="right">
-							<li>
-								<a class="${pageBean.currentPage<=1?'disabled':''}" href="javascript:goPage(${pageBean.currentPage-1});">上一页</a>
-							</li>
+							<c:if test="${pageBean.currentPage>1}">
+								<li>
+									<a href="javascript:goPage(${pageBean.currentPage-1});">上一页</a>
+								</li>
+							</c:if>
 							<c:forEach var="page" begin="${pageBean.start}" end="${pageBean.end}">
 								<li class="${pageBean.currentPage==page?'this':''}">
 									<a href="javascript:goPage(${page});">${page}</a>
 								</li>
 							</c:forEach>
 							<li class="omit">
-								<a href="javascript:goPage(${pageBean.currentPage+3})"></a>
+								<a href="javascript:goPage(${pageBean.currentPage+3});"></a>
 							</li>
 							<li>
 								<a href="javascript:goPage(${pageBean.totalPage});">${pageBean.totalPage}</a>
 							</li>
-							<li>
-								<a class="${pageBean.currentPage>=pageBean.totalPage?'disabled':''}" href="javascript:goPage(${pageBean.currentPage+1});">下一页</a>
-							</li>
+							<c:if test="${pageBean.currentPage<pageBean.totalPage}">
+								<li>
+									<a href="javascript:goPage(${pageBean.currentPage+1});">下一页</a>
+								</li>
+							</c:if>
 						</ul>
 					</div>
 				</div>
@@ -69,7 +73,7 @@
 		<%@include file="/static/taglib/footer.jsp"%>
 		<script type="text/javascript">
 			var goPage = function(page) {
-				if(page < 1 || page > '${pageBean.totalPage}') return;
+				if(page > '${pageBean.totalPage}') page = '${pageBean.totalPage}';
 				window.location = '${baseUrl}/about?categoryId=${category.id}&page=' + page
 			}
 		</script>

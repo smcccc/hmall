@@ -23,7 +23,7 @@ $(function() {
 		},
 		submitHandler: function(form) {
 			$.ajax({
-				url: '${baseUrl}/user/reset',
+				url: BASEURL + '/user/reset',
 				type: 'post',
 				data: $(form).serialize(),
 				dataType: 'json',
@@ -33,7 +33,7 @@ $(function() {
 							anim: 0,
 							icon: 1
 						}, function() {
-							window.location = '${baseUrl}/logout';
+							window.location = BASEURL + '/logout';
 						})
 					} else if(ret.status === 403) {
 						layer.msg('原密码不正确', {

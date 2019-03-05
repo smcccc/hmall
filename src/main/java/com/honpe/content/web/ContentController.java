@@ -3,9 +3,7 @@ package com.honpe.content.web;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import com.github.pagehelper.PageInfo;
 import com.honpe.content.service.CategoryService;
 import com.honpe.content.service.ContentService;
 import com.honpe.log.annotation.RecordOperateLog;
-import com.honpe.po.Content;
 import com.honpe.po.ContentCategory;
 import com.honpe.po.ContentWithBLOBs;
 import com.honpe.pojo.ext.ContentExt;

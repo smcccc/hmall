@@ -65,7 +65,6 @@ public class CustomizedHashedCredentialsMatcher extends HashedCredentialsMatcher
 			throw new ExcessiveAttemptsException();
 		}
 		LOGGER.info("login retry times {} :" + retryCount.get());
-
 		boolean matches = super.doCredentialsMatch(token, info);
 		if (matches) {
 			AtomicInteger loginTimes = loginTimeCache.get(loginAccount);
@@ -75,9 +74,7 @@ public class CustomizedHashedCredentialsMatcher extends HashedCredentialsMatcher
 			loginTimes.addAndGet(1);
 			LOGGER.info("login times {} :" + loginTimes.get());
 			loginTimeCache.put(loginAccount, loginTimes);
-			// clear retry count
 			passwordRetryCache.remove(loginAccount);
-			// 根据登录名查询操作员
 			Subject subject = SecurityUtils.getSubject();
 			Session session = subject.getSession();
 			session.setAttribute("LOGIN_TIMES", loginTimes.get());

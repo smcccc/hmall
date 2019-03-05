@@ -2,8 +2,6 @@ package com.honpe.account.interceptor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,14 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContext;
 import com.honpe.account.annotation.RequiredAuth;
 import com.honpe.po.Account;
 import com.honpe.pojo.vo.Result;
 import com.honpe.utils.JsonUtils;
 
 public class AccountAuthAndPermsInterceptor implements HandlerInterceptor {
+
 	private String unauthorizedUrl;
+
 	private static final Logger logger = LoggerFactory.getLogger(AccountAuthAndPermsInterceptor.class);
 
 	public AccountAuthAndPermsInterceptor(String unauthorizedUrl) {
@@ -35,11 +34,11 @@ public class AccountAuthAndPermsInterceptor implements HandlerInterceptor {
 			HandlerMethod hMethod = (HandlerMethod) handler;
 			HttpSession session = request.getSession();
 			boolean isAjax = isAjaxRequest(request);
-			if (!isAllowed(hMethod, session)) {
+			if (session != null && !isAllowed(hMethod, session)) {
 				if (isAjax) {
 					sendJson(response, new Result(401, null, null));
 				} else {
-					response.sendRedirect(unauthorizedUrl);
+					response.sendRedirect(request.getContextPath() + unauthorizedUrl);
 				}
 				return false;
 			}

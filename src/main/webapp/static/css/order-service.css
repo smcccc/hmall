@@ -1,15 +1,3 @@
-@font-face {
-  font-family: 'zhushi';
-  src: url('../font/zhushi/webfont.woff') format('woff'), url('../font/zhushi/webfont.ttf') format('truetype'), url('../font/zhushi/webfont.svg#FZDYSJW--GB1-0') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'siyuan';
-  src: url('../font/siyuan/webfont.woff') format('woff'), url('../font/siyuan/webfont.ttf') format('truetype'), url('../font/siyuan/webfont.svg#FZDYSJW--GB1-0') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 body,
 div,
 dl,
@@ -303,7 +291,7 @@ header .bottom .search input[type=submit] {
 .pace .pace-progress {
   background-color: #11AEFF;
   position: fixed;
-  z-index: 2000;
+  z-index: 9999;
   top: 0;
   width: 100%;
   height: 2px;
@@ -438,6 +426,41 @@ footer .bottom {
 }
 footer .bottom span {
   margin-right: 80px;
+}
+.fixed {
+  display: none;
+  position: fixed;
+  right: 50px;
+  top: 40%;
+  z-index: 9999;
+  padding: 8px;
+  background-color: rgba(113, 126, 143, 0.7);
+  filter: alpha(opacity=70) progid:DXImageTransform.Microsoft.gradient(startColorstr=#717E8F, endColorstr=#717E8F);
+}
+.fixed li {
+  position: relative;
+}
+.fixed li:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+.fixed li:hover div {
+  display: block;
+}
+.fixed li div {
+  display: none;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  text-align: center;
+  margin-left: -55px;
+  background-color: #4ca6dc;
+  color: #FFF;
+  font-size: 14px;
+  line-height: 1.6em;
+  width: 110px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
 }
 .step {
   margin: 15px 0;

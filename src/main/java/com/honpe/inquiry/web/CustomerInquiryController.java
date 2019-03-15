@@ -1,10 +1,15 @@
 package com.honpe.inquiry.web;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,7 +78,7 @@ public class CustomerInquiryController {
 	@GetMapping("/my/list")
 	@RequiredAuth
 	public String inquiryList(Byte status, @RequestParam(defaultValue = "1") Integer page, Integer days, String search,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		String customerId = getCustomer(request).getId();
 		long accept = inquiryService.findCountByCustomerId(customerId, (byte) InquiryEnum.STATUS_ACCEPT.status);
 		request.setAttribute("ACCEPT", accept);
@@ -88,9 +93,8 @@ public class CustomerInquiryController {
 
 	@GetMapping("/revoce-input")
 	@RequiredAuth
-	public String cancleInquiryForm(String inquiryId, String inquiryTitle, Model model) {
+	public String cancleInquiryForm(String inquiryId, Model model) {
 		model.addAttribute("inquiryId", inquiryId);
-		model.addAttribute("inquiryTitle", inquiryTitle);
 		return "inquiry-revoce";
 	}
 

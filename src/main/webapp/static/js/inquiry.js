@@ -36,12 +36,7 @@ $(function() {
 				max: 28
 			},
 			endDate: 'required',
-			expectReceiveDate: 'required',
 			offerValidDate: 'required',
-			deliveredDate: {
-				required: true,
-				min: 1
-			},
 			linkman: 'required',
 			linkphone: {
 				required: true,
@@ -57,12 +52,7 @@ $(function() {
 				max: '结算日期不能超过28'
 			},
 			endDate: '请填写报价截止日期',
-			expectReceiveDate: '请填写期望收货日期',
 			offerValidDate: '请填写价格有效期',
-			deliveredDate: {
-				required: '请填写交货期',
-				min: '交货期不能小于1'
-			},
 			linkman: '请填写联系人',
 			linkphone: {
 				required: '请填写联系电话',

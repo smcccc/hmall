@@ -20,33 +20,32 @@
 	</script>
 
 	<body class="animated fadeInUp">
-		<div class="bg"></div>
-		<div class="jumbotron">
-			<div class="login">
-				<h3>后台登录</h3>
-				<div class="alert alert-danger" role="alert" id="error"></div>
-				<form id="loginForm">
-					<div class="form-group">
-						<label for="loginAccount">用户名</label> <input type="text" class="form-control" name="loginAccount" id="loginAccount"
-						 autocomplete="off">
-					</div>
-					<div class="form-group">
-						<label for="loginPass">密码</label> <input type="password" name="loginPass" class="form-control" id="password" autocomplete="off">
-					</div>
-					<div class="form-group">
-						<label for="captchaCode">验证码</label>
-						<div class="captcha-wrap">
-							<input type="text" class="form-control" name="captchaCode" id="captchaCode" placeholder="验证码位" autocomplete="off">							<img title="点击换一张" id="captcha" alt="" src="${baseUrl}/captcha.jpg?Match.random()">
-						</div>
-					</div>
-					<button type="submit" id="denglu" class="btn btn-default">登陆</button>
-				</form>
-			</div>
+		<div class="bg">
+			<div></div>
+			<div></div>
+			<hr>
+			<p>&copy; honpe 2019</p>
 		</div>
-		<hr>
-		<footer class="container">
-			<p style="font-size: 18px;">&copy; honpe 2019</p>
-		</footer>
+		<div class="login">
+			<h3>后台登录</h3>
+			<div class="alert alert-danger" role="alert" id="error"></div>
+			<form id="loginForm">
+				<div class="form-group">
+					<label for="loginAccount">用户名</label> <input type="text" class="form-control" name="loginAccount" id="loginAccount"
+					 autocomplete="off">
+				</div>
+				<div class="form-group">
+					<label for="loginPass">密码</label> <input type="password" name="loginPass" class="form-control" id="password" autocomplete="off">
+				</div>
+				<div class="form-group">
+					<label for="captchaCode">验证码</label>
+					<div class="captcha-wrap">
+						<input type="text" class="form-control" name="captchaCode" id="captchaCode" placeholder="验证码位" autocomplete="off">						<img title="点击换一张" id="captcha" alt="" src="${baseUrl}/captcha.jpg?Match.random()">
+					</div>
+				</div>
+				<button type="submit" id="denglu" class="btn btn-default">登陆</button>
+			</form>
+		</div>
 		<script src="${baseUrl}/static/admin/js/jquery.min.js?v=2.1.4" type="text/javascript" charset="utf-8"></script>
 		<!-- jquery validate -->
 		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js"></script>

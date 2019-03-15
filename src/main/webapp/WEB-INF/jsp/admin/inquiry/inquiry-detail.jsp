@@ -174,7 +174,9 @@
 					}, {
 						title: '开料尺寸(长X宽X高:毫米)',
 						formatter: function(value, row) {
-							return row.length + 'X' + row.width + 'X' + row.height;
+							if(row.length!=null&&row.width!=null&&row.height!=null){
+								return row.length + 'X' + row.width + 'X' + row.height;
+							}
 						}
 					}, {
 						field: 'statusInfo',

@@ -16,8 +16,8 @@
 		<link type="text/css" rel="stylesheet" href="${baseUrl}/static/css/user.css" />
 		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript ">
-			var baseUrl = '${baseUrl}';
+		<script type="text/javascript">
+			BASEURL = '${baseUrl}';
 		</script>
 	</head>
 

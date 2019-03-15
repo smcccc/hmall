@@ -8,12 +8,12 @@ public class Constant {
 
 	public static interface CategoryConst {
 		public static final long TOP_PARENT = 0;
-		public static final long COMPANY_INSTRODUCE = 87;
+		public static final long COMPANY_INTRODUCE = 87;
 		public static final long INDEX_SWIPER = 68;// 首页轮播
-		public static final long INDEX_AD = 69;// 首页左侧广告
+		// public static final long INDEX_AD = 69;// 首页左侧广告
 		public static final long NEWS = 104;// 企业新闻
-		public static final long CASE_MAKE = 103;// 案例-手板制作
-		public static final long CASE_3D = 102;// 案例-3D打印
+		// public static final long CASE_MAKE = 103;// 案例-手板制作
+		// public static final long CASE_3D = 102;// 案例-3D打印
 		public static final long CASE = 71;// 案例
 		public static final long ABOUT_US = 70;// 关于我们
 	}

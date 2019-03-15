@@ -85,8 +85,10 @@
 									/><input type="hidden" name="id" value="${materiel.id}" />
 									<ul>
 										<li><label>产品编号 </label> <input type="text" name="code" autocomplete="off" value="${materiel.code}" /></li>
-										<li><label>产品名称 </label> <input type="text" name="name" autocomplete="off" value="${materiel.name}" /></li>
-										<li><label>采购数量</label> <input type="number" name="buyNum" autocomplete="off" min="1" value="${materiel.buyNum}" /></li>
+										<li><label class="required">产品名称 </label> <input type="text" name="name" autocomplete="off" value="${materiel.name}"
+											/></li>
+										<li><label class="required">采购数量</label> <input type="number" name="buyNum" autocomplete="off" min="1" value="${materiel.buyNum}"
+											/></li>
 										<li><label>单位</label>
 											<div class="datalist">
 												<input type="text" name="unit" value="${materiel.unit}" autocomplete="off" //>
@@ -131,12 +133,12 @@
 											</div>
 										</li>
 										<li><label>描述</label> <textarea name="descr" id="" rows="3">${materiel.descr}</textarea></li>
-										<li><label>图纸资料</label>
+										<li><label class="required">图纸资料</label>
 											<div id="uploader" class="uploader">
 												<p>3D图 (最好能提供STEP或者IGS格式的)。如果有多个文件，请尽量把它他压缩成一个文件，使用ZIP/RAR格式</p>
 												<div class="btns">
 													<div id="picker" class="webuploader-container">
-														选择文件 <input type="file" name="file" class="webuploader-element-invisible">
+														添加附件 <input type="file" name="file" class="webuploader-element-invisible">
 													</div>
 												</div>
 												<div id="fileList" class="uploader-list"></div>
@@ -153,16 +155,23 @@
 										<c:forEach items="${materiels}" var="item">
 											<div class="item">
 												<div class="head">
-													<time>添加时间：<fmt:formatDate value="${item.createTime}" type="both" /> </time>
+													<time>添加时间 ：<fmt:formatDate value="${item.createTime}" type="both" /> </time>
 													<a data-id="${item.id}" href="javascript:;" onclick="deleteItem()">删除</a>
 													<c:if test="${item.status!=3}">
 														<a href="${baseUrl}/inquiry/get/materiel?id=${item.id}">修改</a>
 													</c:if>
 												</div>
 												<ul>
-													<li><span><strong>物料编号</strong>${item.code}</span><span><strong>物料名称：</strong>${item.name}</span></li>
-													<li><span><strong>采购数量</strong>${item.buyNum}</span><span><strong>物料材质</strong>${item.makeMaterial}</span></li>
-													<li><span><strong>制作工艺</strong>${item.makeCat}</span><span><strong>开料尺寸</strong>${item.length}X${item.width}X${item.height}</span>
+													<li><span><strong>物料编号</strong>${empty item.code?'-':item.code}</span><span><strong>物料名称：</strong>${empty item.name?'-':item.name}</span></li>
+													<li><span><strong>采购数量</strong>${empty item.buyNum?'-':item.buyNum}</span><span><strong>物料材质</strong>${empty item.makeMaterial?'-':item.makeMaterial}</span></li>
+													<li><span><strong>制作工艺</strong>${empty item.makeCat?'-':item.makeCat}</span><span><strong>开料尺寸</strong>
+														<c:choose>
+															<c:when test="${empty item.length||empty item.width||empty item.height}">-</c:when>
+															<c:otherwise>
+																${item.length}X${item.width}X${item.height}
+															</c:otherwise>
+														</c:choose>
+														</span>
 													</li>
 												</ul>
 											</div>

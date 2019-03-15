@@ -50,8 +50,12 @@
 										<fmt:formatDate value="${inquiry.endDate}" type="date" />
 									</li>
 									<li><label>采购类型</label> ${inquiry.buyTypeInfo.info}</li>
-									<li><label>期望收货时间</label> ${inquiry.expectReceiveDate}</li>
-									<li><label>交货期</label> 自下单后${inquiry.deliveredDate}天内交货至指定地点</li>
+									<c:if test="${!empty inquiry.expectReceiveDate}">
+										<li><label>期望收货时间</label> ${inquiry.expectReceiveDate}</li>
+									</c:if>
+									<c:if test="${!empty inquiry.deliveredDate}">
+										<li><label>交货期</label> 自下单后${inquiry.deliveredDate}天内交货至指定地点</li>
+									</c:if>
 									<li><label>联系人</label> ${inquiry.linkman}</li>
 									<li><label>联系电话</label> ${inquiry.linkphone}</li>
 								</ul>
@@ -148,6 +152,7 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 	</body>
 
 </html>

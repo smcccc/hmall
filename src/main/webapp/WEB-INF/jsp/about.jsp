@@ -18,18 +18,21 @@
 
 	<body>
 		<%@include file="/static/taglib/header.jsp"%>
+		<div class="banner">
+			<img src="//${category.pic}" alt="${category.title}"/>
+		</div>
 		<div class="main clearfix">
 			<%@include file="/static/taglib/about-aside.jsp"%>
 			<section class="left">
 				<div class="context">
-					<img src="//${category.pic}" alt="${category.title}" title="${category.title}" />
-					<div class="wrap">
+					<div class="wrap clearfix">
 						<section>${content.content} </section>
 					</div>
 				</div>
 			</section>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 	</body>
 	<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 

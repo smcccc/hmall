@@ -2,7 +2,7 @@ new Swiper('#swiper_banner', {
 	autoplay: {
 		disableOnInteraction: false
 	},
-	simulateTouch:false,
+	simulateTouch: false,
 	parallax: true,
 	loop: true,
 	pagination: {
@@ -188,25 +188,4 @@ $('#registForm').submit(function(event) {
 var checkEmail = function(val) {
 	var mail = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
 	return mail.test(val);
-}
-window.onload = function() {
-	hoverShowAndHide();
-}
-var flag = true;
-$(window).on('scroll', function() {
-	if(!flag) return;
-	flag = false;
-	setTimeout(function() {
-		hoverShowAndHide();
-		flag = true;
-	}, 150)
-})
-var hoverShowAndHide = function() {
-	var scrollTop = $(document).scrollTop()
-	var top = $('#hover_line').offset().top;
-	if(scrollTop >= top) {
-		$('.hover').css('display', 'block')
-	} else {
-		$('.hover').css('display', 'none');
-	}
 }

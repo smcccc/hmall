@@ -144,124 +144,109 @@
 			</div>
 		</div>
 		<div class="main">
-			<section class="make" id="hover_line">
-				<div class="title">
-					<a href="${baseUrl}/case"> <img src="${baseUrl}/static/icon/Handmaking_70.png" />
-					</a>
-					<a class="right" href="${baseUrl}/case">更多 <i class="iconfont icon-gengduo"></i>
-					</a>
-				</div>
-				<div class="content print-content">
-					<div>
-						<div class="left">
-							<div>
-								<a href="${baseUrl}/detail?id=${ad.id}" title="${ad.title}"> <img src="//${ad.pic}" alt="${ad.title}" />
-								</a>
-							</div>
-						</div>
-						<div class="left">
-							<c:forEach items="${makes}" begin="0" end="5" var="item">
-								<figure>
-									<a href="${baseUrl}/detail?id=${item.id}">
-										<div class="image">
-											<img src="//${item.pic}" alt="${item.title}" title="${item.title}" />
-										</div>
-										<figcaption>${item.title}</figcaption>
-									</a>
-								</figure>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-			</section>
-			<div class="container">
-				<section class="print left">
-					<div class="title">
-						<a href="${baseUrl}/case"> <img src="${baseUrl}/static/icon/3Dprinting_20.png" />
-						</a>
-						<a class="right" href="${baseUrl}/case">更多 <i class="iconfont icon-gengduo"></i>
-						</a>
-					</div>
-					<div class="content">
+			<div class="clearfix">
+				<aside class="left aside">
+					<div class="service">
+						<p>
+							<span>在线客服</span>
+						</p>
 						<div>
-							<c:forEach items="${prints}" begin="0" end="5" var="item">
-								<figure>
-									<a href="${baseUrl}/detail?id=${item.id}">
-										<div>
-											<img src="//${item.pic}" alt="${item.title}" title="${item.title}" />
-										</div>
-										<figcaption>${item.title}</figcaption>
-									</a>
-								</figure>
-							</c:forEach>
+							<ul>
+								<li>客服
+									<a target="_blank" href="http://wpa.qq.com/msgrd?v=${applicationScope.qq1}site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:313572052:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
+								</li>
+								<li>客服
+									<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${applicationScope.qq2}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:313572052:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
+								</li>
+								<li>客服
+									<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${applicationScope.qq3}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:313572052:51" alt="点击这里给我发消息" title="点击这里给我发消息" /></a>
+								</li>
+							</ul>
+						</div>
+						<div>
+							<p>经营模式：生产厂家</p>
+							<p>所在地区：中国 广东 深圳</p>
 						</div>
 					</div>
-				</section>
-				<section class="news left">
-					<h2>公司新闻</h2>
-					<div class="content">
-						<div>
-							<a href="${baseUrl}/news/detail?id=${news[0].id}"> <img src="//${news[0].pic}" />
-							</a>
-							<div>
-								<a href="${baseUrl}/news/detail?id=${news[0].id}">
-									<p>${news[0].title}</p>
-									<p>${news[0].summary}</p>
-								</a>
-								<time> <fmt:formatDate value="${news[0].createTime}" type="date" /></time>
-							</div>
-
-						</div>
-						<ul class="clear">
-							<c:forEach items="${news}" begin="1" end="6" var="item">
-								<li>
-									<a href="${baseUrl}/news/detail?id=${item.id}"><span>${item.title}</span> <time class="right"> <fmt:formatDate
-									value="${item.createTime}" type="date" /></time> </a>
+					<div class="submenu">
+						<p>
+							<span>案例展示</span>
+						</p>
+						<ul>
+							<c:forEach items="${categories}" var="item">
+								<li <c:if test="${item.id==category.id}">class="this"</c:if> >
+									<a href="${baseUrl}/index?id=${item.id}">${item.title}<i class="iconfont">&#xe735;</i></a>
 								</li>
 							</c:forEach>
 						</ul>
 					</div>
-				</section>
+					<div class="contact">
+						<p>
+							<span>联系方式</span>
+						</p>
+						<div>
+							<p>电 话：86-${applicationScope.tel}</p>
+							<p>传 真：86-${applicationScope.fax}</p>
+						</div>
+						<div>
+							<div id="allmap"></div>
+							<p>
+								友情链接
+								<a href="http://www.honpe.com" target="_blank">www.honpe.com</a>
+							</p>
+						</div>
+					</div>
+				</aside>
+				<div class="right">
+					<div class="clearfix" style="margin-bottom: 15px;">
+						<div class="left" style="width: 49.5%;height: 234px;margin-right: 0.5%; border: 1px solid #DEDEDE;">
+
+						</div>
+						<div class="right" style="width: 50%;height: 234px;border: 1px solid #DEDEDE;">
+
+						</div>
+					</div>
+					<c:if test="${!empty cases}">
+						<section class="case">
+							<h2>${category.title}
+						<a href="${baseUrl}/case?id=${category.id}">更多<i class="iconfont">&#xe617;</i></a>
+					</h2>
+							<div class="clearfix">
+								<c:forEach items="${cases}" var="item">
+									<div class="left item">
+										<div>
+											<img src="//${item.pic}" alt="" />
+										</div>
+										<p>${item.title}</p>
+										<p>${item.summary}</p>
+										<a href="${baseUrl}/detail?id=${item.id}">LoadMore</a>
+									</div>
+								</c:forEach>
+							</div>
+						</section>
+					</c:if>
+				</div>
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
-		<div class="hover">
-			<ul>
-				<li>
-					<div>
-						<p>QQ在线</p>
-						<p>客服</p>
-					</div>
-					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${applicationScope.qq}&site=qq&menu=yes"><img src="${baseUrl}/static/icon/qq.png" alt="点击这里给我发消息" title="" /></a>
-				</li>
-				<li>
-					<div>
-						<p>服务电话</p>
-						<p>${applicationScope.tel}</p>
-					</div>
-					<a href="#tel"><img src="${baseUrl}/static/icon/phone2.jpg" /></a>
-				</li>
-				<li>
-					<div>
-						<p>我的</p>
-						<p>购物车</p>
-					</div>
-					<a href="${baseUrl}/shipping/cart/list"><img src="${baseUrl}/static/icon/buy_car.jpg" /></a>
-				</li>
-				<li>
-					<div>
-						<p>返回</p>
-						<p>顶部</p>
-					</div>
-					<a href="javascript:$(window).scrollTop(0);"><img src="${baseUrl}/static/icon/return_top.png" /></a>
-				</li>
-			</ul>
-		</div>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script src="${baseUrl}/static/lib/swiper/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/index.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kpNj9MXvA8IiH9rmNdnT0EAkeWFdl40N"></script>
 		<script type="text/javascript">
 			var baseUrl = '${baseUrl}';
+			// 百度地图API功能
+			var map = new BMap.Map("allmap"); // 创建Map实例
+			var point = new BMap.Point(113.852792, 22.6913)
+			var marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+			map.centerAndZoom(point, 18);
+			map.addControl(new BMap.MapTypeControl({
+				mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+			}));
+			map.setCurrentCity("深圳");
+			map.enableScrollWheelZoom(true);
 		</script>
 	</body>
 

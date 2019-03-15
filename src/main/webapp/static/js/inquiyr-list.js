@@ -1,9 +1,9 @@
-var revoceInquiry = function(id, title) {
+var revoceInquiry = function(id) {
 	layer.open({
 		type: 2,
 		title: '撤销询价',
-		area: ['600px', '462px'],
-		content: BASEURL + '/inquiry/revoce-input?inquiryId=' + id + '&inquiryTitle=' + title
+		area: ['600px', '470px'],
+		content: BASEURL + '/inquiry/revoce-input?inquiryId=' + id
 	})
 }
 var delInquiry = function(id) {
@@ -30,14 +30,14 @@ var delInquiry = function(id) {
 }
 var changePage = function(page, days) {
 	days = days === undefined ? '' : days;
-	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&days=' + days + '&title=' + TITLE + '&page=' +
+	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&days=' + days + '&search=' + SEARCH + '&page=' +
 		page;
 }
 
 $('#search-btn').on('click', function() {
 	var search = $(this).prev('input[name=search]').val();
-	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&search=' + search;
+	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&search=' + encodeURI(search);
 })
 $('.tools').on('change', 'select[name=days]', function() {
-	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&title=' + TITLE + '&days=' + $(this).val();
+	window.location = BASEURL + '/inquiry/my/list?status=' + STATUS + '&search=' + SEARCH + '&days=' + $(this).val();
 })

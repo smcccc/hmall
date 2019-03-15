@@ -1,13 +1,8 @@
 package com.honpe.utils;
 
 import java.util.Random;
-import org.apache.commons.io.FilenameUtils;
 
 public class IDUtils {
-
-	/**
-	 * 询价单ID
-	 */
 	public static String generateId(String prefix) {
 		StringBuilder sBuilder = new StringBuilder(prefix);
 		long millis = System.currentTimeMillis();

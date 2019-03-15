@@ -13,6 +13,23 @@ var checkTextAreaLen = function() {
 	limitedTextarea.draw();
 }
 $('#orderForm').submit(function() {
+	var orderShippingId = $(this).find('input[name=orderShippingId]').val();
+	if(undefined === orderShippingId || '' === orderShippingId) {
+		layer.msg('请添加收货信息', {
+			icon: 5,
+			anim: 6
+		})
+		return false;
+	}
+	var isInvoice = $('#invoice').find('input[name=isInvoice]').prop('checked');
+	var invoiceId = $('#invoice').find('input[name=invoiceId]').val();
+	if(isInvoice && (undefined === invoiceId || '' === invoiceId)) {
+		layer.msg('请添加开票信息信息', {
+			icon: 5,
+			anim: 6
+		})
+		return false;
+	}
 	$('button[type=submit]').prop({
 		disabled: true
 	});
@@ -82,7 +99,7 @@ $('.foot .left').on('focusout', 'textarea', function() {
 $('.body .num>span:first-child').on('click', function() {
 	var $input = $(this).siblings('input');
 	var min = $input.attr('min');
-	var num = Number.parseInt($input.val());
+	var num = parseInt($input.val());
 	num--;
 	if(num < min) {
 		$(this).addClass('disabled').attr('disabled', true);
@@ -95,7 +112,7 @@ $('.body .num>span:first-child').on('click', function() {
 })
 $('.body .num>span:last-child').on('click', function() {
 	var $input = $(this).siblings('input');
-	var num = Number.parseInt($input.val());
+	var num = parseInt($input.val());
 	$(this).siblings('span').removeClass('disabled').attr('disabled', false);
 	num++;
 	$input.val(num);
@@ -118,7 +135,7 @@ $('.radio').on('click', 'div', function() {
 })
 var countPrice = function(elem, num) {
 	var price = elem.siblings('.price').find('span').text();
-	var subtotal = (Number.parseFloat(price).toFixed(2)) * num;
+	var subtotal = (parseFloat(price).toFixed(2)) * num;
 	subtotal = subtotal.toFixed(2);
 	elem.siblings('.count').find('span').text(subtotal);
 }
@@ -127,14 +144,14 @@ var totalPrice = function() {
 	var total = 0;
 	$('.body .count').each(function() {
 		var text = $(this).children('span').text();
-		var subtotal = Number.parseFloat(text);
+		var subtotal = parseFloat(text);
 		total += subtotal
 	})
-	total = Number.parseFloat(total).toFixed(2)
+	total = parseFloat(total).toFixed(2)
 	$('#pay_cost').text(total);
 	$('#count_cost').text(total);
 }
-var openAddressForm = function(id) {
+var openAddressForm = function(event, id) {
 	event.stopPropagation();
 	var title = undefined === id ? '添加收货地址' : '修改收货地址';
 	$('#addressLayer').load(BASEURL + '/address/toAddEdit', {
@@ -177,7 +194,7 @@ var openInvoices = function() {
 		type: 1,
 		maxmin: false,
 		btn: ['确定', '取消'],
-		area: '640px',
+		area: '675px',
 		content: $('#invoiceLayer_1'),
 		yes: function(index, layero) {
 			var id = layero.find('input[type=radio]:checked').val();

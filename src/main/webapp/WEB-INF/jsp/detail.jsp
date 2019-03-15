@@ -19,7 +19,7 @@
 		<%@include file="/static/taglib/header.jsp"%>
 		<div class="main">
 			<section class="article">
-				<div>
+				<div class="clearfix">
 					${content.content}
 				</div>
 			</section>
@@ -62,6 +62,8 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
+		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

@@ -87,7 +87,7 @@ var discount = function(orderId) {
 	})
 
 }
-var moreCondition = function() {
+var moreCondition = function(event) {
 	var $this = $(event.target).closest('a');
 	$('.condition').toggle();
 	if($this.hasClass('up')) {

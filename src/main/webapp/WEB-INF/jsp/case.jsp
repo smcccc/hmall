@@ -29,12 +29,12 @@
 				<div class="tabs">
 					<div class="head">
 						<c:forEach items="${cases}" var="item" varStatus="vs">
-							<button class="${vs.first?'this':''}">${item.category.title}</button>
+							<button <c:if test="${(empty currentId && vs.first)||(currentId==item.category.id)}">class="this"</c:if> >${item.category.title}</button>
 						</c:forEach>
 					</div>
 					<div class="content">
 						<c:forEach items="${cases}" var="item" varStatus="vs">
-							<div class="item animated fadeInLeft clearfix ${vs.first?'item-show':''}">
+							<div class="item animated fadeInLeft clearfix ${(empty currentId && vs.first)||(currentId==item.category.id)?'item-show':''}">
 								<c:forEach items="${item.contents}" var="content">
 									<div class="figure-wrap left">
 										<figure>
@@ -53,6 +53,8 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
+		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$('.tabs .head').on('click', 'button', function() {
 				var index = $(this).index();

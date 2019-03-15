@@ -9,10 +9,12 @@
 		<meta http-equiv="Content-Language" content="zh-CN" />
 		<meta name="Copyright" content="honpe" />
 		<meta name="keywords" content="honpe" />
-		<meta name="description" content="honpe mall" />
+		<meta name="description" content="hmall" />
 		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link href="${baseUrl}/static/admin/css/plugins/iCheck/red/custom.css" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="${baseUrl}/static/css/cart.css" />
+		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
+		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js"></script>
 	</head>
 	<script type="text/javascript">
 		BASEURL = '${baseUrl}';
@@ -137,8 +139,7 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
-		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
-		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js"></script>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<!-- iCheck -->
 		<script src="${baseUrl}/static/admin/js/plugins/iCheck/icheck.min.js"></script>

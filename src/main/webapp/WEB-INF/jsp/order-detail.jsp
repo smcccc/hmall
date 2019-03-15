@@ -359,6 +359,7 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/limitedTextarea/limitedTextarea.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js" type="text/javascript" charset="utf-8"></script>

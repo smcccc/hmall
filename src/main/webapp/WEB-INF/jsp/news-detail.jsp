@@ -25,7 +25,7 @@
 						发布时间：
 						<time> <fmt:formatDate value="${news.createTime}" type="date" /> </time>
 					</p>
-					<div class="content">${news.content}</div>
+					<div class="content clearfix">${news.content}</div>
 				</section>
 				<div class="share">
 					<div class="bdsharebuttonbox">
@@ -81,6 +81,8 @@
 			</aside>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
+		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

@@ -4,10 +4,10 @@
 	<nav class="nav">
 		<ul>
 			<c:forEach items="${categories}" var="ite">
-				<li><span>${ite.category.title}<i></i></span>
+				<li <c:if test="${ite.categories.contains(category)}">class="open"</c:if> ><span>${ite.category.title}<i></i></span>
 					<ul>
 						<c:forEach items="${ite.categories}" var="item">
-							<li class="${item.id==category.id?'this':''}">
+							<li <c:if test="${item.id==category.id}">class="this"</c:if> >
 								<a href="${baseUrl}/about?categoryId=${item.id}">${item.title}</a>
 							</li>
 						</c:forEach>
@@ -18,9 +18,6 @@
 	</nav>
 </aside>
 <script type="text/javascript">
-	$(function() {
-		$('.this').parent('ul').closest('li').addClass('open');
-	})
 	$('.nav>ul>li').on('click', 'span', function() {
 		var $li = $(this).parent()
 		var open = $li.hasClass('open');

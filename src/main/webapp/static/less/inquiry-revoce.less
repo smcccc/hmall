@@ -1,7 +1,9 @@
 .cancle {
-    padding: 15px 25px 0 25px;
     font-size: 14px;
     color: #555;
+    .wrap {
+        padding: 15px 25px 0 25px;
+    }
     .tips {
         padding: 10px 15px;
         border: 1px solid #9EB0E5;
@@ -12,6 +14,8 @@
     }
     .btns {
         margin-top: 15px;
+        padding-left: 25px;
+        padding-right: 25px;
         color: #FF0000;
         border-top: 1px solid #DEDEDE;
         padding-top: 15px;
@@ -69,10 +73,10 @@
                     content: "";
                     display: block;
                     position: absolute;
-                    width: 8px;
-                    height: 8px;
+                    width: 9px;
+                    height: 9px;
                     left: 3px;
-                    top: 7px;
+                    top: 4px;
                     border-radius: 50%;
                     background-color: #555;
                 }
@@ -82,15 +86,17 @@
                 padding: 2px 5px;
             }
             label {
-                font-size: 14px;
+                font-size: 13px;
                 position: relative;
-                line-height: 19px;
+                padding-left: 25px;
                 &:before {
                     content: "";
                     display: inline-block;
-                    vertical-align: middle;
-                    width: 10px;
-                    height: 10px;
+                    position: absolute;
+                    left: 0;
+                    top: 1px;
+                    width: 11px;
+                    height: 11px;
                     border-radius: 50%;
                     margin-right: 5px;
                     border: 2px solid #A6A6A6;

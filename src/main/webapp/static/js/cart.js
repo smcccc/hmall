@@ -4,6 +4,7 @@ $(function() {
 		checkboxClass: 'icheckbox_square-red',
 		radioClass: 'iradio_square-red'
 	});
+	$('.i-checks').iCheck('uncheck');
 })
 $('.cart>.head').on('ifChanged', '.i-checks', function() {
 	var checked = $(this).prop('checked');
@@ -24,6 +25,7 @@ $('.body .col').on('ifChanged', '.i-checks', function() {
 		})
 	}
 	count = checked ? ++count : --count;
+	if(count < 0) count = 0;
 	$('#count').text(count);
 	totalPrice();
 })
@@ -36,7 +38,7 @@ $('#settle_btn').on('click', function() {
 $('.body .num>span:first-child').on('click', function() {
 	var $input = $(this).siblings('input');
 	var min = $input.attr('min');
-	var num = Number.parseInt($input.val());
+	var num = parseInt($input.val());
 	num--;
 	if(num < min) {
 		$(this).addClass('disabled').attr('disabled', true);
@@ -49,7 +51,7 @@ $('.body .num>span:first-child').on('click', function() {
 })
 $('.body .num>span:last-child').on('click', function() {
 	var $input = $(this).siblings('input');
-	var num = Number.parseInt($input.val());
+	var num = parseInt($input.val());
 	$(this).siblings('span').removeClass('disabled').attr('disabled', false);
 	num++;
 	$input.val(num);
@@ -68,7 +70,7 @@ $('.body .num').on('change', 'input[type=number]', function() {
 })
 var countPrice = function(elem, num) {
 	var price = elem.siblings('.price').find('span').text();
-	var subtotal = (Number.parseFloat(price).toFixed(2)) * num;
+	var subtotal = (parseFloat(price).toFixed(2)) * num;
 	subtotal = subtotal.toFixed(2);
 	elem.siblings('.count').find('span').text(subtotal);
 }
@@ -78,10 +80,10 @@ var totalPrice = function() {
 	$('.body .col').find('input[type=checkbox]:checked').closest('.row').children('.count').each(
 		function() {
 			var text = $(this).children('span').text();
-			var subtotal = Number.parseFloat(text);
+			var subtotal = parseFloat(text);
 			total += subtotal;
 		})
-	total = Number.parseFloat(total).toFixed(2)
+	total = parseFloat(total).toFixed(2)
 	$('#total').text(total);
 }
 $('.del_btn').on('click', function() {

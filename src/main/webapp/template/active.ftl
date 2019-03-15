@@ -13,7 +13,7 @@
 				<tr>
 					<td style="background-color:#ccc;">
 						<a href="http://www.honpe.com" style="text-decoration:none;">
-							<h3 style="padding-left: 15px;">红品的晶英</h3>
+							<h3 style="padding-left: 15px;">深圳红品晶英科技有限公司</h3>
 						</a>
 					</td>
 				</tr>

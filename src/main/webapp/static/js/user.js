@@ -6,7 +6,7 @@ $(function() {
 	});
 	$("#infoForm").submit(function(form) {
 		$.ajax({
-			url: baseUrl + '/user/info/save',
+			url: BASEURL + '/user/info/save',
 			type: 'post',
 			data: $(this).serialize(),
 			dataType: 'json',
@@ -30,7 +30,7 @@ $(function() {
 		fd.append('file', $(this)[0].files[0]);
 		var $this = $(this);
 		$.ajax({
-			url: baseUrl + '/upload/image',
+			url: BASEURL + '/upload/image',
 			type: 'post',
 			data: fd,
 			dataType: 'json',
@@ -56,7 +56,7 @@ $(function() {
 	})
 	$('#area').on('change', function() {
 		var parentId = $(this).val();
-		$.get(baseUrl + '/area/list', {
+		$.get(BASEURL + '/area/list', {
 			parentId: parentId
 		}, function(ret) {
 			if(ret.status === 200) {

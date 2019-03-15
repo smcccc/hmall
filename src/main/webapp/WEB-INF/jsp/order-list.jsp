@@ -56,18 +56,18 @@
 								</li>
 							</ul>
 						</div>
-						<div class="tools">
-							<div class="clearfix">
-								<div class="left">
-									<input type="search" form="searchForm" name="search" placeholder="请输入订单编号或商品标题" autocomplete="off" value="${search}" />
-									<button id="search-btn">订单搜索</button>
-									<a <c:if test="${isOpen}">class="up"</c:if> href="javascript:;" onclick="moreCondition()">更多筛选条件
-										<i class="icon iconfont">&#xe607;</i>
-									</a>
+						<form id="searchForm" action="${baseUrl}/order/my/list" method="get">
+							<div class="tools">
+								<div class="clearfix">
+									<div class="left">
+										<input type="search" name="search" placeholder="请输入订单编号或商品标题" autocomplete="off" value="${search}" />
+										<button id="search-btn">订单搜索</button>
+										<a <c:if test="${isOpen}">class="up"</c:if> href="javascript:;" onclick="moreCondition(event)">更多筛选条件
+											<i class="icon iconfont">&#xe607;</i>
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="condition" <c:if test="${isOpen}">style="display: block;"</c:if> >
-								<form id="searchForm" action="${baseUrl}/order/my/list" method="get">
+								<div class="condition" <c:if test="${isOpen}">style="display: block;"</c:if> >
 									<input type="hidden" name="page" />
 									<div class="wrap">
 										<label>成交时间</label>
@@ -87,9 +87,9 @@
 										</div>
 									</div>
 									<button type="submit">搜索</button>
-								</form>
+								</div>
 							</div>
-						</div>
+						</form>
 						<div class="tab-content">
 							<div class="row head">
 								<div>
@@ -295,6 +295,7 @@
 			</div>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/lib/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/validate/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>

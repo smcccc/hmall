@@ -157,7 +157,6 @@ public class CategoryServiceImpl implements CategoryService {
 			contentCategoryExample.setOrderByClause("sequence ASC");
 			contentCategoryExample.createCriteria().andParentIdEqualTo(parent.getId()).andIsDeleteEqualTo(false)
 					.andIsParentEqualTo(isParent);
-
 			categories = contentCategoryMapper.selectByExample(contentCategoryExample);
 		}
 		return categories;

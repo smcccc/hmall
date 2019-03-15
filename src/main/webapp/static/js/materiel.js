@@ -7,27 +7,18 @@ $(function() {
 	//表单验证
 	$("#materielForm").validate({
 		rules: {
-			code: 'required',
 			name: 'required',
 			buyNum: {
 				required: true,
 				min: 1
-			},
-			makeMaterial: 'required',
-			makeCat: 'required',
-			unit: 'required',
-			makeCat: 'required'
+			}
 		},
 		messages: {
-			code: '请填写物料编号',
 			name: '请填写物料名称',
 			buyNum: {
 				required: '请填写采购数量',
 				min: '采购数量最小为1'
-			},
-			makeMaterial: '请填写物料材质',
-			makeCat: '请填写制作工艺',
-			unit: '请填写物料单位'
+			}
 		},
 		errorElement: 'p',
 		errorClass: 'validate-error',

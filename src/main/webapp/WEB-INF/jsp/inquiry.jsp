@@ -46,11 +46,11 @@
 						<div>
 							<ul>
 								<li>
-									<label>询价单标题 </label>
+									<label class="required">询价单标题 </label>
 									<input type="text" name="title" autocomplete="off" value="${inquiry.title}" />
 								</li>
 								<li>
-									<label for="">报价币别</label>
+									<label class="required">报价币别</label>
 									<c:if test="${!empty inquiry}">
 										<input type="hidden" name="offerCurrency" value="${inquiry.offerCurrency}" />
 									</c:if>
@@ -67,7 +67,7 @@
 									value="1" /><label for="">报价含税</label>
 								</li>
 								<li>
-									<label>发票要求</label>
+									<label class="required">发票要求</label>
 									<c:if test="${!empty inquiry}">
 										<input type="hidden" name="invoiceType" value="${inquiry.invoiceType}" />
 									</c:if>
@@ -79,7 +79,7 @@
 									</c:forEach>
 								</li>
 								<li id="trade">
-									<label>交易方式</label>
+									<label class="required">交易方式</label>
 									<c:if test="${!empty inquiry}">
 										<input type="hidden" name="tradeType" value="${inquiry.tradeType}" />
 									</c:if>
@@ -91,7 +91,7 @@
 									</c:forEach>
 								</li>
 								<li class="trade-item animated fadeInDown" data-index="1">
-									<label>账期结算日期</label>
+									<label class="required">账期结算日期</label>
 									<a href="javascript:;" data-value="0" class="radio ${empty inquiry|| !inquiry.isAppoint?'checked':''}">不指定</a>
 									<a href="javascript:;" data-value="1" class="radio ${inquiry.isAppoint?'checked':''}">指定</a>
 									<input type="hidden" name="isAppoint" />
@@ -107,13 +107,13 @@
 												<a data-value="${item.dictCode}" href="javascript:;" class="i-radio radio ${((item.isDefault && (inquiry.isAppoint||empty inquiry))||(inquiry.payDays==item.dictCode && !inquiry.isAppoint))?'checked':''}">${item.info}</a>
 											</c:forEach>
 										</div>
-										<div class="animated fadeInDown">
-											每月结算日<input type="number" name="payDate" min="1" value="${inquiry.isAppoint?inquiry.payDate:''}" />
+										<div class="animated fadeInDown"><label class="required">每月结算日</label>
+											<input type="number" name="payDate" min="1" value="${inquiry.isAppoint?inquiry.payDate:''}" />
 										</div>
 									</div>
 								</li>
 								<li class="trade-item animated fadeInDown" data-index="2">
-									<label class="">其他交易方式</label>
+									<label class="required">其他交易方式</label>
 									<input type="text" name="otherTradeType" autocomplete="off" value="${inquiry.otherTradeType}" />
 								</li>
 							</ul>
@@ -124,12 +124,12 @@
 						<div>
 							<ul>
 								<li>
-									<label>报价截止日期</label>
+									<label class="required">报价截止日期</label>
 									<input id="endDate" type="text" name="endDate" autocomplete="off" value="<fmt:formatDate value='${inquiry.endDate}' pattern='yyyy-MM-dd'/>"
 									/>
 								</li>
 								<li id="buy">
-									<label for="">采购类型</label>
+									<label class="required">采购类型</label>
 									<c:if test="${!empty inquiry}">
 										<input type="hidden" name="buyType" value="${inquiry.buyType}" />
 									</c:if>
@@ -146,8 +146,8 @@
 										/>
 									</div>
 									<div class="range">
-										<label>价格有效期</label><input type="text" id="offerDate" name="offerValidDate" autocomplete="off" value="${inquiry.offerValidDate}"
-										/>
+										<label class="required">价格有效期</label><input type="text" id="offerDate" name="offerValidDate" autocomplete="off"
+										 value="${inquiry.offerValidDate}" />
 									</div>
 								</li>
 								<li>
@@ -162,11 +162,11 @@
 						<div>
 							<ul>
 								<li>
-									<label>联系人</label>
+									<label class="required">联系人</label>
 									<input type="text" name="linkman" autocomplete="off" value="${inquiry.linkman}" />
 								</li>
 								<li>
-									<label>联系电话</label>
+									<label class="required">联系电话</label>
 									<input type="text" name="linkphone" autocomplete="off" value="${inquiry.linkphone}" />
 								</li>
 							</ul>

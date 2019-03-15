@@ -59,7 +59,7 @@ $(function() {
 				disabled: true
 			});
 			$.ajax({
-				url: baseUrl + '/address/save',
+				url: BASEURL + '/address/save',
 				type: 'post',
 				data: $(form).serialize(),
 				dataType: 'json',
@@ -69,7 +69,7 @@ $(function() {
 							anim: 0,
 							icon: 1
 						}, function() {
-							window.location = baseUrl + '/address/info'
+							window.location = BASEURL + '/address/info'
 						})
 					} else if(ret.status === 403) {
 						$submit.removeProp('disabled');
@@ -93,7 +93,7 @@ var del = function(id) {
 		title: '删除',
 		icon: 0
 	}, function() {
-		$.post(baseUrl + '/address/del', {
+		$.post(BASEURL + '/address/del', {
 			id: id
 		}, function(ret) {
 			if(ret.status === 200) {
@@ -101,7 +101,7 @@ var del = function(id) {
 					anim: 0,
 					icon: 1
 				}, function() {
-					window.location = baseUrl + '/address/info'
+					window.location = BASEURL + '/address/info'
 				})
 			} else {
 				layer.msg(ret.msg, {
@@ -112,7 +112,7 @@ var del = function(id) {
 	})
 }
 var setDefault = function(id) {
-	$.post(baseUrl + '/address/default', {
+	$.post(BASEURL + '/address/default', {
 		id: id
 	}, function(ret) {
 		if(ret.status === 200) {
@@ -120,7 +120,7 @@ var setDefault = function(id) {
 				anim: 0,
 				icon: 1
 			}, function() {
-				window.location = baseUrl + '/address/info'
+				window.location = BASEURL + '/address/info'
 			})
 		} else {
 			layer.msg(ret.msg, {

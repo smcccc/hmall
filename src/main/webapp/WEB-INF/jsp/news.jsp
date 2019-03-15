@@ -19,11 +19,13 @@
 
 	<body>
 		<%@include file="/static/taglib/header.jsp"%>
+		<div class="banner">
+			<img src="//${category.pic}" />
+		</div>
 		<div class="main clearfix">
 			<%@include file="/static/taglib/about-aside.jsp"%>
 			<section class="left">
 				<div class="context">
-					<img src="//${category.pic}" alt="${category.title}" title="${category.title}" />
 					<div class="wrap">
 						<c:forEach items="${pageBean.data}" var="item">
 							<div class="item">
@@ -46,7 +48,7 @@
 						<ul class="right">
 							<c:if test="${pageBean.currentPage>1}">
 								<li>
-									<a href="javascript:goPage(${pageBean.currentPage-1});">上一页</a>
+									<a href="javascript:goPage(${pageBean.currentPage-1});"><i class="icon iconfont">&#xe61c;</i></a>
 								</li>
 							</c:if>
 							<c:forEach var="page" begin="${pageBean.start}" end="${pageBean.end}">
@@ -62,7 +64,7 @@
 							</li>
 							<c:if test="${pageBean.currentPage<pageBean.totalPage}">
 								<li>
-									<a href="javascript:goPage(${pageBean.currentPage+1});">下一页</a>
+									<a href="javascript:goPage(${pageBean.currentPage+1});"><i class="icon iconfont">&#xe61d;</i></a>
 								</li>
 							</c:if>
 						</ul>
@@ -71,6 +73,7 @@
 			</section>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script type="text/javascript">
 			var goPage = function(page) {
 				if(page > '${pageBean.totalPage}') page = '${pageBean.totalPage}';

@@ -7,19 +7,21 @@
   border: 1px solid #DEDEDE;
 }
 .nav li {
-  font-size: 22px;
+  font-size: 18px;
+  color: #333;
 }
 .nav li:first-of-type {
-  padding: 25px 0;
+  padding: 15px 0;
   color: #FFF;
   text-align: center;
   background-color: #11aeff;
 }
 .nav li a {
-  padding: 25px 0;
+  padding: 15px 0;
   display: block;
   font-size: inherit;
   text-align: center;
+  color: #333;
   transition: all .3s;
 }
 .nav li a:hover {

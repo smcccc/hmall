@@ -1,9 +1,9 @@
-var revoceInquiry = function(id, title) {
+var revoceInquiry = function(id) {
 	layer.open({
 		type: 2,
 		title: '撤销询价',
-		area: ['600px', '462px'],
-		content: BASEURL + '/inquiry/revoce-input?inquiryId=' + id + '&inquiryTitle=' + title
+		area: ['600px', '470px'],
+		content: BASEURL + '/inquiry/revoce-input?inquiryId=' + id
 	})
 }
 var delInquiry = function(id) {
@@ -93,7 +93,7 @@ var delMateriel = function(id) {
 		})
 	})
 }
-var addShippingCart = function(itemId, number) {
+var addShippingCart = function(event, itemId, number) {
 	var $this = $(event.target);
 	$.post(BASEURL + '/shipping/cart/add', {
 		itemId: itemId,
@@ -118,7 +118,7 @@ var addShippingCart = function(itemId, number) {
 				onEnd: function() {
 					if(!$animated.hasClass('has')) $animated.addClass('has');
 					if(ret.data)
-						$animated.text(Number.parseInt($animated.text()) + 1);
+						$animated.text(parseInt($animated.text()) + 1);
 					$animated.addClass('bounceIn')
 					setTimeout(function() {
 						$animated.removeClass('bounceIn')

@@ -18,7 +18,7 @@
 		<script type="text/javascript">
 			BASEURL = '${baseUrl}';
 			STATUS = '${status}';
-			TITLE = '${inquiryTitle}';
+			SEARCH = encodeURI('${search}');
 		</script>
 	</head>
 
@@ -53,9 +53,9 @@
 								<div class="select">
 									<select name="days">
 										<option value="">全部询价单</option>
-										<option <c:if test="${days==3}">selected="selected"</c:if> value="3">最近三天订单</option>
-										<option <c:if test="${days==7}">selected="selected"</c:if> value="7">最近一周订单</option>
-										<option <c:if test="${days==90}">selected="selected"</c:if> value="90">最近三个月订单</option>
+										<option <c:if test="${days==3}">selected="selected"</c:if> value="3">最近三天询价单</option>
+										<option <c:if test="${days==7}">selected="selected"</c:if> value="7">最近一周询价单</option>
+										<option <c:if test="${days==90}">selected="selected"</c:if> value="90">最近三个月询价单</option>
 									</select>
 								</div>
 							</div>
@@ -73,10 +73,10 @@
 							<div class="page clearfix">
 								<ul class="right">
 									<li <c:if test="${pageInfo.pageNum==1}">class="disable"</c:if>>
-										<button <c:if test="${pageInfo.pageNum==1}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageInfo.pageNum-1},${days})">上一页</button>
+										<button <c:if test="${pageInfo.pageNum==1}">disabled="true"</c:if> onclick="changePage(${pageInfo.pageNum-1},${empty days?'undefined':days})">上一页</button>
 									</li>
 									<li <c:if test="${pageInfo.pageNum==pageInfo.pages||pageInfo.pages==0}">class="disable"</c:if>>
-										<button <c:if test="${pageInfo.pageNum==pageInfo.pages||pageInfo.pages==0}">disabled="true"</c:if> href="javascript:;" onclick="changePage(${pageInfo.pageNum+1},${days})">下一页</button>
+										<button <c:if test="${pageInfo.pageNum==pageInfo.pages||pageInfo.pages==0}">disabled="true"</c:if> onclick="changePage(${pageInfo.pageNum+1},${empty days?'undefined':days})">下一页</button>
 									</li>
 								</ul>
 							</div>
@@ -93,7 +93,7 @@
 														</c:if>
 														<c:choose>
 															<c:when test="${item.status!=1 && item.status!=2}">
-																<a href="javascript:;" onclick="revoceInquiry('${item.id}','${item.title}')">撤销询价</a>
+																<a href="javascript:;" onclick="revoceInquiry('${item.id}')">撤销询价</a>
 															</c:when>
 															<c:otherwise>
 																<a href="javascript:;" onclick="delInquiry('${item.id}')">删除询价单</a>
@@ -129,6 +129,7 @@
 			</section>
 		</div>
 		<%@include file="/static/taglib/footer.jsp"%>
+		<%@include file="/static/taglib/fixed.jsp"%>
 		<script src="${baseUrl}/static/admin/js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/js/inquiyr-list.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>

@@ -21,7 +21,6 @@ import com.honpe.account.service.OrderShippingService;
 import com.honpe.constant.Constant;
 import com.honpe.inquiry.service.InquiryMaterielService;
 import com.honpe.order.service.OrderDiscountService;
-import com.honpe.order.service.ItemApplyService;
 import com.honpe.order.service.OrderOperateService;
 import com.honpe.order.service.OrderService;
 import com.honpe.po.Account;
@@ -34,8 +33,6 @@ import com.honpe.po.OrderPayment;
 import com.honpe.po.OrderShipping;
 import com.honpe.po.TbOrder;
 import com.honpe.pojo.dto.CartDto;
-import com.honpe.pojo.dto.OrderItemDto;
-import com.honpe.pojo.ext.OrderExt;
 import com.honpe.pojo.model.OrderConditionModel;
 import com.honpe.pojo.model.OrderModel;
 import com.honpe.pojo.vo.OrderVo;
@@ -66,9 +63,11 @@ public class OrderController {
 	private void inputSelectData(HttpServletRequest request, String customerId) {
 		List<OrderShipping> address = orderShippingService.findAllAddressByAccountId(customerId);
 		List<InvoiceInfo> invoices = invoiceService.findAllByAccountId(customerId);
-		InvoiceInfo invoice = invoices.stream().filter(item -> item.getIsDefault()).collect(Collectors.toList()).get(0);
+		List<InvoiceInfo> tempInvoices = invoices.stream().filter(item -> item.getIsDefault())
+				.collect(Collectors.toList());
+		if (tempInvoices != null && tempInvoices.size() > 0)
+			request.setAttribute("invoice", tempInvoices.get(0));
 		request.setAttribute("address", address);
-		request.setAttribute("invoice", invoice);
 		request.setAttribute("invoices", invoices);
 		Map<String, List<DictInfo>> orderDictInfo = orderService.getOrderDictInfo();
 		orderDictInfo.entrySet().forEach(item -> request.setAttribute(item.getKey(), item.getValue()));

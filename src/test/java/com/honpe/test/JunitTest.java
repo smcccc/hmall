@@ -3,10 +3,12 @@ package com.honpe.test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 import java.util.Calendar;
 import org.junit.Test;
 import com.honpe.utils.EncryptUtils;
-import com.honpe.utils.IpHelper;
 
 public class JunitTest {
 	@Test
@@ -15,7 +17,12 @@ public class JunitTest {
 	}
 
 	private void fn4() {
-		
+		Encoder encoder = Base64.getEncoder();
+		String enstr = encoder.encodeToString("asdasdadad.".getBytes());
+		System.out.println(enstr);
+		Decoder decoder = Base64.getDecoder();
+		String deStr = new String(decoder.decode(enstr.getBytes()));
+		System.out.println(deStr);
 	}
 
 	private void fn2() throws ParseException {

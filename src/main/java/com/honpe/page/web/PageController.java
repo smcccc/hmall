@@ -41,7 +41,7 @@ public class PageController {
 	@Autowired
 	private CategoryService categoryService;
 	private final int PAGE = 1;
-	private final int PAGE_SIZE = 10;
+	private final int PAGE_SIZE = 15;
 	private final int NEWS_PAGE_SIZE = 5;
 
 	@PostConstruct
@@ -74,31 +74,71 @@ public class PageController {
 		return "forward:index";
 	}
 
+	// @GetMapping("/index")
+	// @CountView(id = 1, pageName = "首页")
+	// public String index(HttpServletRequest request) {
+	// addSeoInRequest(request);
+	// List<ContentExt> swipers =
+	// getIndexContent(Constant.CategoryConst.INDEX_SWIPER);
+	// List<ContentExt> ads = getIndexContent(Constant.CategoryConst.INDEX_AD);
+	// ContentExt ad = null;
+	// if (ads != null && !ads.isEmpty())
+	// ad = ads.get(0);
+	// List<ContentExt> makes =
+	// getIndexContent(Constant.CategoryConst.CASE_MAKE);
+	// List<ContentExt> prints =
+	// getIndexContent(Constant.CategoryConst.CASE_3D);
+	// List<ContentExt> news = getIndexContent(Constant.CategoryConst.NEWS);
+	// request.setAttribute("swipers", swipers);
+	// request.setAttribute("ad", ad);
+	// request.setAttribute("makes", makes);
+	// request.setAttribute("prints", prints);
+	// request.setAttribute("news", news);
+	// return "index";
+	// }
+
+	private void addSeoInRequest(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		Seo seo = seoService.findSeoByRouter(uri);
+		if (seo != null) {
+			request.setAttribute("seo", seo);
+		}
+	}
+
+	private List<ContentExt> getIndexContent(Long indexCategoryId) {
+		List<ContentExt> contents = contentService.findAllByCategoryId(PAGE, PAGE_SIZE, indexCategoryId, true, true)
+				.getList();
+		return contents;
+	}
+
 	@GetMapping("/index")
-	@CountView(id = 1, pageName = "首页")
-	public String index(HttpServletRequest request) {
+	public String index(Long id, HttpServletRequest request) {
 		addSeoInRequest(request);
 		List<ContentExt> swipers = getIndexContent(Constant.CategoryConst.INDEX_SWIPER);
-		List<ContentExt> ads = getIndexContent(Constant.CategoryConst.INDEX_AD);
-		ContentExt ad = null;
-		if (ads != null && !ads.isEmpty())
-			ad = ads.get(0);
-		List<ContentExt> makes = getIndexContent(Constant.CategoryConst.CASE_MAKE);
-		List<ContentExt> prints = getIndexContent(Constant.CategoryConst.CASE_3D);
-		List<ContentExt> news = getIndexContent(Constant.CategoryConst.NEWS);
+		List<ContentCategory> categories = categoryService.findChilrenById(Constant.CategoryConst.CASE);
+		List<ContentExt> cases = null;
+		ContentCategory category = null;
+		if (id == null && categories != null && categories.size() > 0) {
+			category = categories.get(0);
+			cases = getIndexContent(category.getId());
+		} else {
+			cases = getIndexContent(id);
+			category = categoryService.findById(id);
+		}
+		request.setAttribute("category", category);
 		request.setAttribute("swipers", swipers);
-		request.setAttribute("ad", ad);
-		request.setAttribute("makes", makes);
-		request.setAttribute("prints", prints);
-		request.setAttribute("news", news);
+		request.setAttribute("categories", categories);
+		request.setAttribute("cases", cases);
 		return "index";
 	}
 
 	@GetMapping("/case")
 	@CountView(id = 2, pageName = "案例")
-	public String cases(HttpServletRequest request) {
+	public String cases(Long id, HttpServletRequest request) {
 		addSeoInRequest(request);
 		List<ContentCategory> categories = categoryService.findChilrenById(Constant.CategoryConst.CASE);
+		if (id != null)
+			request.setAttribute("currentId", id);
 		if (categories != null && categories.size() > 0) {
 			ArrayList<CaseVo> cases = new ArrayList<>();
 			for (ContentCategory category : categories) {
@@ -137,7 +177,7 @@ public class PageController {
 	public String about(@RequestParam(defaultValue = "1") Integer page, Long categoryId, Model model) {
 		List<CategoryDto> categories = categoryService.findAllchilrenById(Constant.CategoryConst.ABOUT_US);
 		if (categoryId == null)
-			categoryId = Constant.CategoryConst.COMPANY_INSTRODUCE;
+			categoryId = Constant.CategoryConst.COMPANY_INTRODUCE;
 		ContentCategory category = categoryService.findById(categoryId);
 		model.addAttribute("category", category);
 		model.addAttribute("categories", categories);
@@ -152,19 +192,5 @@ public class PageController {
 			model.addAttribute("content", content);
 		}
 		return "about";
-	}
-
-	private void addSeoInRequest(HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		Seo seo = seoService.findSeoByRouter(uri);
-		if (seo != null) {
-			request.setAttribute("seo", seo);
-		}
-	}
-
-	private List<ContentExt> getIndexContent(Long indexCategoryId) {
-		List<ContentExt> contents = contentService.findAllByCategoryId(PAGE, PAGE_SIZE, indexCategoryId, true, true)
-				.getList();
-		return contents;
 	}
 }

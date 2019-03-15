@@ -46,31 +46,52 @@
 						<div class="col-sm-6">
 							<form id="systemForm" class="form-horizontal" method="post" action="${baseUrl}/admin/system/save">
 								<div class="form-group">
-									<label for="" class="control-label col-sm-2">联系电话：</label>
+									<label for="" class="control-label col-sm-2">公司电话：</label>
 									<div class="col-sm-10">
 										<input type="hidden" name="systemSets[0].setKey" value="tel" />
 										<input type="tel" class="form-control" name="systemSets[0].setValue" value="${tel.setValue}" autocomplete="off" placeholder="区号-电话">
 									</div>
 								</div>
 								<div class="form-group">
+									<label for="" class="control-label col-sm-2">公司传真：</label>
+									<div class="col-sm-10">
+										<input type="hidden" name="systemSets[1].setKey" value="fax" />
+										<input type="tel" class="form-control" name="systemSets[1].setValue" value="${fax.setValue}" autocomplete="off" placeholder="区号-传真">
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="" class="control-label col-sm-2">客服QQ：</label>
 									<div class="col-sm-10">
-										<input type="hidden" name="systemSets[1].setKey" value="qq" />
-										<input type="text" class="form-control" name="systemSets[1].setValue" value="${qq.setValue}">
+										<input type="hidden" name="systemSets[2].setKey" value="qq1" />
+										<input type="text" class="form-control" name="systemSets[2].setValue" value="${qq1.setValue}">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="" class="control-label col-sm-2">客服QQ：</label>
+									<div class="col-sm-10">
+										<input type="hidden" name="systemSets[3].setKey" value="qq2" />
+										<input type="text" class="form-control" name="systemSets[3].setValue" value="${qq2.setValue}">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="" class="control-label col-sm-2">客服QQ：</label>
+									<div class="col-sm-10">
+										<input type="hidden" name="systemSets[4].setKey" value="qq3" />
+										<input type="text" class="form-control" name="systemSets[4].setValue" value="${qq3.setValue}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-sm-2">网站标题：</label>
 									<div class="col-sm-10">
-										<input type="hidden" name="systemSets[2].setKey" value="title" />
-										<input type="text" class="form-control" name="systemSets[2].setValue" value="${title.setValue}">
+										<input type="hidden" name="systemSets[5].setKey" value="title" />
+										<input type="text" class="form-control" name="systemSets[5].setValue" value="${title.setValue}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="control-label col-sm-2">网站描述：</label>
 									<div class="col-sm-10">
-										<input type="hidden" name="systemSets[3].setKey" value="desc" />
-										<textarea name="systemSets[3].setValue" rows="3" class="form-control">${desc.setValue}</textarea>
+										<input type="hidden" name="systemSets[6].setKey" value="desc" />
+										<textarea name="systemSets[6].setValue" rows="3" class="form-control">${desc.setValue}</textarea>
 									</div>
 								</div>
 								<div class="form-group">
@@ -79,8 +100,8 @@
 										<div class="upload">
 											<img src="//${alibabaPayCode.setValue}" />
 											<input type="file" />
-											<input type="hidden" name="systemSets[4].setKey" value="alibabaPayCode" />
-											<input type="hidden" name="systemSets[4].setValue" value="${alibabaPayCode.setValue}" />
+											<input type="hidden" name="systemSets[7].setKey" value="alibabaPayCode" />
+											<input type="hidden" name="systemSets[7].setValue" value="${alibabaPayCode.setValue}" />
 										</div>
 									</div>
 								</div>
@@ -90,8 +111,8 @@
 										<div class="upload">
 											<img src="//${wxPayCode.setValue}" />
 											<input type="file" />
-											<input type="hidden" name="systemSets[5].setKey" value="wxPayCode" />
-											<input type="hidden" name="systemSets[5].setValue" value="${wxPayCode.setValue}" />
+											<input type="hidden" name="systemSets[8].setKey" value="wxPayCode" />
+											<input type="hidden" name="systemSets[8].setValue" value="${wxPayCode.setValue}" />
 										</div>
 									</div>
 								</div>
@@ -101,8 +122,8 @@
 										<div class="upload">
 											<img src="//${app.setValue}" />
 											<input type="file" />
-											<input type="hidden" name="systemSets[6].setKey" value="app" />
-											<input type="hidden" name="systemSets[6].setValue" value="${app.setValue}" />
+											<input type="hidden" name="systemSets[9].setKey" value="app" />
+											<input type="hidden" name="systemSets[9].setValue" value="${app.setValue}" />
 										</div>
 									</div>
 								</div>

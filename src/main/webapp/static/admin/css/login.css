@@ -10,14 +10,29 @@ body {
 	display: none;
 }
 
-.bg {
-	padding: 120px 0;
+.bg div:first-of-type {
+	height: 200px;
 	background-color: #4a2f68;
 }
 
-.login {
-	width: 400px;
+.bg div:last-of-type {
+	height: 300px;
+	background-color: #EEE;
+}
+
+.bg p {
+	width: 1200px;
 	margin: 0 auto;
+}
+
+.login {
+	position: fixed;
+	left: 50%;
+	top: 25%;
+	margin-left: -200px;
+	width: 400px;
+	box-shadow: 0 0 2px #F2F2F2;
+	border: 1px solid #F2F2F2;
 	background-color: #F8F8F8;
 	padding: 10px 35px 25px 35px;
 	border-radius: 5px;
@@ -31,9 +46,11 @@ body {
 .login .form-group {
 	margin-bottom: 10px;
 }
-.login button[type=submit]{
+
+.login button[type=submit] {
 	margin-top: 15px;
 }
+
 .error {
 	color: #ed5565;
 }

@@ -430,7 +430,7 @@ footer .bottom span {
 .fixed {
   display: none;
   position: fixed;
-  right: 50px;
+  right: 10px;
   top: 40%;
   z-index: 9999;
   padding: 8px;
@@ -854,10 +854,10 @@ footer .bottom span {
   display: block;
   line-height: 1.8em;
 }
-.discount form label:after {
+.discount form label:before {
   content: "*";
   color: #FF1E00;
-  margin-left: 10px;
+  margin-right: 8px;
 }
 .discount form textarea {
   width: 100%;

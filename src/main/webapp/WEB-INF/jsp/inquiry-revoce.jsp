@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="btns">
-					确定后此前已经收到的报价将失效、同时不可下单 <button id="cancle-btn">取消</button> <button type="submit">确定</button>
+					确定后此前已经收到的报价将失效、同时不可下单 <button type="button" id="cancle-btn">取消</button> <button type="submit">确定</button>
 				</div>
 			</form>
 		</div>

@@ -51,11 +51,6 @@ public class PageController {
 		systemSets.forEach(systemSet -> servletContext.setAttribute(systemSet.getSetKey(), systemSet.getSetValue()));
 	}
 
-	@GetMapping("/")
-	public String welcome() {
-		return "redirect:index";
-	}
-
 	@GetMapping("/tologin")
 	public String toLogin(Model model) {
 		model.addAttribute("isLogin", true);
@@ -74,29 +69,6 @@ public class PageController {
 		return "forward:index";
 	}
 
-	// @GetMapping("/index")
-	// @CountView(id = 1, pageName = "首页")
-	// public String index(HttpServletRequest request) {
-	// addSeoInRequest(request);
-	// List<ContentExt> swipers =
-	// getIndexContent(Constant.CategoryConst.INDEX_SWIPER);
-	// List<ContentExt> ads = getIndexContent(Constant.CategoryConst.INDEX_AD);
-	// ContentExt ad = null;
-	// if (ads != null && !ads.isEmpty())
-	// ad = ads.get(0);
-	// List<ContentExt> makes =
-	// getIndexContent(Constant.CategoryConst.CASE_MAKE);
-	// List<ContentExt> prints =
-	// getIndexContent(Constant.CategoryConst.CASE_3D);
-	// List<ContentExt> news = getIndexContent(Constant.CategoryConst.NEWS);
-	// request.setAttribute("swipers", swipers);
-	// request.setAttribute("ad", ad);
-	// request.setAttribute("makes", makes);
-	// request.setAttribute("prints", prints);
-	// request.setAttribute("news", news);
-	// return "index";
-	// }
-
 	private void addSeoInRequest(HttpServletRequest request) {
 		String uri = request.getRequestURI();
 		Seo seo = seoService.findSeoByRouter(uri);
@@ -109,6 +81,11 @@ public class PageController {
 		List<ContentExt> contents = contentService.findAllByCategoryId(PAGE, PAGE_SIZE, indexCategoryId, true, true)
 				.getList();
 		return contents;
+	}
+
+	@GetMapping("/")
+	public String welcome() {
+		return "forward:index";
 	}
 
 	@GetMapping("/index")

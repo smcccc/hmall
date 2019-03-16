@@ -218,7 +218,7 @@
 											<img src="//${item.pic}" alt="" />
 										</div>
 										<p>${item.title}</p>
-										<p>${item.summary}</p>
+										<p title="${item.summary}">${item.summary}</p>
 										<a href="${baseUrl}/detail?id=${item.id}">LoadMore</a>
 									</div>
 								</c:forEach>
@@ -235,7 +235,7 @@
 		<script src="${baseUrl}/static/js/index.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kpNj9MXvA8IiH9rmNdnT0EAkeWFdl40N"></script>
 		<script type="text/javascript">
-			var baseUrl = '${baseUrl}';
+			BASEURL = '${baseUrl}';
 			// 百度地图API功能
 			var map = new BMap.Map("allmap"); // 创建Map实例
 			var point = new BMap.Point(113.852792, 22.6913)

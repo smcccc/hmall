@@ -22,7 +22,7 @@ var sendCaptcha = function() {
 		});
 		$email.focus().closest('div').addClass('error').focus();
 	} else {
-		$.get(baseUrl + '/captcha', {
+		$.get(BASEURL + '/captcha', {
 			email: $email.val()
 		}, function(ret) {
 			if(ret.status == 200) {
@@ -68,7 +68,7 @@ $('#loginForm').submit(function(event) {
 						icon: 6,
 						anim: 0
 					}, function() {
-						window.location = baseUrl + '/index';
+						window.location = BASEURL + '/index';
 					});
 				} else {
 					layer.msg(ret.msg, {
@@ -118,7 +118,7 @@ $('#resetForm').submit(function(event) {
 						icon: 6,
 						anim: 0
 					}, function() {
-						window.location = baseUrl + '/tologin'
+						window.location = BASEURL + '/tologin'
 					});
 				} else {
 					layer.msg(ret.msg, {

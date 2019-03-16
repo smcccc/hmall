@@ -430,7 +430,7 @@ footer .bottom span {
 .fixed {
   display: none;
   position: fixed;
-  right: 50px;
+  right: 10px;
   top: 40%;
   z-index: 9999;
   padding: 8px;

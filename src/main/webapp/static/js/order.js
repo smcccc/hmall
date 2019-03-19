@@ -5,6 +5,13 @@ $(function() {
 			addEnter('buyerMessage');
 		}
 	})
+	$('.num').each(function() {
+		var $input = $(this).children('input[type=number]');
+		var $span = $(this).find('.disabled')
+		var val = $input.val();
+		var min = parseInt($input.attr('min'));
+		if(val > min && $span.length) $span.removeClass('disabled');
+	})
 })
 var checkTextAreaLen = function() {
 	limitedTextarea = new Bs_LimitedTextarea('buyerMessage', 200);

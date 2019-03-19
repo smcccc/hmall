@@ -65,10 +65,7 @@
 							询价单号
 						</div>
 						<div class="col">
-							商品编号
-						</div>
-						<div class="col">
-							商品名称
+							商品信息
 						</div>
 						<div class="col">
 							单价
@@ -96,10 +93,9 @@
 									<a href="${baseUrl}/inquiry/detail?id=${item.inquiryMateriel.inquiryId}">${item.inquiryMateriel.inquiryId}</a>
 								</div>
 								<div class="col">
-									<a href="${baseUrl}/inquiry/offer?id=${item.inquiryMateriel.inquiryId}">${item.inquiryMateriel.code}</a>
-								</div>
-								<div class="col">
-									${item.inquiryMateriel.name}
+									<a href="${baseUrl}/inquiry/offer?id=${item.inquiryMateriel.inquiryId}">
+										<c:if test="${!empty item.inquiryMateriel.code}">${item.inquiryMateriel.code}<br></c:if>
+										${item.inquiryMateriel.name}</a>
 								</div>
 								<div class="col price">
 									&yen;<span>${item.inquiryMateriel.finalPrice}</span>

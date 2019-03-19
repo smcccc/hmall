@@ -1,15 +1,12 @@
 package com.honpe.order.web;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +30,7 @@ public class ShippingCartController {
 
 	@Autowired
 	private CacheManager cacheManager;
+
 	@Autowired
 	private InquiryMaterielService inquiryMaterielService;
 
@@ -66,9 +64,8 @@ public class ShippingCartController {
 		Element element = shippingCart.get(customer.getId());
 		shippingCart.flush();
 		String cartJson = null;
-		if (element != null) {
+		if (element != null)
 			cartJson = (String) element.getObjectValue();
-		}
 		CartDto addItem = new CartDto(itemId, number);
 		List<CartDto> cartItems = null;
 		int cartNum = 1;

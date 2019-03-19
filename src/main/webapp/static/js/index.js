@@ -1,4 +1,5 @@
 new Swiper('#swiper_banner', {
+	speed: 800,
 	autoplay: {
 		disableOnInteraction: false
 	},
@@ -7,6 +8,10 @@ new Swiper('#swiper_banner', {
 	loop: true,
 	pagination: {
 		el: '.swiper-pagination'
+	},
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
 	}
 })
 $(function() {

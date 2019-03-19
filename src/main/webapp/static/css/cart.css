@@ -430,7 +430,7 @@ footer .bottom span {
 .fixed {
   display: none;
   position: fixed;
-  right: 10px;
+  right: 22px;
   top: 40%;
   z-index: 9999;
   padding: 8px;
@@ -604,12 +604,19 @@ header .bottom .clearfix .right .timeline div img {
   padding: 25px;
   border-bottom: 1px solid #c9c9c9;
 }
+.cart .body .col {
+  display: flex;
+  align-items: center;
+}
 .cart .body .col:first-of-type {
   width: 110px;
   text-align: left;
 }
 .cart .body .col:not(:first-of-type) {
   flex: 1;
+  justify-content: center;
+}
+.cart .body .col a {
   text-align: center;
 }
 .cart .foot {

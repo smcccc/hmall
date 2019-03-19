@@ -155,12 +155,17 @@ header {
             border-bottom: 1px solid #c9c9c9;
         }
         .col {
+            display: flex;
+            align-items: center;
             &:first-of-type {
                 width: 110px;
                 text-align: left;
             }
             &:not(:first-of-type) {
                 flex: 1;
+                justify-content: center;
+            }
+            a {
                 text-align: center;
             }
         }

@@ -30,6 +30,8 @@
 					</c:forEach>
 				</div>
 				<div class="swiper-pagination layui-hide-xs"></div>
+				<div class="swiper-button-prev"><span class="iconfont">&#xe61c;</span></div>
+				<div class="swiper-button-next"><span class="iconfont">&#xe61d;</span></div>
 			</div>
 			<div class="warp">
 				<c:if test="${isRegist}">

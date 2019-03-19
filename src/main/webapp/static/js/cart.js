@@ -5,6 +5,13 @@ $(function() {
 		radioClass: 'iradio_square-red'
 	});
 	$('.i-checks').iCheck('uncheck');
+	$('.num').each(function() {
+		var $input = $(this).children('input[type=number]');
+		var $span = $(this).find('.disabled')
+		var val = $input.val();
+		var min = parseInt($input.attr('min'));
+		if(val > min && $span.length) $span.removeClass('disabled');
+	})
 })
 $('.cart>.head').on('ifChanged', '.i-checks', function() {
 	var checked = $(this).prop('checked');

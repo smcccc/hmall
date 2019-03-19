@@ -430,7 +430,7 @@ footer .bottom span {
 .fixed {
   display: none;
   position: fixed;
-  right: 10px;
+  right: 22px;
   top: 40%;
   z-index: 9999;
   padding: 8px;
@@ -481,13 +481,36 @@ footer .bottom span {
   top: 0;
 }
 .banner .swiper-container .swiper-pagination-bullet {
-  width: 75px;
-  height: 10px;
+  width: 65px;
+  height: 7px;
   border-radius: 5px;
   transition: all .5s ease;
 }
 .banner .swiper-container .swiper-pagination-bullet-active {
   width: 50px;
+}
+.banner .swiper-container .swiper-button-next,
+.banner .swiper-container .swiper-button-prev {
+  background: rgba(0, 0, 0, 0.4);
+  color: #FFF;
+  width: 40px;
+  line-height: 44px;
+  text-align: center;
+  outline: none;
+}
+.banner .swiper-container .swiper-button-next:hover,
+.banner .swiper-container .swiper-button-prev:hover {
+  color: #007AFF;
+}
+.banner .swiper-container .swiper-button-next .iconfont,
+.banner .swiper-container .swiper-button-prev .iconfont {
+  font-size: 35px;
+}
+.banner .swiper-container .swiper-button-next {
+  right: 0;
+}
+.banner .swiper-container .swiper-button-prev {
+  left: 0;
 }
 .banner .warp {
   width: 1200px;
@@ -577,7 +600,7 @@ footer .bottom span {
   color: #bd0000;
   background-color: #FFF;
   font-size: 14px;
-  line-height: 49px;
+  line-height: 42px;
   text-decoration: none;
   transition: all .3s;
   cursor: pointer;

@@ -10,7 +10,7 @@
 		<meta name="Copyright" content="honpe" />
 		<meta name="keywords" content="${seo.keyword}" />
 		<meta name="description" content="${seo.descr}" />
-		<link rel="Shortcut Icon" href="favicon.ico" />
+		<link rel="Shortcut Icon" href="${baseUrl}/static/favicon.ico" />
 		<link type="text/css" rel="stylesheet" href="${baseUrl}/static/css/about.css" />
 		<script src="${baseUrl}/static/admin/js/jquery.min.js" text="text/javascript" charset="utf-8"></script>
 		<script src="${baseUrl}/static/admin/js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
@@ -19,7 +19,7 @@
 	<body>
 		<%@include file="/static/taglib/header.jsp"%>
 		<div class="banner">
-			<img src="//${category.pic}" alt="${category.title}"/>
+			<img src="//${category.pic}" alt="${category.title}" />
 		</div>
 		<div class="main clearfix">
 			<%@include file="/static/taglib/about-aside.jsp"%>

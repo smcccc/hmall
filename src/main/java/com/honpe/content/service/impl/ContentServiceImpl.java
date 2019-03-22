@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.honpe.constant.Constant;
 import com.honpe.content.service.ContentService;
 import com.honpe.mapper.ContentMapper;
 import com.honpe.po.Content;
@@ -30,7 +29,9 @@ public class ContentServiceImpl implements ContentService {
 		List<ContentExt> contentExts = contentMapper.selectByConditions(categoryId, display, indexDisplay);
 		return new PageInfo<ContentExt>(contentExts);
 	}
-
+	
+	
+	
 	@Override
 	public void deleteById(Long id) {
 		contentMapper.deleteByPrimaryKey(id);
@@ -70,31 +71,31 @@ public class ContentServiceImpl implements ContentService {
 		return contentMapper.selectByPrimaryKey(id);
 	}
 
-	private ContentExample initExample(Long categoryId, Boolean display) {
+	private ContentExample initExample(Long categoryId, Boolean display, Boolean indexDispaly) {
 		ContentExample contentExample = new ContentExample();
 		contentExample.setOrderByClause("sequence DESC");
 		Criteria criteria = contentExample.createCriteria();
 		criteria.andCategoryIdEqualTo(categoryId);
-		if (display != null) {
+		if (display != null)
 			criteria.andDisplayEqualTo(display);
-		}
+		if (indexDispaly != null)
+			criteria.andIndexDisplayEqualTo(indexDispaly);
 		return contentExample;
 	}
 
 	@Override
-	public List<Content> findAllByCategoryId(Long categoryId, Boolean display) {
-		ContentExample contentExample = initExample(categoryId, display);
+	public List<Content> findAllByCategoryId(Long categoryId, Boolean display, Boolean indexDispaly) {
+		ContentExample contentExample = initExample(categoryId, display, indexDispaly);
 		List<Content> contents = contentMapper.selectByExample(contentExample);
 		return contents;
 	}
 
 	@Override
 	public ContentWithBLOBs findOneByCategoryId(Long categoryId, Boolean display) {
-		ContentExample contentExample = initExample(categoryId, display);
+		ContentExample contentExample = initExample(categoryId, display, null);
 		List<ContentWithBLOBs> contents = contentMapper.selectByExampleWithBLOBs(contentExample);
-		if (contents != null && contents.size() > 0) {
+		if (contents != null && contents.size() > 0)
 			return contents.get(0);
-		}
 		return null;
 	}
 }

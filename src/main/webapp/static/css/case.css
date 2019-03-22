@@ -28,6 +28,10 @@ td {
   padding: 0;
   box-sizing: border-box;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   min-width: 1200px;
   background: #fff;
@@ -482,15 +486,16 @@ footer .bottom span {
   margin-top: 25px;
 }
 .tabs .head {
-  padding: 15px 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .tabs .head button {
   border: 1px solid #DEDEDE;
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 5px 15px;
   border-radius: 5px;
-  margin-right: 15px;
+  margin-right: 10px;
   background-color: #F9F9F9;
   color: #777;
   cursor: pointer;
@@ -514,13 +519,13 @@ footer .bottom span {
   display: block;
 }
 .tabs .item figure {
-  width: 100;
   margin: 0;
 }
 .tabs .item figure > div {
   position: relative;
-  width: 275px;
-  height: 185px;
+  width: 278px;
+  height: 156px;
+  border: 1px solid #FCFCFC;
 }
 .tabs .item figure > div > img {
   width: 100%;

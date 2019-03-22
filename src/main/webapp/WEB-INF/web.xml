@@ -96,8 +96,5 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<error-code>500</error-code>
 		<location>/error/404.jsp</location>
 	</error-page>
-	<!-- session time -->
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
+	
 </web-app>

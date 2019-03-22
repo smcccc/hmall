@@ -65,8 +65,11 @@ public class OperateLogAspect {
 		sysUserOperateLog.setOperateContent(recordOperateLog.operate());
 		@SuppressWarnings("unchecked")
 		Set<String> roles = (Set<String>) session.getAttribute("ROLES");
-		String roleCode = roles.iterator().next();
-		String roleName = roleService.findRoleNameByRoleCode(roleCode);
+		String roleName = null;
+		if (roles != null && roles.iterator().hasNext()) {
+			String roleCode = roles.iterator().next();
+			roleName = roleService.findRoleNameByRoleCode(roleCode);
+		}
 		sysUserOperateLog.setRole(roleName);
 		SysUser sysUser = (SysUser) session.getAttribute("SYS_USER");
 		String account = sysUser.getLoginAccount();

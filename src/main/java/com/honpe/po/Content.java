@@ -40,6 +40,7 @@ public class Content {
 	private Boolean display;
 
 	private Boolean indexDisplay;
+	
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")

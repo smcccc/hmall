@@ -10,7 +10,7 @@ import com.honpe.pojo.ext.ContentExt;
 public interface ContentService {
 	PageInfo<ContentExt> findAllByCategoryId(Integer page, Integer pageSize, Long categoryId, Boolean display,
 			Boolean indexDisplay);
-
+	
 	void deleteById(Long id);
 
 	Boolean changeDisplayById(Long id);
@@ -21,7 +21,7 @@ public interface ContentService {
 
 	ContentWithBLOBs findById(Long id);
 
-	List<Content> findAllByCategoryId(Long categoryId, Boolean display);
+	List<Content> findAllByCategoryId(Long categoryId, Boolean display, Boolean indexDisplay);
 
 	ContentWithBLOBs findOneByCategoryId(Long categoryId, Boolean display);
 }

@@ -6,11 +6,14 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import com.github.pagehelper.PageInfo;
 import com.honpe.constant.Constant;
@@ -26,6 +29,7 @@ import com.honpe.pojo.dto.CategoryDto;
 import com.honpe.pojo.ext.ContentExt;
 import com.honpe.pojo.vo.CaseVo;
 import com.honpe.pojo.vo.PageBean;
+import com.honpe.pojo.vo.Result;
 import com.honpe.system.service.SeoService;
 import com.honpe.system.service.SystemService;
 
@@ -40,9 +44,8 @@ public class PageController {
 	private SystemService systemService;
 	@Autowired
 	private CategoryService categoryService;
-	private final int PAGE = 1;
-	private final int PAGE_SIZE = 15;
 	private final int NEWS_PAGE_SIZE = 5;
+	private final int CASE_PAGE_SIZE = 9;
 
 	@PostConstruct
 	public void loadSystemSettingToCache() {
@@ -77,35 +80,34 @@ public class PageController {
 		}
 	}
 
-	private List<ContentExt> getIndexContent(Long indexCategoryId) {
-		List<ContentExt> contents = contentService.findAllByCategoryId(PAGE, PAGE_SIZE, indexCategoryId, true, true)
-				.getList();
-		return contents;
-	}
-
 	@GetMapping("/")
 	public String welcome() {
 		return "forward:index";
 	}
 
 	@GetMapping("/index")
-	public String index(Long id, HttpServletRequest request) {
+	public String index(HttpServletRequest request) {
 		addSeoInRequest(request);
-		List<ContentExt> swipers = getIndexContent(Constant.CategoryConst.INDEX_SWIPER);
-		List<ContentCategory> categories = categoryService.findChilrenById(Constant.CategoryConst.CASE);
-		List<ContentExt> cases = null;
-		ContentCategory category = null;
-		if (id == null && categories != null && categories.size() > 0) {
-			category = categories.get(0);
-			cases = getIndexContent(category.getId());
-		} else {
-			cases = getIndexContent(id);
-			category = categoryService.findById(id);
+		List<Content> swipers = contentService.findAllByCategoryId(Constant.CategoryConst.INDEX_SWIPER, true, true);
+		List<Content> company = contentService.findAllByCategoryId(Constant.CategoryConst.INDEX_US, true, true);
+		List<CategoryDto> categories = categoryService.findAllchilrenById(Constant.CategoryConst.CASE);
+		if (company != null && company.size() > 0) {
+			ContentWithBLOBs content = contentService.findById(company.get(0).getId());
+			request.setAttribute("company", content);
 		}
-		request.setAttribute("category", category);
+		if (categories != null && categories.size() > 0) {
+			List<ContentCategory> children = categories.get(0).getCategories();
+			if (children != null && children.size() > 0) {
+				Long categoryId = children.get(0).getId();
+				PageInfo<ContentExt> pageInfo = contentService.findAllByCategoryId(1, CASE_PAGE_SIZE, categoryId, true,
+						true);
+				request.setAttribute("categoryId", categoryId);
+				request.setAttribute("totalPage", pageInfo.getPages());
+				request.setAttribute("cases", pageInfo.getList());
+			}
+		}
 		request.setAttribute("swipers", swipers);
 		request.setAttribute("categories", categories);
-		request.setAttribute("cases", cases);
 		return "index";
 	}
 
@@ -113,21 +115,31 @@ public class PageController {
 	@CountView(id = 2, pageName = "案例")
 	public String cases(Long id, HttpServletRequest request) {
 		addSeoInRequest(request);
-		List<ContentCategory> categories = categoryService.findChilrenById(Constant.CategoryConst.CASE);
+		List<ContentCategory> bigCategories = categoryService.findChildren(Constant.CategoryConst.CASE, true);
 		if (id != null)
 			request.setAttribute("currentId", id);
-		if (categories != null && categories.size() > 0) {
+		if (bigCategories != null && bigCategories.size() > 0) {
 			ArrayList<CaseVo> cases = new ArrayList<>();
-			for (ContentCategory category : categories) {
-				List<Content> contents = contentService.findAllByCategoryId(category.getId(), true);
-				if (contents != null && contents.size() > 0) {
-					CaseVo caseVo = new CaseVo(category, contents);
-					cases.add(caseVo);
+			for (ContentCategory bigCategory : bigCategories) {
+				List<ContentCategory> categories = categoryService.findChildren(bigCategory.getId(), false);
+				if (categories != null && categories.size() > 0) {
+					for (ContentCategory category : categories) {
+						List<Content> contents = contentService.findAllByCategoryId(category.getId(), true, null);
+						CaseVo caseVo = new CaseVo(category, contents);
+						cases.add(caseVo);
+					}
 				}
 			}
 			request.setAttribute("cases", cases);
 		}
 		return "case";
+	}
+
+	@GetMapping("/case/list")
+	public @ResponseBody Result caseList(@RequestParam(defaultValue = "1") Integer page, Long categoryId) {
+		PageInfo<ContentExt> pageInfo = contentService.findAllByCategoryId(page, CASE_PAGE_SIZE, categoryId, true,
+				true);
+		return new Result(200, null, pageInfo);
 	}
 
 	@GetMapping("/detail")
@@ -143,7 +155,7 @@ public class PageController {
 		news.setTimes(news.getTimes() + 1);
 		contentService.saveContent(news);
 		List<ContentExt> newses = contentService
-				.findAllByCategoryId(PAGE, PAGE_SIZE, Constant.CategoryConst.NEWS, true, null).getList().stream()
+				.findAllByCategoryId(1, NEWS_PAGE_SIZE, Constant.CategoryConst.NEWS, true, null).getList().stream()
 				.filter(content -> content.getId() != news.getId()).collect(Collectors.toList());
 		model.addAttribute("news", news);
 		model.addAttribute("newses", newses);

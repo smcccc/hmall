@@ -10,7 +10,6 @@
 		<link href="${baseUrl}/static/favicon.ico" rel="shortcut icon">
 		<link href="${baseUrl}/static/admin/js/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link href="${baseUrl}/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-		<link href="${baseUrl}/static/admin/css/animate.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="${baseUrl}/static/admin/css/login.css" />
 	</head>
 	<script type="text/javascript">
@@ -19,13 +18,7 @@
 		}
 	</script>
 
-	<body class="animated fadeInUp">
-		<div class="bg">
-			<div></div>
-			<div></div>
-			<hr>
-			<p>&copy; honpe 2019</p>
-		</div>
+	<body>
 		<div class="login">
 			<h3>后台登录</h3>
 			<div class="alert alert-danger" role="alert" id="error"></div>

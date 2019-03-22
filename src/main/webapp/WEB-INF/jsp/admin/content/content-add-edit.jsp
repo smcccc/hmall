@@ -42,7 +42,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">链接</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="url" value="${content.url}" autocomplete="off" >
+										<input type="text" class="form-control" name="url" value="${content.url}" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
@@ -84,7 +84,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">内容概要</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="summary" value="${content.summary}" autocomplete="off" >
+										<input type="text" class="form-control" name="summary" value="${content.summary}" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
@@ -221,11 +221,14 @@
 					})
 				});
 			})
+			var fontSizes = ['12', '13', '14', '15', '16', '17', '18', '20', '22', '24'];
+			var fontNames = ['microsoft yahei', 'SimSun', 'SimHei', ' Microsoft JhengHei', 'Arial'];
 			var toolbar = [
 				['font', ['strikethrough', 'superscript', 'subscript', 'fontsize', 'fontname', 'color', 'bold', 'italic',
 					'underline', 'clear'
 				]],
-				['para', ['ul', 'ol', 'paragraph', 'height','style']],
+				['fontsize', ['fontsize']],
+				['para', ['ul', 'ol', 'paragraph', 'height', 'style']],
 				['insert', ['picture', 'link', 'video', 'table', 'hr']],
 				['misc', ['fullscreen', 'help']]
 			]
@@ -233,6 +236,8 @@
 				$('#summernote').summernote({
 					height: 300,
 					lang: 'zh-CN',
+					fontSizes: fontSizes,
+					fontNames: fontNames,
 					toolbar: toolbar,
 					callbacks: {
 						onBlur: function() {
@@ -247,10 +252,12 @@
 						}
 					}
 
-				}).summernote('code', $('#summernote').val())
+				}).summernote('code', $('#summernote').val());
 				$('#summernote-en').summernote({
 					height: 300,
 					lang: 'zh-CN',
+					fontSizes: fontSizes,
+					fontNames: fontNames,
 					toolbar: toolbar,
 					callbacks: {
 						onBlur: function() {
@@ -268,6 +275,8 @@
 				$('#summernote-jp').summernote({
 					height: 300,
 					lang: 'zh-CN',
+					fontSizes: fontSizes,
+					fontNames: fontNames,
 					toolbar: toolbar,
 					callbacks: {
 						onBlur: function() {

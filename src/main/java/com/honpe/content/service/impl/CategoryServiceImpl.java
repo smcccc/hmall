@@ -80,7 +80,7 @@ public class CategoryServiceImpl implements CategoryService {
 		contentCategory.setIsDelete(true);
 		contentCategoryMapper.updateByPrimaryKeySelective(contentCategory);
 		if (!contentCategory.getIsParent()) {
-			List<Content> contents = contentService.findAllByCategoryId(contentCategory.getId(), null);
+			List<Content> contents = contentService.findAllByCategoryId(contentCategory.getId(), null, null);
 			if (contents != null && contents.size() > 0) {
 				contents.forEach(content -> contentService.deleteById(content.getId()));
 			}
@@ -144,12 +144,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return children != null && children.size() > 0;
 	}
 
-	@Override
-	public List<ContentCategory> findChilrenById(Long id) {
-		return findChildren(id, false);
-	}
-
-	private List<ContentCategory> findChildren(Long id, Boolean isParent) {
+	public List<ContentCategory> findChildren(Long id, Boolean isParent) {
 		ContentCategory parent = contentCategoryMapper.selectByPrimaryKey(id);
 		List<ContentCategory> categories = null;
 		if (parent != null) {

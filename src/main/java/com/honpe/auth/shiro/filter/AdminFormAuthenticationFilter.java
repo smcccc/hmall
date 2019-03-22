@@ -31,6 +31,7 @@ public class AdminFormAuthenticationFilter extends FormAuthenticationFilter {
 	private SysUserLoginLogService sysUserLoginLogService;
 	@Autowired
 	private SysUserService sysUserService;
+	
 	@Autowired
 	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 	

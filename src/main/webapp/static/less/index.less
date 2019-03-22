@@ -34,6 +34,7 @@
             line-height: 44px;
             text-align: center;
             outline: none;
+            transition: all .3s;
             &:hover {
                 color: #007AFF;
             }
@@ -42,9 +43,15 @@
             }
         }
         .swiper-button-next {
-            right: 0;
+            right: -40px;
         }
         .swiper-button-prev {
+            left: -40px;
+        }
+        &:hover .swiper-button-next {
+            right: 0;
+        }
+        &:hover .swiper-button-prev {
             left: 0;
         }
     }
@@ -271,27 +278,70 @@
         }
     }
     li {
-        padding-left: 25px;
-        border-bottom: 1px solid #F2F2F2;
+        background-color: #F8F8F8;
         a {
+            padding-left: 25px;
+            padding-right: 10px;
             display: block;
-            font-size: 17px;
-            height: 40px;
-            line-height: 40px;
+            font-size: 16px;
+            height: 32px;
+            line-height: 32px;
             color: #777;
+            border-bottom: 1px solid #DEDEDE;
             &:hover {
                 text-decoration: none;
+            }
+        }
+        &:first-of-type dl {
+            display: block;
+        }
+        dl {
+            background-color: #FEFEFE;
+            overflow: hidden;
+            display: none;
+            a {
+                border-bottom: 1px solid #eee;
+                font-size: 15px;
+                &:hover {
+                    color: #1CB3FF;
+                }
+            }
+            dd.this a {
                 color: #1CB3FF;
             }
         }
-        &.this a {
-            color: #1CB3FF;
+        &.open i {
+            transform: rotateZ(90deg);
         }
         i {
-            font-size: 18px;
+            font-size: 20px;
             float: right;
             font-weight: bold;
+            transition: all .3s;
         }
+    }
+}
+
+.about {
+    width: 950px;
+    margin-bottom: 15px;
+    .left {
+        height: 234px;
+        width: 35%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .right {
+        padding: 15px 20px;
+        overflow: hidden;
+        height: 234px;
+        width: 65%;
+        border: 1px solid #DEDEDE;
+        box-shadow: 1px 1px 2px #DEDEDE;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
 
@@ -313,6 +363,20 @@
                 text-decoration: none;
                 color: #1CB3FF;
             }
+        }
+    }
+    .loading {
+        text-align: center;
+        height: 32px;
+        img {
+            display: none;
+        }
+        span {
+            font-size: 16px;
+            text-align: center;
+            line-height: 2em;
+            color: #ccc;
+            display: none;
         }
     }
     .clearfix {

@@ -17,6 +17,61 @@ new Swiper('#swiper_banner', {
 $(function() {
 	$('#send-btn').on('click', sendCaptcha);
 })
+$('.submenu').on('click', 'li', function() {
+	$(this).addClass('open').find('dl').slideDown(300);
+	$(this).siblings('.open').removeClass('open').find('dl').slideUp(300);
+})
+var changeCase = function(event, title, categoryId) {
+	event.stopPropagation();
+	var index = layer.load(1, {
+		shade: [0.1, '#fff']
+	});
+	$.get(BASEURL + '/case/list', {
+		categoryId: categoryId
+	}, function(ret) {
+		if(ret.status == 200) {
+			$('.loading').find('span').hide();
+			category['categoryId'] = categoryId;
+			category['totalPage'] = ret.data.pages;
+			page = 1;
+			var html = '';
+			$.each(ret.data.list, function(index, item) {
+				html += '<div class="left item"><div><img src="//' + item.pic + '" alt="" /></div>';
+				html += '<p>' + item.title + '</p><p title="' + item.summary + '">' + item.summary + '</p>';
+				html += '<a href="' + BASEURL + '/detail?id=' + item.id + '">LoadMore</a></div>';
+			});
+			$('.submenu').find('dd').removeClass('this');
+			$(event.target).closest('dd').addClass('this');
+			$('#cases').html(html);
+			$('#cases').prev('h2').find('span').text(title).next('a').attr('href', BASEURL + '/case?id=' + categoryId);
+			layer.close(index)
+		}
+	})
+}
+var page = 1;
+var loadMore = function() {
+	if(page < category.totalPage) {
+		var $loadgif = $('.loading').children('img').show();
+		$.get(BASEURL + '/case/list', {
+			categoryId: category.categoryId,
+			page: ++page
+		}, function(ret) {
+			if(ret.status == 200) {
+				page = ret.data.pageNum;
+				$loadgif.hide()
+				var html = '';
+				$.each(ret.data.list, function(index, item) {
+					html += '<div class="left item"><div><img src="//' + item.pic + '" alt="" /></div>';
+					html += '<p>' + item.title + '</p><p title="' + item.summary + '">' + item.summary + '</p>';
+					html += '<a href="' + BASEURL + '/detail?id=' + item.id + '">LoadMore</a></div>';
+				});
+				$('#cases').append(html);
+			}
+		})
+	} else {
+		$('.loading').find('span').show();
+	}
+}
 var sendCaptcha = function() {
 	var $this = $(this);
 	var $email = $('#resetForm').find('input[name=email]');

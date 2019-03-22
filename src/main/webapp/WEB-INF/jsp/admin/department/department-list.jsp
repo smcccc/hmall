@@ -17,7 +17,6 @@
 		<link href="${baseUrl}/static/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 		<link href="${baseUrl}/static/admin/css/animate.css" rel="stylesheet">
 		<link href="${baseUrl}/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
-
 	</head>
 
 	<body class="gray-bg">
@@ -48,9 +47,9 @@
 						<div class="btn-toolbar" role="toolbar">
 							<div class="btn-group btn-group-sm" role="group">
 								<shiro:hasPermission name="department:add">
-									<button class="btn btn-info btn-xs" id="add-btn">
+									<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-edit-modal" href="${baseUrl}/admin/department/add-input">
 										<span class="glyphicon glyphicon-plus"></span>添加部门
-									</button>
+									</a>
 								</shiro:hasPermission>
 							</div>
 						</div>
@@ -125,8 +124,11 @@
 					uniqueId: "id",
 					detailView: true,
 					onExpandRow: function(index, row, $detail) {
-						var childTable = $detail.html('<table></table>').find('table');
-						childTable.bootstrapTable({
+						var $childTable = $detail.html(
+							'<div class="btn-toolbar"><a href="${baseUrl}/admin/department/add-input?parentId=' + row.id +
+							'" class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-edit-modal"><span class="glyphicon glyphicon-plus"></span>添加下级部门</a></div><table></table>'
+						).find('table');
+						$childTable.bootstrapTable({
 							url: '${baseUrl}/admin/department/list-json',
 							queryParams: function(params) {
 								return {
@@ -138,8 +140,6 @@
 						})
 					},
 					columns: [{
-						radio: true
-					}, {
 						title: '序号',
 						formatter: function(value, row, index) {
 							return index + 1;
@@ -168,13 +168,6 @@
 					})
 				}
 			};
-			$('#add-btn').on('click', function() {
-				var rows = table.bootstrapTable('getSelections');
-				var parentId = rows.length !== 0 ? rows[0].id : 0;
-				$('#add-edit-modal').modal({
-					remote: '${baseUrl}/admin/department/add-input?parentId=' + parentId
-				})
-			})
 			var refresh = function() {
 				table.bootstrapTable('refresh')
 			}

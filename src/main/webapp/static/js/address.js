@@ -98,8 +98,8 @@ var del = function(id) {
 		}, function(ret) {
 			if(ret.status === 200) {
 				layer.msg('删除成功', {
-					anim: 0,
-					icon: 1
+					icon: 1,
+					anim: 0
 				}, function() {
 					window.location = BASEURL + '/address/info'
 				})

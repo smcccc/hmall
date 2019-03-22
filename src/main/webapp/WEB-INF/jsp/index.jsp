@@ -175,9 +175,18 @@
 							<span>案例展示</span>
 						</p>
 						<ul>
-							<c:forEach items="${categories}" var="item">
-								<li <c:if test="${item.id==category.id}">class="this"</c:if> >
-									<a href="${baseUrl}/index?id=${item.id}">${item.title}<i class="iconfont">&#xe735;</i></a>
+							<c:forEach items="${categories}" var="item" varStatus="vs">
+								<li <c:if test="${vs.first}">class="open"</c:if> >
+									<a href="javascript:;">${item.category.title}<i class="iconfont">&#xe735;</i></a>
+									<c:if test="${!empty item.categories}">
+										<dl>
+											<c:forEach items="${item.categories}" var="itm" varStatus="vst">
+												<dd <c:if test="${vs.first&&vst.first }">class="this"</c:if> >
+									<a href="javascript:;" onclick="changeCase(event,'${itm.title}','${itm.id}')">${itm.title}</a>
+									</dd>
+									</c:forEach>
+									</dl>
+									</c:if>
 								</li>
 							</c:forEach>
 						</ul>
@@ -200,20 +209,23 @@
 					</div>
 				</aside>
 				<div class="right">
-					<div class="clearfix" style="margin-bottom: 15px;">
-						<div class="left" style="width: 49.5%;height: 234px;margin-right: 0.5%; border: 1px solid #DEDEDE;">
-
-						</div>
-						<div class="right" style="width: 50%;height: 234px;border: 1px solid #DEDEDE;">
-
+					<div class="about">
+						<div class="clearfix">
+							<div class="left">
+								<img src="//${company.pic}" />
+							</div>
+							<div class="right">
+								${company.content}
+							</div>
 						</div>
 					</div>
 					<c:if test="${!empty cases}">
+						<c:set var="category" value="${categories.get(0).categories.get(0)}" scope="page"></c:set>
 						<section class="case">
-							<h2>${category.title}
+							<h2><span>${category.title}</span>
 						<a href="${baseUrl}/case?id=${category.id}">更多<i class="iconfont">&#xe617;</i></a>
 					</h2>
-							<div class="clearfix">
+							<div class="clearfix" id="cases">
 								<c:forEach items="${cases}" var="item">
 									<div class="left item">
 										<div>
@@ -224,6 +236,10 @@
 										<a href="${baseUrl}/detail?id=${item.id}">LoadMore</a>
 									</div>
 								</c:forEach>
+							</div>
+							<div class="loading">
+								<span>已经到底啦！</span>
+								<img src="${baseUrl}/static/admin/js/plugins/layer/theme/default/loading-2.gif" />
 							</div>
 						</section>
 					</c:if>
@@ -238,6 +254,10 @@
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=kpNj9MXvA8IiH9rmNdnT0EAkeWFdl40N"></script>
 		<script type="text/javascript">
 			BASEURL = '${baseUrl}';
+			category = {
+				categoryId: '${categoryId}',
+				totalPage: parseInt('${totalPage}')
+			}
 			// 百度地图API功能
 			var map = new BMap.Map("allmap"); // 创建Map实例
 			var point = new BMap.Point(113.852792, 22.6913)

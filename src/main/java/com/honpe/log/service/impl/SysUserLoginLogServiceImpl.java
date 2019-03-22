@@ -1,14 +1,10 @@
 package com.honpe.log.service.impl;
 
 import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.honpe.log.service.SysUserLoginLogService;
@@ -16,7 +12,6 @@ import com.honpe.mapper.SysUserLoginLogMapper;
 import com.honpe.po.SysRole;
 import com.honpe.po.SysUserLoginLog;
 import com.honpe.po.SysUserLoginLogExample;
-import com.honpe.pojo.vo.PageBean;
 import com.honpe.role.service.RoleService;
 import com.honpe.utils.IpHelper;
 

@@ -21,7 +21,7 @@ public interface CategoryService {
 
 	Boolean isHasChild(Long parentId);
 
-	List<ContentCategory> findChilrenById(Long id);
+	List<ContentCategory> findChildren(Long id, Boolean isParent);
 
 	List<CategoryDto> findAllchilrenById(Long id);
 

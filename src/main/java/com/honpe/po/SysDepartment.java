@@ -2,84 +2,88 @@ package com.honpe.po;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysDepartment {
-    private Integer id;
+	private Integer id;
 
-    private Integer parentId;
+	private Integer parentId;
 
-    private String departmentValue;
+	private String departmentValue;
 
-    private String description;
+	private String description;
 
-    private String dutyPerson;
+	private String dutyPerson;
 
-    private Boolean isDelete;
+	private Boolean isDelete;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd hh:ss")
+	private Date updateTime;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd hh:ss")
+	private Date createTime;
 
-    private Date updateTime;
+	public Integer getId() {
+		return id;
+	}
 
-    private Date createTime;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
-    public Integer getParentId() {
-        return parentId;
-    }
+	public String getDepartmentValue() {
+		return departmentValue;
+	}
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+	public void setDepartmentValue(String departmentValue) {
+		this.departmentValue = departmentValue == null ? null : departmentValue.trim();
+	}
 
-    public String getDepartmentValue() {
-        return departmentValue;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDepartmentValue(String departmentValue) {
-        this.departmentValue = departmentValue == null ? null : departmentValue.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDutyPerson() {
+		return dutyPerson;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setDutyPerson(String dutyPerson) {
+		this.dutyPerson = dutyPerson == null ? null : dutyPerson.trim();
+	}
 
-    public String getDutyPerson() {
-        return dutyPerson;
-    }
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
 
-    public void setDutyPerson(String dutyPerson) {
-        this.dutyPerson = dutyPerson == null ? null : dutyPerson.trim();
-    }
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 
-    public Boolean getIsDelete() {
-        return isDelete;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setIsDelete(Boolean isDelete) {
-        this.isDelete = isDelete;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }

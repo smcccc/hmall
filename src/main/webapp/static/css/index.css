@@ -889,13 +889,6 @@ footer .bottom span {
   line-height: 1.4em;
   position: relative;
 }
-.case .item > p:last-of-type:after {
-  content: "...";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 14px;
-}
 .case .item a {
   display: block;
   width: 80px;
